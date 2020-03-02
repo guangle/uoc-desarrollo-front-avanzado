@@ -1,3 +1,61 @@
-<p>
-  signin works!
-</p>
+<div class="contenedor-login">
+  <div>
+    <h2>Sign In:</h2>
+  </div>
+  <div>
+    <img
+      src="assets/escuela_escudo.png"
+      alt="Job Offers"
+      height="150px"
+      width="150px"
+    />
+  </div>
+  <form [formGroup]="loginForm" (ngSubmit)="doLogin()">
+    <div>
+      <label for="email">Email:</label>
+      <input type="email" formControlName="email" required />
+    </div>
+    <div class="validaciones">
+      <div *ngIf="loginForm.dirty && isSubmitted">
+        <div *ngIf="email.errors != null && email.errors.required">
+          El email es obligatorio
+        </div>
+        <div *ngIf="email.errors != null && email.errors.email">
+          El email no tiene un formato válido
+        </div>
+        <div *ngIf="email.errors != null && email.errors.minlength">
+          La longitud debe ser al menos 10 caracteres
+        </div>
+      </div>
+    </div>
+    <div>
+      <label for="password">Password:</label>
+      <input type="password" formControlName="password" required />
+    </div>
+    <div class="validaciones">
+      <div *ngIf="loginForm.dirty && isSubmitted">
+        <div *ngIf="password.errors != null && password.errors.required">
+          El password es obligatorio
+        </div>
+        <div *ngIf="password.errors != null && password.errors.minlength">
+          La longitud debe ser al menos 6 caracteres
+        </div>
+      </div>
+    </div>
+    <div class="contenedor-botones">
+      <!-- Si hay cualquier error de validación en alguno de los dos campos, deshabilitamos el boton submit -->
+      <button
+        type="submit"
+        class="submitBtn"
+        [disabled]="email.errors || password.errors"
+      >
+        Login
+      </button>
+    </div>
+    <div class="contenedor-botones">
+      <button type="button" routerLink="/forgot-password">
+        Remember password
+      </button>
+    </div>
+  </form>
+</div>

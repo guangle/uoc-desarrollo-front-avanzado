@@ -1,0 +1,33 @@
+.contenedor {
+  display: flex;
+  flex-direction: column;
+  padding: 0 15%;
+}
+
+.row-datos {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  #foto {
+    flex-grow: 2;
+  }
+  #datos-basicos {
+    flex-grow: 2;
+  }
+  #acerca-de {
+    flex-grow: 5;
+  }
+}
+
+.row-header {
+  display: flex;
+  flex-direction: row;
+}
+
+table {
+  width: 100%;
+  border: 1px solid #cccccc;
+  thead {
+    background-color: #dddddd;
+  }
+}

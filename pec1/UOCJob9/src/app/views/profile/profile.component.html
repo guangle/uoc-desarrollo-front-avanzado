@@ -1,3 +1,66 @@
-<p>
-  profile works!
-</p>
+<div class="contenedor">
+  <div class="row-header">
+    <h1>Profile</h1>
+    <a [routerLink]="['/admin/dashboard']">
+      Volver al dashboard
+    </a>
+  </div>
+  <div class="row-datos">
+    <div id="foto">
+      <img src="assets/user.png" alt="User" height="150px" width="150px" />
+      <span>XXX NOMBRE Y APELLIDOS</span>
+    </div>
+    <div id="datos-basicos">
+      <div>Email: <span>XXX</span></div>
+      <div>Fecha de nacimiento: <span>XXX</span></div>
+      <div>Teléfono: <span>XXX</span></div>
+      <div>NIF/NIE: <span>XXX</span></div>
+      <div>Permisos de conducir: <span>XXX</span></div>
+    </div>
+    <div id="acerca-de">
+      Acerca de mi: <textarea rows="4" cols="5"> </textarea> Otras competencias:
+      <textarea rows="4" cols="5"> </textarea>
+    </div>
+  </div>
+  <div>
+    <h2>Formación académica</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Nivel</th>
+          <th>Título</th>
+          <th>Centro</th>
+          <th>Fecha</th>
+          <th>Certificado</th>
+          <th></th>
+        </tr>
+      </thead>
+    </table>
+  </div>
+  <div>
+    <h2>Experiencia laboral</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Empresa</th>
+          <th>Puesto</th>
+          <th>Fechas</th>
+          <th></th>
+        </tr>
+      </thead>
+    </table>
+  </div>
+  <div>
+    <h2>Idiomas</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Nivel</th>
+          <th>Idioma</th>
+          <th>Fecha</th>
+          <th></th>
+        </tr>
+      </thead>
+    </table>
+  </div>
+</div>

@@ -1,0 +1,17 @@
+.contenedor {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  .fila {
+    width: auto;
+  }
+}
+.elemento-centrado {
+  text-align: center;
+}
+
+a {
+  font-size: 2em;
+  margin: 20px 0px;
+}
