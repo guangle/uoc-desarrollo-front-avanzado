@@ -1,5 +1,4 @@
 import { Component } from "@angular/core";
-import { MyServicioService } from "./my-servicio.service";
 
 @Component({
   selector: "app-root",
@@ -8,10 +7,7 @@ import { MyServicioService } from "./my-servicio.service";
 })
 export class AppComponent {
   title = "UOCJob";
-  constructor(private miServicio: MyServicioService) {}
+  constructor() {}
 
-  ngOnInit() {
-    console.log("----");
-    this.miServicio.getHeroes();
-  }
+  ngOnInit() {}
 }

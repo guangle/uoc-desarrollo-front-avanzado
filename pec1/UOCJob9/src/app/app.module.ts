@@ -7,7 +7,6 @@ import { rootRouterConfig } from "./app-routing";
 import { HttpClientModule } from "@angular/common/http";
 import { HttpClientInMemoryWebApiModule } from "angular-in-memory-web-api";
 import { InMemoryDataService } from "./in-memory-data.service";
-import { MyServicioService } from "./my-servicio.service";
 import { ReactiveFormsModule } from "@angular/forms";
 import { EditProfileComponent } from "./views/edit-profile/edit-profile.component";
 
@@ -23,7 +22,7 @@ import { EditProfileComponent } from "./views/edit-profile/edit-profile.componen
     RouterModule.forRoot(rootRouterConfig, { useHash: false })
   ],
   declarations: [AppComponent],
-  providers: [MyServicioService],
+  providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule {}

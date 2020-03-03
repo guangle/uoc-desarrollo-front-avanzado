@@ -13,15 +13,31 @@
   }
   #datos-basicos {
     flex-grow: 2;
+    div {
+      margin-top: 10px;
+    }
   }
-  #acerca-de {
-    flex-grow: 5;
+  .acerca-de {
+    span {
+      display: block;
+    }
+  }
+  .acerca-de-1 {
+    flex-grow: 3;
+  }
+  .acerca-de-2 {
+    flex-grow: 3;
+  }
+  #profile_name {
+    display: block;
   }
 }
 
 .row-header {
   display: flex;
   flex-direction: row;
+  width: 100%;
+  justify-content: space-between;
 }
 
 table {
@@ -29,5 +45,11 @@ table {
   border: 1px solid #cccccc;
   thead {
     background-color: #dddddd;
+  }
+  td {
+    padding: 5px;
+  }
+  th {
+    padding: 5px;
   }
 }

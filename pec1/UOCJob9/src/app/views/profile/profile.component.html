@@ -1,6 +1,12 @@
 <div class="contenedor">
   <div class="row-header">
-    <h1>Profile</h1>
+    <h1>
+      Profile (
+      <a [routerLink]="['/admin/edit-profile']">
+        Editar
+      </a>
+      )
+    </h1>
     <a [routerLink]="['/admin/dashboard']">
       Volver al dashboard
     </a>
@@ -8,22 +14,44 @@
   <div class="row-datos">
     <div id="foto">
       <img src="assets/user.png" alt="User" height="150px" width="150px" />
-      <span>XXX NOMBRE Y APELLIDOS</span>
+      <span id="profile_name"> {{ user.name }} {{ user.surname }} </span>
     </div>
     <div id="datos-basicos">
-      <div>Email: <span>XXX</span></div>
-      <div>Fecha de nacimiento: <span>XXX</span></div>
-      <div>Teléfono: <span>XXX</span></div>
-      <div>NIF/NIE: <span>XXX</span></div>
-      <div>Permisos de conducir: <span>XXX</span></div>
+      <div>
+        Email: <span>{{ user.email }}</span>
+      </div>
+      <div>
+        Fecha de nacimiento: <span>{{ user.birthdate }} </span>
+      </div>
+      <div>
+        Teléfono: <span>{{ user.phone }} </span>
+      </div>
+      <div>
+        NIF/NIE: <span>{{ user.documentNumber }}</span>
+      </div>
+      <div>
+        Permisos de conducir: <span>{{ user.license }}</span>
+      </div>
     </div>
-    <div id="acerca-de">
-      Acerca de mi: <textarea rows="4" cols="5"> </textarea> Otras competencias:
-      <textarea rows="4" cols="5"> </textarea>
+    <div class="acerca-de acerca-de-1">
+      <span>Acerca de mi: </span
+      ><textarea rows="6" cols="30" readonly> {{ user.aboutMe }}</textarea>
+    </div>
+    <div class="acerca-de acerca-de-2">
+      <span>Otras competencias:</span
+      ><textarea rows="6" cols="30" readonly>
+ {{ user.otherCompetences }}</textarea
+      >
     </div>
   </div>
   <div>
-    <h2>Formación académica</h2>
+    <h2>
+      Formación académica (
+      <a [routerLink]="['/admin/edit-studies']">
+        Editar
+      </a>
+      )
+    </h2>
     <table>
       <thead>
         <tr>
@@ -32,35 +60,87 @@
           <th>Centro</th>
           <th>Fecha</th>
           <th>Certificado</th>
-          <th></th>
         </tr>
       </thead>
+      <tbody>
+        <tr *ngFor="let formacion of user.studies">
+          <td>
+            {{ formacion.level.name }}
+          </td>
+          <td>
+            {{ formacion.title.name }}
+          </td>
+          <td>
+            {{ formacion.institution.name }}
+          </td>
+          <td>
+            {{ formacion.date }}
+          </td>
+          <td></td>
+        </tr>
+      </tbody>
     </table>
   </div>
   <div>
-    <h2>Experiencia laboral</h2>
+    <h2>
+      Experiencia laboral (
+      <a [routerLink]="['/admin/edit-experience']">
+        Editar
+      </a>
+      )
+    </h2>
     <table>
       <thead>
         <tr>
           <th>Empresa</th>
           <th>Puesto</th>
           <th>Fechas</th>
-          <th></th>
         </tr>
       </thead>
+      <tbody>
+        <tr *ngFor="let experiencia of user.experiencies">
+          <td>
+            {{ experiencia.empresa }}
+          </td>
+          <td>
+            {{ experiencia.puesto }}
+          </td>
+          <td>
+            {{ experiencia.fechas }}
+          </td>
+        </tr>
+      </tbody>
     </table>
   </div>
   <div>
-    <h2>Idiomas</h2>
+    <h2>
+      Idiomas (
+      <a [routerLink]="['/admin/edit-languages']">
+        Editar
+      </a>
+      )
+    </h2>
     <table>
       <thead>
         <tr>
           <th>Nivel</th>
           <th>Idioma</th>
           <th>Fecha</th>
-          <th></th>
         </tr>
       </thead>
+      <tbody>
+        <tr *ngFor="let l of user.languages">
+          <td>
+            {{ l.level.name }}
+          </td>
+          <td>
+            {{ l.name.name }}
+          </td>
+          <td>
+            {{ l.date }}
+          </td>
+        </tr>
+      </tbody>
     </table>
   </div>
 </div>

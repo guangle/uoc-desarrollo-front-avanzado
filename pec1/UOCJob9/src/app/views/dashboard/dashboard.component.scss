@@ -4,11 +4,19 @@
   align-items: center;
   justify-content: center;
   .fila {
-    width: auto;
+    width: 100%;
   }
+  padding: 0 15%;
 }
 .elemento-centrado {
   text-align: center;
+}
+
+#header-dashboard {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
 }
 
 a {

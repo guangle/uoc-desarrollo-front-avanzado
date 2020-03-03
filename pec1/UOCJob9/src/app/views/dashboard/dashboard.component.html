@@ -1,17 +1,23 @@
 <div class="contenedor">
   <div class="fila">
-    <div class="elemento-centrado">
+    <div class="elemento-centrado" id="header-dashboard">
       <h1>DashBoard</h1>
+      <p>
+        Hola, {{ user.username }}
+        <button style="display:inline;" (click)="logout()">Salir</button>
+      </p>
     </div>
     <div class="elemento-centrado">
       <a [routerLink]="['/admin/profile']">
-        Ver perfil
+        Perfil
       </a>
     </div>
+    <!--
     <div class="elemento-centrado">
       <a [routerLink]="['/admin/edit-profile']">
         Editar perfil
       </a>
     </div>
+    -->
   </div>
 </div>

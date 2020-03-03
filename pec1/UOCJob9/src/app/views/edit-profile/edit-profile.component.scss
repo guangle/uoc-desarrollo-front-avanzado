@@ -1,0 +1,12 @@
+.contenedor {
+  display: flex;
+  flex-direction: column;
+  padding: 0 15%;
+}
+
+.row-header {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  justify-content: space-between;
+}

@@ -1,11 +1,10 @@
 import { Component, OnInit } from "@angular/core";
-import { MyServicioService } from "../../my-servicio.service";
 import { FormControl, FormGroup } from "@angular/forms";
 import { Validators, FormBuilder } from "@angular/forms";
 import { Router } from "@angular/router";
 
-import { DataService } from '../../shared/services/data.service';
-import { UserService } from '../../shared/services/user.service';
+import { DataService } from "../../shared/services/data.service";
+import { UserService } from "../../shared/services/user.service";
 
 @Component({
   selector: "app-signin",
@@ -15,14 +14,13 @@ import { UserService } from '../../shared/services/user.service';
 export class SigninComponent implements OnInit {
   public loginForm: FormGroup;
   isSubmitted: boolean = false;
-  public mensaje : string;
+  public mensaje: string;
 
   constructor(
-    private miServicio: MyServicioService,
     private fb: FormBuilder,
-    private router: Router, 
-    private dataservice : DataService,
-    private userService : UserService
+    private router: Router,
+    private dataservice: DataService,
+    private userService: UserService
   ) {
     this.createForm();
   }
@@ -39,16 +37,9 @@ export class SigninComponent implements OnInit {
   }
 
   ngOnInit() {
-    console.log("Dentro del signincomponent v2");
-    let a = this.miServicio.getHeroes();
-    console.log(a);
-    a.then(resp => {
-      console.log("\tTermina la promesa");
-      console.log(resp);
-    });
-    console.log("Fin del onInit de SiginComponent");
-
-    console.log('REAL BACK');
+    console.log("Iniciando Sigin component");
+    /*
+    console.log('Pruebas llamada fake bakend');
     this.dataservice.getUsers().subscribe(data => {
       console.log(data);
     });
@@ -56,12 +47,13 @@ export class SigninComponent implements OnInit {
     this.dataservice.getUser(24).subscribe(data => {
       console.log(data);
     });
-
+    */
   }
 
   /** Realiza el login consultando al backend y redirige a la pantalla adecuada */
   doLogin() {
     console.log("Realizando login..");
+    this.mensaje = "Realizando login..";
     this.isSubmitted = true;
     if (this.loginForm.valid) {
       console.log("hay que realizar el login..");
@@ -69,20 +61,27 @@ export class SigninComponent implements OnInit {
       //Vamos al dashboard de usuario
       //this.router.navigate(["/admin/dashboard"]);
 
-      this.userService.login(this.loginForm.get("email").value, this.loginForm.get("password").value).subscribe(data => {
-        console.log('Se ha realizado el login contra el backend');
-        console.log(data);
-        if(data != null && data.length == 1) {
-          this.userService.user = data[0];
-          this.router.navigate(["/admin/dashboard"]);
-        } else {
-          this.mensaje = 'No se ha podido realizar el login en la aplicación';
-        }
-      });
-
+      this.userService
+        .login(
+          this.loginForm.get("email").value,
+          this.loginForm.get("password").value
+        )
+        .subscribe(data => {
+          console.log("Se ha realizado el login contra el backend");
+          console.log(data);
+          if (data != null && data.length == 1) {
+            this.userService.user = data[0];
+            this.userService.userName = data[0].username;
+            //El backend debería devolvernos un token, por ahora lo inventamos
+            this.userService.token = this.randomStr(20);
+            this.router.navigate(["/admin/dashboard"]);
+          } else {
+            this.mensaje = "No se ha podido realizar el login en la aplicación";
+          }
+        });
     } else {
       console.log("El formulario no es válido, no realizamos el login");
-      this.mensaje = 'El formulario no es válido, no realizamos el login';
+      this.mensaje = "El formulario no es válido, no realizamos el login";
     }
   }
 
@@ -92,6 +91,17 @@ export class SigninComponent implements OnInit {
   }
   get password() {
     return this.loginForm.get("password");
+  }
+
+  randomStr(length) {
+    var result = "";
+    var characters =
+      "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+    var charactersLength = characters.length;
+    for (var i = 0; i < length; i++) {
+      result += characters.charAt(Math.floor(Math.random() * charactersLength));
+    }
+    return result;
   }
 
   /*
