@@ -18,7 +18,7 @@ import { EditProfileComponent } from "./views/edit-profile/edit-profile.componen
     //importamos el servicio que nos permitira trabajar con formularios reactivos
     ReactiveFormsModule,
     //InMemoryWebApiModule para simular un backend
-    HttpClientInMemoryWebApiModule.forRoot(InMemoryDataService),
+    //HttpClientInMemoryWebApiModule.forRoot(InMemoryDataService),
     CoreModule,
     RouterModule.forRoot(rootRouterConfig, { useHash: false })
   ],

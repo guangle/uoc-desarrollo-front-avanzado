@@ -25,13 +25,21 @@ import { TranslateHttpLoader } from '@ngx-translate/http-loader'; */
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NotificationsService } from './services/notifications.service';
 
+import { InMemoryWebApiModule } from 'angular-in-memory-web-api';
+import { FakeBackendService } from './inmemory-db/inmemory-db.service';
+
+import { DataService } from './services/data.service';
+import { UserService } from './services/user.service';
+
 /* export function HttpLoaderFactory(httpClient: HttpClient) {
   return new TranslateHttpLoader(httpClient);
 } */
 
 export const CORE_SERVICES: Provider[] = [
   ProfileService,
-  NotificationsService
+  NotificationsService,
+  DataService,
+  UserService
   /* {
     provide: HTTP_INTERCEPTORS,
     useClass: JWTInterceptor,
@@ -56,7 +64,7 @@ export const CORE_SERVICES: Provider[] = [
 @NgModule({
   imports: [
     BrowserAnimationsModule,
-    HttpClientModule
+    HttpClientModule,
     /*     StoreModule.forRoot(reducers, { metaReducers }),
     StoreRouterConnectingModule.forRoot({ stateKey: 'router' }),
     StoreDevtoolsModule.instrument({ maxAge: 50 }),
@@ -73,7 +81,7 @@ export const CORE_SERVICES: Provider[] = [
         deps: [HttpClient]
       }
     }) */
-    // InMemoryWebApiModule.forRoot(InMemoryDataService, { passThruUnknownUrl: true }),
+    InMemoryWebApiModule.forRoot(FakeBackendService, { passThruUnknownUrl: true }),
   ],
   providers: CORE_SERVICES
 })

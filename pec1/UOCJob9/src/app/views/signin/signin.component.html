@@ -10,6 +10,9 @@
       width="150px"
     />
   </div>
+  <div>
+    <h3>{{mensaje}}</h3>
+  </div>
   <form [formGroup]="loginForm" (ngSubmit)="doLogin()">
     <div>
       <label for="email">Email:</label>
@@ -38,7 +41,7 @@
           El password es obligatorio
         </div>
         <div *ngIf="password.errors != null && password.errors.minlength">
-          La longitud debe ser al menos 6 caracteres
+          La longitud debe ser al menos 4 caracteres
         </div>
       </div>
     </div>
