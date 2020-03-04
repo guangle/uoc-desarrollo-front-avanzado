@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { UserService } from "../../shared/services/user.service";
+import { User } from "../../shared/models/user.model";
+import { Router } from "@angular/router";
 
 @Component({
   selector: 'app-edit-profile',
@@ -7,7 +10,11 @@ import { Component, OnInit } from '@angular/core';
 })
 export class EditProfileComponent implements OnInit {
 
-  constructor() { }
+  public user: User;
+
+  constructor(private userService: UserService, private router: Router) {
+    this.user = this.userService.user;
+  }
 
   ngOnInit(): void {
   }

@@ -67,6 +67,30 @@ export const rootRouterConfig: Routes = [
         data: { title: "Material", breadcrumb: "MATERIAL" }
       },
       {
+        path: "edit-experience",
+        loadChildren: () =>
+          import("./views/edit-experience/edit-experience.module").then(
+            m => m.EditExperienceModule
+          ),
+        data: { title: "Material", breadcrumb: "MATERIAL" }
+      },
+      {
+        path: "edit-studies",
+        loadChildren: () =>
+          import("./views/edit-studies/edit-studies.module").then(
+            m => m.EditStudiesModule
+          ),
+        data: { title: "Material", breadcrumb: "MATERIAL" }
+      },
+      {
+        path: "edit-languages",
+        loadChildren: () =>
+          import("./views/edit-languages/edit-languages.module").then(
+            m => m.EditLanguagesModule
+          ),
+        data: { title: "Material", breadcrumb: "MATERIAL" }
+      },
+      {
         path: "offers",
         loadChildren: () =>
           import("./views/offers/offers.module").then(m => m.OffersModule),
