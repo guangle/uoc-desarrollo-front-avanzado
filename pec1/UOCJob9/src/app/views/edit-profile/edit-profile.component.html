@@ -13,7 +13,66 @@
       <img src="assets/user.png" alt="User" height="150px" width="150px" />
       <span id="profile_name"> {{ user.name }} {{ user.surname }} </span>
     </div>
-    <div id="colDatos">d</div>
+    
+    <div id="colDatos">
+      <form [formGroup]="editProfileForm" (ngSubmit)="editProfile()">
+      
+        <div class="fila-form" >
+          <div class="fila-form-col">
+            Nombre: <input type="text">
+          </div>
+          <div class="fila-form-col">
+            Apellidos: <input type="text">
+          </div>
+        </div>
+        <div class="fila-form" >
+          <div class="fila-form-col">
+            Fecha de nacimiento: <input type="date">
+          </div>
+        </div>
+        <div class="fila-form" >
+          <div class="fila-form-col">
+            Teléfono: <input type="text">
+          </div>
+          <div class="fila-form-col">
+            Teléfono 2: <input type="text">
+          </div>
+        </div>
+        <div class="fila-form" >
+          
+          Dirección: <input type="text" size="50"  >
+          
+        </div>
+        <div class="fila-form" >
+          <div class="fila-form-col">
+            Provincia: <input type="text">
+          </div>
+          <div class="fila-form-col">
+            Municipio: <input type="text">
+          </div>
+        </div>
+        <div class="fila-form" >
+          
+          Permiso de conducir: <input type="text" size="50"  >
+          
+        </div>
+        <div class="fila-form" >
+          
+          Sobre mi: <input type="text" size="50"  >
+          
+        </div>
+        <div class="fila-form" >
+          
+          Otras competencias: <input type="text" size="50"  >
+          
+        </div>
+        <div class="fila-form" >
+          
+          <button type="submit">Guardar</button>
+          
+        </div>
+      </form>
+    </div>
   </div>
 
 </div>
