@@ -8,6 +8,8 @@ import { RouterModule } from "@angular/router";
 
 @NgModule({
   declarations: [EditProfileComponent],
-  imports: [CommonModule, EditProfileRoutingModule, ReactiveFormsModule]
+  imports: [CommonModule, EditProfileRoutingModule, 
+    //importamos el servicio que nos permitira trabajar con formularios reactivos
+    ReactiveFormsModule]
 })
 export class EditProfileModule {}

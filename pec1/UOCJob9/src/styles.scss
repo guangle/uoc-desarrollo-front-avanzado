@@ -5,5 +5,15 @@ body {
 }
 header {
   height: 50px;
-  background-color: #cccccc;
+  background-color: #dddddd;
+  text-align: center;
+  padding-top: 20px;
+  span {
+    font-size:1.3em;
+    display:block
+  }
+  small {
+    font-size:0.8em;
+    display:block
+  }
 }

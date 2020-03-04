@@ -10,13 +10,16 @@ import { Validators, FormBuilder } from "@angular/forms";
   templateUrl: './edit-profile.component.html',
   styleUrls: ['./edit-profile.component.scss']
 })
+/** Componente encargado de la modificación de los datos de perfil del usuario */
 export class EditProfileComponent implements OnInit {
 
   public user: User;
   public editProfileForm: FormGroup;
 
   constructor(private userService: UserService, private router: Router, private fb: FormBuilder) {
+    //Llegados a este punto, tenemos un usuario logado en la aplicacion que custodia usuarioService
     this.user = this.userService.user;
+    //Creamos - inicializamos el formulairo reacivo
     this.createForm();
   }
 
@@ -30,13 +33,13 @@ export class EditProfileComponent implements OnInit {
   createForm() {
     console.log('Creando el formulario de edición de perfil');
     this.editProfileForm = this.fb.group({
-      /*
-      email: [
-        null,
-        [Validators.required, Validators.minLength(10), Validators.email]
+      
+      name: [
+        this.user.name,
+        [Validators.required, Validators.minLength(3)]
       ],
-      password: [null, [Validators.required, Validators.minLength(4)]]
-      */
+      surname: [this.user.surname, [Validators.required, Validators.minLength(4)]]
+      
     });
   }
 

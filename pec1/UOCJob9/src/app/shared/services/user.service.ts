@@ -9,7 +9,7 @@ import { tap, catchError, map, filter } from "rxjs/operators";
 @Injectable({
   providedIn: "root"
 })
-/* Servicio de negocio encargado de encapsular las llamadas al servidor relativas a usuarios en la aplicacion */
+/* Servicio de negocio encargado de la gestion de usuarios */
 export class UserService {
   //TODO jjgr comentar esto
 
@@ -17,9 +17,42 @@ export class UserService {
   private _token: string = null;
   private _userName: string = null;
 
+  //Inyectamos el servicio de negocio necesario para invocar al fake-backend
+  constructor(private dataservice: DataService) {}
+
+  /** Realiza el login contra el fake-backend */
+  login(email: string, password: string): Observable<User[]> {
+    //obtiene un observable con todos los usuarios y posteriormente filtra por usuario/password
+    return this.dataservice.getUsers().pipe(
+      map(usuarios =>
+        usuarios.filter(u => u.email == email && u.password == password)
+      )
+    );
+  }
+
+  /** Realiza el logout de la aplicacion, borrando los atributos y el localStorage */
+  clear() {
+    this._token = null;
+    window.localStorage.removeItem("token");
+    this._userName = null;
+    window.localStorage.removeItem("userName");
+    this._user = null;
+    window.localStorage.removeItem("user");
+  }
+
+  /** true si tenemos un usuario logado y false en caso contrario */
+  isLoggedIn() {
+    if (window.localStorage.getItem("token") != null) {
+      this.token = window.localStorage.getItem("token");
+      this.userName = window.localStorage.getItem("userName");
+    }
+    return this.token != null;
+  }
+
+  //Getters y setters
   set token(token: string) {
     this._token = token;
-    //Ejercicio 2.4: adicionalmente, almacenamos en el localStorage
+    //Adicionalmente, almacenamos en el localStorage
     window.localStorage.setItem("token", token);
   }
 
@@ -47,35 +80,5 @@ export class UserService {
       this._user = JSON.parse(window.localStorage.getItem("user"));
     }
     return this._user;
-  }
-
-  //inyectamos en el constructor el servicio para realizar llamadas http
-  //y el servicio donde almacenaremos el token de usuario
-  constructor(private http: HttpClient, private dataservice: DataService) {}
-
-  login(email: string, password: string): Observable<User[]> {
-    return this.dataservice.getUsers().pipe(
-      //filter(u => u.email == email && u.password == password)
-      map(usuarios =>
-        usuarios.filter(u => u.email == email && u.password == password)
-      )
-    );
-  }
-
-  clear() {
-    this._token = null;
-    window.localStorage.removeItem("token");
-    this._userName = null;
-    window.localStorage.removeItem("userName");
-    this._user = null;
-    window.localStorage.removeItem("user");
-  }
-
-  isLoggedIn() {
-    if (window.localStorage.getItem("token") != null) {
-      this.token = window.localStorage.getItem("token");
-      this.userName = window.localStorage.getItem("userName");
-    }
-    return this.token != null;
   }
 }

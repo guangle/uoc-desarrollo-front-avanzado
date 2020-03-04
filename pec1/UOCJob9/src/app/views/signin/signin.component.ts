@@ -48,6 +48,12 @@ export class SigninComponent implements OnInit {
       console.log(data);
     });
     */
+    console.log('obteniendo ofertas..');
+    this.dataservice.getOffers().subscribe(data => {
+      console.log("Obertas obtenidas..");
+      console.log(data);
+    });
+
   }
 
   /** Realiza el login consultando al backend y redirige a la pantalla adecuada */

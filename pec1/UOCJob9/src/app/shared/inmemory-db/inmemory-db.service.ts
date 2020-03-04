@@ -2,6 +2,7 @@ import { InMemoryDbService } from "angular-in-memory-web-api";
 import { User } from "../models/user.model";
 
 export class FakeBackendService implements InMemoryDbService {
+  //Datos mock
   createDb() {
     const users: User[] = [
       {

@@ -58,6 +58,7 @@ export const rootRouterConfig: Routes = [
           import("./views/profile/profile.module").then(m => m.ProfileModule),
         data: { title: "Material", breadcrumb: "MATERIAL" }
       },
+      //creamos nuevas rutas relacionadas con la edición del perfil
       {
         path: "edit-profile",
         loadChildren: () =>
