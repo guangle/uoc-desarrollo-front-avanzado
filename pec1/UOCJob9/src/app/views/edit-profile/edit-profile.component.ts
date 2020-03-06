@@ -4,6 +4,8 @@ import { User } from "../../shared/models/user.model";
 import { Router } from "@angular/router";
 import { FormControl, FormGroup } from "@angular/forms";
 import { Validators, FormBuilder } from "@angular/forms";
+import { formatDate } from '@angular/common';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-edit-profile',
@@ -15,6 +17,9 @@ export class EditProfileComponent implements OnInit {
 
   public user: User;
   public editProfileForm: FormGroup;
+
+  //TODO: temporal hasta futuras practicas (donde irán enlazadas prov y municipio)
+  provincias = ['Florida', 'South Dakota', 'Tennessee', 'Michigan', 'New York']
 
   constructor(private userService: UserService, private router: Router, private fb: FormBuilder) {
     //Llegados a este punto, tenemos un usuario logado en la aplicacion que custodia usuarioService
@@ -38,8 +43,11 @@ export class EditProfileComponent implements OnInit {
         this.user.name,
         [Validators.required, Validators.minLength(3)]
       ],
-      surname: [this.user.surname, [Validators.required, Validators.minLength(4)]]
-      
+      surname: [this.user.surname, [Validators.required, Validators.minLength(4)]],
+      birthdate : [  formatDate( moment(this.user.birthdate, "DD/MM/YYYY").toDate() , 'yyyy-MM-dd', 'en')  , [] ]  ,
+      phone : [ this.user.phone, [] ] ,
+      phone2 : [ this.user.phone2, [] ],
+      address : [this.user.address, []]
     });
   }
 
