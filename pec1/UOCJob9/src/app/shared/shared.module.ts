@@ -1,7 +1,13 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
-import { RouterModule } from '@angular/router';
+import { NgModule } from "@angular/core";
+import { CommonModule } from "@angular/common";
+import { FormsModule } from "@angular/forms";
+import { RouterModule } from "@angular/router";
+/*
+import { EditProfileComponent } from "./views/edit-profile/edit-profile.component";
+import { EditStudiesComponent } from "./views/edit-studies/edit-studies.component";
+import { EditExperienceComponent } from "./views/edit-experience/edit-experience.component";
+import { EditLanguagesComponent } from "./views/edit-languages/edit-languages.component";
+*/
 /*
 import { TranslateModule } from '@ngx-translate/core';
 import { PerfectScrollbarModule } from 'ngx-perfect-scrollbar'; */
@@ -13,8 +19,8 @@ import { PerfectScrollbarModule } from 'ngx-perfect-scrollbar'; */
 // PIPES
 
 // SERVICES
-import { AppConfirmService } from './services/app-confirm/app-confirm.service';
-import { AppComfirmComponent } from './services/app-confirm/app-confirm.component';
+import { AppConfirmService } from "./services/app-confirm/app-confirm.service";
+import { AppComfirmComponent } from "./services/app-confirm/app-confirm.component";
 
 const classesToInclude = [AppComfirmComponent];
 

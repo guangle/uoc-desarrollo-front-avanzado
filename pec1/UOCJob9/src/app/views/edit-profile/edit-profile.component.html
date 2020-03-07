@@ -8,96 +8,180 @@
     </a>
   </div>
 
-  <div id="contenidoFormulario" >
-    <div id="colFoto" >
+  <div id="contenidoFormulario">
+    <div id="colFoto">
       <img src="assets/user.png" alt="User" height="150px" width="150px" />
       <span id="profile_name"> {{ user.name }} {{ user.surname }} </span>
     </div>
-    
+
     <div id="colDatos">
       <form [formGroup]="editProfileForm" (ngSubmit)="editProfile()">
-      
-        <div class="fila-form" >
+        <div class="fila-form">
           <div class="fila-form-col">
-            <label for="name">Nombre:</label> <input type="text" formControlName="name" >
+            <label for="name">Nombre:</label>
+            <input type="text" formControlName="name" />
           </div>
           <div class="fila-form-col">
-            <label for="apellidos">Apellidos:</label> <input type="text" formControlName="surname" >
-          </div>
-        </div>
-        <div class="fila-form" >
-          <div class="fila-form-col">
-            <label for="birthdate">Fecha de nacimiento:</label> <input type="date" formControlName="birthdate" >
+            <label for="apellidos">Apellidos:</label>
+            <input type="text" formControlName="surname" />
           </div>
         </div>
-        <div class="fila-form" >
+        <div class="fila-form validaciones" *ngIf="editProfileForm.dirty">
           <div class="fila-form-col">
-            Teléfono: <input type="text" formControlName="phone" >
+            <div *ngIf="name.errors != null && name.errors.required">
+              El nombre es obligatorio
+            </div>
+            <div *ngIf="name.errors != null && name.errors.minlength">
+              El nombre debe tener al menos 3 caracteres
+            </div>
+            <div *ngIf="name.errors != null && name.errors.maxlength">
+              El nombre no puede tener mas de 55 caracteres
+            </div>
+            <div *ngIf="name.errors != null && name.errors.espacio">
+              El nombre no puede empezar o terminar con un espacio en blanco
+            </div>
           </div>
           <div class="fila-form-col">
-            Teléfono 2: <input type="text" formControlName="phone2" >
+            <div *ngIf="surname.errors != null && surname.errors.required">
+              El apellido es obligatorio
+            </div>
+            <div *ngIf="surname.errors != null && surname.errors.minlength">
+              El apellido debe tener al menos 3 caracteres
+            </div>
+            <div *ngIf="surname.errors != null && surname.errors.maxlength">
+              El apellido no puede tener mas de 55 caracteres
+            </div>
+            <div *ngIf="surname.errors != null && surname.errors.espacio">
+              El apellido no puede empezar o terminar con un espacio en blanco
+            </div>
           </div>
         </div>
-        <div class="fila-form" >
-          
-          Dirección: <input type="text" size="50" formControlName="address"  >
-          
+        <div class="fila-form">
+          <div class="fila-form-col">
+            <label for="birthdate">Fecha de nacimiento:</label>
+            <input type="date" formControlName="birthdate" />
+          </div>
+        </div>
+        <div class="fila-form validaciones" *ngIf="editProfileForm.dirty">
+          <div class="fila-form-col">
+            <div *ngIf="birthdate.errors != null && birthdate.errors.required">
+              La fecha de nacimiento es obligatoria
+            </div>
+          </div>
+        </div>
+        <div class="fila-form">
+          <div class="fila-form-col">
+            <label for="phone">Teléfono: </label>
+            <input type="text" formControlName="phone" />
+          </div>
+          <div class="fila-form-col">
+            <label for="phone2">Teléfono 2: </label>
+            <input type="text" formControlName="phone2" />
+          </div>
+        </div>
+        <div class="fila-form">
+          <div class="fila-form-col">
+            <label for="documentType">Identificación</label>
+            <select formControlName="documentType">
+              <option value="">Seleccione tipo de documento..</option>
+              <option *ngFor="let t of tiposDocumentos" [ngValue]="t.uid">{{
+                t.name
+              }}</option>
+            </select>
+          </div>
+          <div class="fila-form-col">
+            <label for="documentNumber">Número</label>
+            <input type="text" formControlName="documentNumber" />
+          </div>
+        </div>
+        <div class="fila-form">
+          <label for="address">Dirección: </label>
+          <input type="text" size="50" formControlName="address" />
         </div>
 
-        <div class="fila-form" >
+        <div class="fila-form">
           <div class="fila-form-col">
-            Provincia: <input type="text">
+            <label for="provincia">Provincia:</label>
+            <select
+              (change)="changeProvincia($event)"
+              formControlName="provincia"
+            >
+              <option value="">Seleccione provincia..</option>
+              <option *ngFor="let p of provincias" [ngValue]="p">{{
+                p
+              }}</option>
+            </select>
           </div>
           <div class="fila-form-col">
-            Municipio: <input type="text">
+            <label for="municipio">Municipio:</label>
+            <select
+              (change)="changeMunicipio($event)"
+              formControlName="municipio"
+            >
+              <option value="">Seleccione municipio..</option>
+              <option *ngFor="let m of municipios" [ngValue]="m">{{
+                m
+              }}</option>
+            </select>
           </div>
         </div>
-        <div class="fila-form" >
-          
-          Permiso de conducir: <input type="text" size="50"  >
-          
+        <div class="fila-form">
+          <label for="license">Permiso de conducir: </label
+          ><input type="text" size="50" formControlName="license" />
         </div>
-        <div class="fila-form" >
-          
-          Sobre mi: <input type="text" size="50"  >
-          
+        <div class="fila-form validaciones" *ngIf="editProfileForm.dirty">
+          <div *ngIf="license.errors != null && license.errors.required">
+            El campo es obligatorio
+          </div>
+          <div *ngIf="license.errors != null && license.errors.minlength">
+            Tu campo licencia debe tener al menos 2 caracteres
+          </div>
+          <div *ngIf="license.errors != null && license.errors.maxlength">
+            El campo licencia no puede sobrepasar los 30 caracteres
+          </div>
         </div>
-        <div class="fila-form" >
-          
-          Otras competencias: <input type="text" size="50"  >
-          
+        <div class="fila-form">
+          <label for="aboutMe">Sobre mi: </label>
+          <textarea rows="10" cols="80" formControlName="aboutMe"></textarea>
         </div>
-        <div class="fila-form contenedor-botones" >
-          
+        <div class="fila-form validaciones" *ngIf="editProfileForm.dirty">
+          <div *ngIf="aboutMe.errors != null && aboutMe.errors.required">
+            El campo es obligatorio
+          </div>
+          <div *ngIf="aboutMe.errors != null && aboutMe.errors.minlength">
+            Tu descripción debe tener al menos 30 caracteres
+          </div>
+        </div>
+        <div class="fila-form">
+          <label for="otherCompetences">Otras competencias: </label>
+          <textarea
+            rows="10"
+            cols="80"
+            formControlName="otherCompetences"
+          ></textarea>
+        </div>
+        <div class="fila-form validaciones" *ngIf="editProfileForm.dirty">
+          <div
+            *ngIf="
+              otherCompetences.errors != null &&
+              otherCompetences.errors.required
+            "
+          >
+            El campo es obligatorio
+          </div>
+          <div
+            *ngIf="
+              otherCompetences.errors != null &&
+              otherCompetences.errors.minlength
+            "
+          >
+            El campo debe tener al menos 30 caracteres
+          </div>
+        </div>
+        <div class="fila-form contenedor-botones">
           <button type="submit">Guardar</button>
-          
         </div>
       </form>
     </div>
   </div>
-
 </div>
-
-<!--
-    Ejemplo de iterar sobre los usuarios
-<div align='center'><h1>CRUD with Angular</h1></div>
-
-
-<table class ="table">
-  <tr *ngFor="let u of users">
-    <td>
-      {{u.id}}
-    </td>
-    <td>
-      {{u.name}}
-    </td>
-    <td>
-      {{u.age}}
-    </td>
-    <td>  
-      <button class= 'btn btn-info' (click)="updateUser()"> UPDATE DATA</button>
-    </td>
-  </tr>
-</table>
-
--->

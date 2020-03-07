@@ -48,7 +48,7 @@
     <h2>
       Formación académica (
       <a [routerLink]="['/admin/edit-studies']">
-        Editar
+        Nueva
       </a>
       )
     </h2>
@@ -60,6 +60,7 @@
           <th>Centro</th>
           <th>Fecha</th>
           <th>Certificado</th>
+          <th>Opciones</th>
         </tr>
       </thead>
       <tbody>
@@ -77,6 +78,17 @@
             {{ formacion.date }}
           </td>
           <td></td>
+          <td>
+            <a
+              [routerLink]="['/admin/edit-studies']"
+              [queryParams]="{ id: formacion.uid }"
+            >
+              Editar
+            </a>
+            <a [routerLink]="" (click)="deleteStudies(formacion.uid)">
+              Eliminar
+            </a>
+          </td>
         </tr>
       </tbody>
     </table>
@@ -85,7 +97,7 @@
     <h2>
       Experiencia laboral (
       <a [routerLink]="['/admin/edit-experience']">
-        Editar
+        Nuevo
       </a>
       )
     </h2>
@@ -95,6 +107,7 @@
           <th>Empresa</th>
           <th>Puesto</th>
           <th>Fechas</th>
+          <th>Opciones</th>
         </tr>
       </thead>
       <tbody>
@@ -108,6 +121,17 @@
           <td>
             {{ experiencia.fechas }}
           </td>
+          <td>
+            <a
+              [routerLink]="['/admin/edit-experience']"
+              [queryParams]="{ id: experiencia.uid }"
+            >
+              Editar
+            </a>
+            <a [routerLink]="" (click)="deleteExperience(experiencia.uid)">
+              Eliminar
+            </a>
+          </td>
         </tr>
       </tbody>
     </table>
@@ -116,7 +140,7 @@
     <h2>
       Idiomas (
       <a [routerLink]="['/admin/edit-languages']">
-        Editar
+        Nuevo
       </a>
       )
     </h2>
@@ -126,6 +150,7 @@
           <th>Nivel</th>
           <th>Idioma</th>
           <th>Fecha</th>
+          <th>Opciones</th>
         </tr>
       </thead>
       <tbody>
@@ -138,6 +163,17 @@
           </td>
           <td>
             {{ l.date }}
+          </td>
+          <td>
+            <a
+              [routerLink]="['/admin/edit-languages']"
+              [queryParams]="{ id: l.uid }"
+            >
+              Editar
+            </a>
+            <a [routerLink]="" (click)="deleteLanguaje(l.uid)">
+              Eliminar
+            </a>
           </td>
         </tr>
       </tbody>

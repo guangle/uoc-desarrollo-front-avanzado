@@ -1,1 +1,45 @@
-<p>edit-experience works!</p>
+<div class="contenedor">
+  <div class="row-header">
+    <h1 *ngIf="!inEditMode()">
+      Nueva experiencia
+    </h1>
+    <h1 *ngIf="inEditMode()">
+      Editar experiencia
+    </h1>
+    <a [routerLink]="['/admin/profile']">
+      Volver al perfil
+    </a>
+  </div>
+
+  <div id="contenidoFormulario">
+    <div id="colDatos">
+      <form [formGroup]="editExperienceForm" (ngSubmit)="submitExperience()">
+        <div class="fila-form">
+          <label for="empresa">Empresa: </label>
+          <input type="text" formControlName="empresa" size="120" />
+        </div>
+        <div class="fila-form">
+          <div class="fila-form-col">
+            <label for="date_inicio">Fecha inicio: </label>
+            <input type="date" formControlName="date_inicio" />
+          </div>
+          <div class="fila-form-col">
+            <label for="date_fin">Fecha fin: </label>
+            <input type="date" formControlName="date_fin" />
+          </div>
+        </div>
+        <div class="fila-form">
+          <label for="puesto">Puesto: </label>
+          <input type="text" formControlName="puesto" size="120" />
+        </div>
+        <div class="fila-form">
+          <label for="tareas">Tareas: </label>
+          <textarea rows="10" cols="120" formControlName="tareas"></textarea>
+        </div>
+        <div class="fila-form contenedor-botones">
+          <button type="submit">Guardar</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

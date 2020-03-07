@@ -1,14 +1,18 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { NgModule } from "@angular/core";
+import { CommonModule } from "@angular/common";
 
-import { EditExperienceRoutingModule } from './edit-experience-routing.module';
-
+import { ReactiveFormsModule } from "@angular/forms";
+import { RouterModule } from "@angular/router";
+import { EditExperienceRoutingModule } from "./edit-experience-routing.module";
+import { EditExperienceComponent } from "./edit-experience.component";
 
 @NgModule({
-  declarations: [],
+  declarations: [EditExperienceComponent],
   imports: [
     CommonModule,
-    EditExperienceRoutingModule
+    EditExperienceRoutingModule,
+    ReactiveFormsModule,
+    RouterModule
   ]
 })
-export class EditExperienceModule { }
+export class EditExperienceModule {}

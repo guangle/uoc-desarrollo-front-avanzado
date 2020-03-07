@@ -3,8 +3,10 @@ import { Observable } from "rxjs";
 import { throwError as ObservableThrow } from "rxjs";
 import { HttpClient } from "@angular/common/http";
 import { User } from "../models/user.model";
+import { Language } from "../models/language.model";
 import { DataService } from "./data.service";
 import { tap, catchError, map, filter } from "rxjs/operators";
+import { Experience } from "../models/experience.model";
 
 @Injectable({
   providedIn: "root"
@@ -23,11 +25,56 @@ export class UserService {
   /** Realiza el login contra el fake-backend */
   login(email: string, password: string): Observable<User[]> {
     //obtiene un observable con todos los usuarios y posteriormente filtra por usuario/password
-    return this.dataservice.getUsers().pipe(
-      map(usuarios =>
-        usuarios.filter(u => u.email == email && u.password == password)
-      )
-    );
+    return this.dataservice
+      .getUsers()
+      .pipe(
+        map(usuarios =>
+          usuarios.filter(u => u.email == email && u.password == password)
+        )
+      );
+  }
+
+  /** Actualiza el usuario con los nuevos datos tras la edicion del perfil*/
+  updateUser(user: User): Observable<User> {
+    //actualizamos el usuario
+    this.user = user;
+    //llamamos al backend para persistir en BBDD
+    return this.dataservice.updateUser(this.user);
+  }
+
+  addLanguage(lang: Language): Observable<User> {
+    this.user.languages.push(lang);
+    return this.dataservice.updateUser(this.user);
+  }
+
+  editLanguage(lang: Language): Observable<User> {
+    //TODO: implementacion rapida y poco optima..
+    //..pero no estamos usando un backend de verdad
+    this.user.languages = this.user.languages.filter(l => l.uid != lang.uid);
+    return this.addLanguage(lang);
+  }
+
+  deleteLanguaje(id: number): Observable<User> {
+    this.user.languages = this.user.languages.filter(l => l.uid != id);
+    return this.dataservice.updateUser(this.user);
+  }
+
+  addExperience(exp: Experience): Observable<User> {
+    this.user.experiencies.push(exp);
+    return this.dataservice.updateUser(this.user);
+  }
+
+  deleteExperience(id: number): Observable<User> {
+    this.user.experiencies = this.user.experiencies.filter(l => l.uid != id);
+    return this.dataservice.updateUser(this.user);
+  }
+
+  /** Elimina la formacion cuyo id se pasa como parametro y devuelve un observable
+   * que tendrá el usuario resultante
+   */
+  deleteStudies(id: number): Observable<User> {
+    this.user.studies = this.user.studies.filter(l => l.uid != id);
+    return this.dataservice.updateUser(this.user);
   }
 
   /** Realiza el logout de la aplicacion, borrando los atributos y el localStorage */

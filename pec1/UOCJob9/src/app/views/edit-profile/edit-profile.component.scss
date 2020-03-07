@@ -10,27 +10,33 @@
     #colFoto {
       /*flex-grow: 1;*/
       #profile_name {
-        display:block;
+        display: block;
       }
       width: 20%;
       order: 1;
     }
     #colDatos {
-
       order: 2;
       width: 80%;
       /*flex-grow: 16;*/
-      display:flex;
+      display: flex;
       flex-direction: column;
       label {
-        width: 100px;
+        width: 150px;
         display: inline-flex;
       }
       input {
         padding: 5px;
       }
+      select {
+        padding: 5px;
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        appearance: none;
+        outline: none;
+      }
       .fila-form {
-        display:flex;
+        display: flex;
         flex-direction: row;
         width: 100%;
         margin-bottom: 10px;
@@ -49,7 +55,6 @@
       }
     }
   }
-
 }
 
 .row-header {
@@ -57,4 +62,8 @@
   flex-direction: row;
   width: 100%;
   justify-content: space-between;
+}
+
+.validaciones {
+  color: tomato;
 }

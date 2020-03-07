@@ -1,1 +1,23 @@
-<p>edit-studies works!</p>
+<div class="contenedor">
+  <div class="row-header">
+    <h1 *ngIf="!inEditMode()">
+      Nueva formación
+    </h1>
+    <h1 *ngIf="inEditMode()">
+      Editar formación
+    </h1>
+    <a [routerLink]="['/admin/profile']">
+      Volver al perfil
+    </a>
+  </div>
+
+  <div id="contenidoFormulario">
+    <div id="colDatos">
+      <form [formGroup]="editStudyForm" (ngSubmit)="submitStudy()">
+        <div class="fila-form contenedor-botones">
+          <button type="submit">Guardar</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

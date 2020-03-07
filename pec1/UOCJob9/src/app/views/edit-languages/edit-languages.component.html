@@ -1,1 +1,51 @@
-<p>edit-languages works!</p>
+<div class="contenedor">
+  <div class="row-header">
+    <h1 *ngIf="!inEditMode()">
+      Nuevo idioma
+    </h1>
+    <h1 *ngIf="inEditMode()">
+      Editar idioma
+    </h1>
+    <a [routerLink]="['/admin/profile']">
+      Volver al perfil
+    </a>
+  </div>
+
+  <div id="contenidoFormulario">
+    <div id="colDatos">
+      <form [formGroup]="editLanguajeForm" (ngSubmit)="submitLanguaje()">
+        <div class="fila-form">
+          <label for="phone">Idioma: </label>
+          <select formControlName="name">
+            <option value="-1">Seleccione idioma..</option>
+            <option *ngFor="let t of posibles_lenguas" [ngValue]="t.uid">{{
+              t.name
+            }}</option>
+          </select>
+        </div>
+        <div class="fila-form" *ngIf="name.value == 5">
+          <label for="other">Otra: </label>
+          <input type="text" formControlName="other" />
+        </div>
+        <div class="fila-form">
+          <label for="phone">Nivel: </label>
+          <select formControlName="level">
+            <option value="-1">Seleccione nivel..</option>
+            <option *ngFor="let t of niveles" [ngValue]="t.uid">{{
+              t.name
+            }}</option>
+          </select>
+        </div>
+        <div class="fila-form">
+          <label for="date">Fecha:</label>
+          <input type="date" formControlName="date" />
+        </div>
+        <div class="fila-form contenedor-botones">
+          <button [disabled]="!editLanguajeForm.valid" type="submit">
+            Guardar
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

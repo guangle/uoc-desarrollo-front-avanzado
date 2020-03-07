@@ -38,6 +38,7 @@ export class SigninComponent implements OnInit {
 
   ngOnInit() {
     console.log("Iniciando Sigin component");
+    //Pruebas de llamada al backend..
     /*
     console.log('Pruebas llamada fake bakend');
     this.dataservice.getUsers().subscribe(data => {
@@ -48,12 +49,13 @@ export class SigninComponent implements OnInit {
       console.log(data);
     });
     */
-    console.log('obteniendo ofertas..');
+    /*
+    console.log("obteniendo ofertas..");
     this.dataservice.getOffers().subscribe(data => {
       console.log("Obertas obtenidas..");
       console.log(data);
     });
-
+    */
   }
 
   /** Realiza el login consultando al backend y redirige a la pantalla adecuada */
@@ -63,10 +65,7 @@ export class SigninComponent implements OnInit {
     this.isSubmitted = true;
     if (this.loginForm.valid) {
       console.log("hay que realizar el login..");
-      //TODO: pdte, realizar validacion de datos contra el backend
-      //Vamos al dashboard de usuario
-      //this.router.navigate(["/admin/dashboard"]);
-
+      //realiamos el login contra el backend
       this.userService
         .login(
           this.loginForm.get("email").value,
@@ -109,41 +108,4 @@ export class SigninComponent implements OnInit {
     }
     return result;
   }
-
-  /*
-  Ejemplo de getUsers
-  getUsers(){
-    this.dataservice.getUsers().subscribe(data => {
-      this.users=data;
-    });
-  }
-
-  //consulta un usuario por ID
-  fetchId = 1;
-
-  getUser() {
-    this.dataservice.getUser(this.fetchId).subscribe(data => {
-      this.user = data;
-     this.displayData= true;
-    });
-  }
-
-  idtoUpdate = 1;
-  updateUser() {
-    this.dataservice.getUser(this.idtoUpdate).subscribe(data => {
-      this.user = data;
-      this.user.age = 'Updated Age';
-      this.dataservice.updateUser(this.user).subscribe(data1 => {
-        this.getUsers();
-      });
-    });
-
-    idtodelete=1;
-  deleteUser() {
-    this.dataservice.deleteCar(this.idtodelete).subscribe(data => {
-       this.getUsers();
-    });
-  }
-
-  */
 }
