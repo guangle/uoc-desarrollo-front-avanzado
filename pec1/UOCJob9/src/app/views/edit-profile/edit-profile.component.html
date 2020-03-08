@@ -94,9 +94,26 @@
             <input type="text" formControlName="documentNumber" />
           </div>
         </div>
+        <div class="fila-form validaciones" *ngIf="editProfileForm.dirty">
+          <div class="fila-form-col">
+            <div
+              *ngIf="
+                editProfileForm.errors != null &&
+                editProfileForm.errors.numeroIdentificacion
+              "
+            >
+              El número de identificación no es válido
+            </div>
+          </div>
+        </div>
         <div class="fila-form">
           <label for="address">Dirección: </label>
           <input type="text" size="50" formControlName="address" />
+        </div>
+        <div class="fila-form validaciones" *ngIf="editProfileForm.dirty">
+          <div *ngIf="address.errors != null && address.errors.required">
+            La dirección es obligatoria
+          </div>
         </div>
 
         <div class="fila-form">

@@ -9,7 +9,7 @@ export class Study {
 
 export class CollegeStudy extends Study {
   name: string;
-  institution: String;
+  institution: Institution;
 }
 
 export class VocationalStudy extends Study {

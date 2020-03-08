@@ -14,6 +14,106 @@
   <div id="contenidoFormulario">
     <div id="colDatos">
       <form [formGroup]="editStudyForm" (ngSubmit)="submitStudy()">
+        <div class="fila-form">
+          <label for="level">Tipo: </label>
+          <select formControlName="level">
+            <option *ngFor="let t of tipos_titulos" [ngValue]="t.uid">{{
+              t.name
+            }}</option>
+          </select>
+        </div>
+        <fieldset *ngIf="level.value == 2">
+          <!--univervidad-->
+          <div class="fila-form">
+            <label for="universidad_centro">Nombre del centro: </label>
+            <input type="text" formControlName="universidad_centro" />
+          </div>
+          <div class="fila-form">
+            <label for="universidad_titulo">Título: </label>
+            <input type="text" formControlName="universidad_titulo" />
+          </div>
+          <div class="fila-form">
+            <label for="universidad_fecha">Fecha:</label>
+            <input type="date" formControlName="universidad_fecha" />
+          </div>
+          <div class="fila-form">
+            <label for="universidad_bilingue">bilingüe?:</label>
+            <input type="checkbox" formControlName="universidad_bilingue" />
+          </div>
+          <div class="fila-form">
+            <label for="universidad_certificado">Certificado:</label>
+            <input type="file" formControlName="universidad_certificado" />
+          </div>
+        </fieldset>
+        <fieldset *ngIf="level.value == 1">
+          <!--cliclo formativo-->
+          <div class="fila-form">
+            <label for="ciclo_centro">Centro educativo: </label>
+            <select formControlName="ciclo_centro">
+              <option *ngFor="let t of centros_educativos" [ngValue]="t.uid">{{
+                t.name
+              }}</option>
+            </select>
+          </div>
+          <div class="fila-form">
+            <label for="ciclo_familia">Familia profesional: </label>
+            <select
+              formControlName="ciclo_familia"
+              (change)="changeCiclo($event)"
+            >
+              <option
+                *ngFor="let t of familias_profesionales"
+                [ngValue]="t.uid"
+                >{{ t.name }}</option
+              >
+            </select>
+          </div>
+          <div class="fila-form">
+            <label for="ciclo_grado">Tipo de grado: </label>
+            <select
+              formControlName="ciclo_grado"
+              (change)="changeCiclo($event)"
+            >
+              <option *ngFor="let t of tipos_grado" [ngValue]="t.uid">{{
+                t.name
+              }}</option>
+            </select>
+          </div>
+
+          <div class="fila-form">
+            <label for="ciclo_ciclo">Ciclo : </label>
+            <select formControlName="ciclo_ciclo">
+              <option *ngFor="let t of ciclos" [ngValue]="t.uid">{{
+                t.name
+              }}</option>
+            </select>
+          </div>
+
+          <div class="fila-form">
+            <label for="ciclo_fecha">Fecha:</label>
+            <input type="date" formControlName="ciclo_fecha" />
+          </div>
+          <div class="fila-form">
+            <label for="ciclo_dual">¿Formacion dual?:</label>
+            <input type="checkbox" formControlName="ciclo_dual" />
+          </div>
+          <div class="fila-form">
+            <label for="ciclo_bilingue">¿Bilingüe?:</label>
+            <input type="checkbox" formControlName="ciclo_bilingue" />
+          </div>
+          <div class="fila-form">
+            <label for="ciclo_certificado">Certificado:</label>
+            <input type="file" formControlName="ciclo_certificado" />
+          </div>
+        </fieldset>
+        <fieldset *ngIf="level.value == 3">
+          <!--otro: al menos pedimos un texto libre-->
+          <div class="fila-form">
+            <label for="otro_titulo">Título: </label>
+            <input type="text" formControlName="otro_titulo" />
+          </div>
+        </fieldset>
+
         <div class="fila-form contenedor-botones">
           <button type="submit">Guardar</button>
         </div>

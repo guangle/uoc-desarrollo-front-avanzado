@@ -65,11 +65,29 @@ export class EditExperienceComponent implements OnInit {
     console.log("Creando el formulario de edición de experiencia");
 
     this.editExperienceForm = this.fb.group({
-      empresa: [null, []],
-      date_inicio: [null, []],
-      date_fin: [null, []],
-      puesto: [null, []],
-      tareas: [null, []]
+      empresa: [this.experience.empresa, [Validators.required]],
+      date_inicio: [
+        this.experience.date_inicio
+          ? formatDate(
+              moment(this.experience.date_inicio, "DD/MM/YYYY").toDate(),
+              "yyyy-MM-dd",
+              "en"
+            )
+          : null,
+        [Validators.required]
+      ],
+      date_fin: [
+        this.experience.date_fin
+          ? formatDate(
+              moment(this.experience.date_fin, "DD/MM/YYYY").toDate(),
+              "yyyy-MM-dd",
+              "en"
+            )
+          : null,
+        [Validators.required]
+      ],
+      puesto: [this.experience.puesto, [Validators.required]],
+      tareas: [this.experience.tareas, [Validators.required]]
     });
   }
 
@@ -108,5 +126,22 @@ export class EditExperienceComponent implements OnInit {
         "No se guardan los datos de la experiencia en el backend porque el form no es valido"
       );
     }
+  }
+
+  //Getters para acceder a los diferentes campos en la vista más comodamente
+  get empresa() {
+    return this.editExperienceForm.get("empresa");
+  }
+  get date_inicio() {
+    return this.editExperienceForm.get("date_inicio");
+  }
+  get date_fin() {
+    return this.editExperienceForm.get("date_fin");
+  }
+  get puesto() {
+    return this.editExperienceForm.get("puesto");
+  }
+  get tareas() {
+    return this.editExperienceForm.get("tareas");
   }
 }

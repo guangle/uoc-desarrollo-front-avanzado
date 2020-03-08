@@ -6,6 +6,7 @@ import { FormControl, FormGroup } from "@angular/forms";
 import { Validators, FormBuilder } from "@angular/forms";
 import { formatDate } from "@angular/common";
 import { EspaciosValidator } from "../../shared/validators/espacios-validator";
+import { NumeroIdentificacionValidator } from "../../shared/validators/numero-identificacion-validator";
 import * as moment from "moment";
 
 @Component({
@@ -59,6 +60,13 @@ export class EditProfileComponent implements OnInit {
         "otherCompetences"
       ).value;
       this.user.license = this.editProfileForm.get("license").value;
+      this.user.address = this.editProfileForm.get("address").value;
+      this.user.documentNumber = this.editProfileForm.get(
+        "documentNumber"
+      ).value;
+      this.user.documentType = this.tiposDocumentos.find(
+        t => t.uid == this.editProfileForm.get("documentType").value
+      );
       this.userService.updateUser(this.user).subscribe(newUser => {
         this.user = newUser;
         console.log("Usuario actualizado correctamente");
@@ -74,54 +82,61 @@ export class EditProfileComponent implements OnInit {
 
   createForm() {
     console.log("Creando el formulario de edición de perfil");
-    this.editProfileForm = this.fb.group({
-      name: [
-        this.user.name,
-        [
-          Validators.required,
-          Validators.minLength(3),
-          Validators.maxLength(55),
-          EspaciosValidator
+    this.editProfileForm = this.fb.group(
+      {
+        name: [
+          this.user.name,
+          [
+            Validators.required,
+            Validators.minLength(3),
+            Validators.maxLength(55),
+            EspaciosValidator
+          ]
+        ],
+        surname: [
+          this.user.surname,
+          [
+            Validators.required,
+            Validators.minLength(3),
+            Validators.maxLength(55),
+            EspaciosValidator
+          ]
+        ],
+        birthdate: [
+          formatDate(
+            moment(this.user.birthdate, "DD/MM/YYYY").toDate(),
+            "yyyy-MM-dd",
+            "en"
+          ),
+          [Validators.required]
+        ],
+        //Teléfonos: No se pondrán restricciones, puesto que hoy en día puede haber números internacionales
+        phone: [this.user.phone, []],
+        phone2: [this.user.phone2, []],
+        documentType: [this.user.documentType.uid, []],
+        documentNumber: [this.user.documentNumber, []],
+        address: [this.user.address.street, [Validators.required]],
+        provincia: [this.user.address.province.name, []],
+        municipio: [this.user.address.municipe.name, []],
+        license: [
+          this.user.license,
+          [
+            Validators.required,
+            Validators.minLength(2),
+            Validators.maxLength(30)
+          ]
+        ],
+        aboutMe: [
+          this.user.aboutMe,
+          [Validators.required, Validators.minLength(30)]
+        ],
+        otherCompetences: [
+          this.user.otherCompetences,
+          [Validators.required, Validators.minLength(30)]
         ]
-      ],
-      surname: [
-        this.user.surname,
-        [
-          Validators.required,
-          Validators.minLength(3),
-          Validators.maxLength(55),
-          EspaciosValidator
-        ]
-      ],
-      birthdate: [
-        formatDate(
-          moment(this.user.birthdate, "DD/MM/YYYY").toDate(),
-          "yyyy-MM-dd",
-          "en"
-        ),
-        [Validators.required]
-      ],
-      //Teléfonos: No se pondrán restricciones, puesto que hoy en día puede haber números internacionales
-      phone: [this.user.phone, []],
-      phone2: [this.user.phone2, []],
-      documentType: [this.user.documentType.uid, []],
-      documentNumber: [this.user.documentNumber, []],
-      address: [this.user.address.street, []],
-      provincia: [this.user.address.province.name, []],
-      municipio: [this.user.address.municipe.name, []],
-      license: [
-        this.user.license,
-        [Validators.required, Validators.minLength(2), Validators.maxLength(30)]
-      ],
-      aboutMe: [
-        this.user.aboutMe,
-        [Validators.required, Validators.minLength(30)]
-      ],
-      otherCompetences: [
-        this.user.otherCompetences,
-        [Validators.required, Validators.minLength(30)]
-      ]
-    });
+      },
+      { validator: NumeroIdentificacionValidator }
+    );
     /*
     console.log(this.user.address.province.name);
     this.editProfileForm.controls["provincia"].setValue(

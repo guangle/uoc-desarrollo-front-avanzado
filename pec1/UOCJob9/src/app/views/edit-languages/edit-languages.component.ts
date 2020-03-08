@@ -121,12 +121,9 @@ export class EditLanguagesComponent implements OnInit {
         ).format("DD/MM/YYYY")
       };
 
-      //console.log(lang_object);
-      //return;
-
       if (this.inEditMode()) {
         this.userService.editLanguage(lang_object).subscribe(data => {
-          console.log("Se ha añadido con exito el lenguaje al usuario");
+          console.log("Se ha editado con exito el lenguaje al usuario");
           this.router.navigate(["/admin/profile"]);
         });
       } else {

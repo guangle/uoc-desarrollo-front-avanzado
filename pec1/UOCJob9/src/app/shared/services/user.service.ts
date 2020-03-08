@@ -7,6 +7,7 @@ import { Language } from "../models/language.model";
 import { DataService } from "./data.service";
 import { tap, catchError, map, filter } from "rxjs/operators";
 import { Experience } from "../models/experience.model";
+import { Study } from "../models/study.model";
 
 @Injectable({
   providedIn: "root"
@@ -54,6 +55,9 @@ export class UserService {
     return this.addLanguage(lang);
   }
 
+  /** Elimina el lenguaje del usuario cuyo identificador se pasa como parametro.
+   * Devuelve un observable para el usuario actualizado
+   */
   deleteLanguaje(id: number): Observable<User> {
     this.user.languages = this.user.languages.filter(l => l.uid != id);
     return this.dataservice.updateUser(this.user);
@@ -67,6 +71,19 @@ export class UserService {
   deleteExperience(id: number): Observable<User> {
     this.user.experiencies = this.user.experiencies.filter(l => l.uid != id);
     return this.dataservice.updateUser(this.user);
+  }
+
+  //Estudios
+  addStudy(st: Study): Observable<User> {
+    this.user.studies.push(st);
+    return this.dataservice.updateUser(this.user);
+  }
+
+  editStudy(st: Study): Observable<User> {
+    //TODO: implementacion rapida y poco optima..
+    //..pero no estamos usando un backend de verdad
+    this.user.studies = this.user.studies.filter(l => l.uid != st.uid);
+    return this.addStudy(lang);
   }
 
   /** Elimina la formacion cuyo id se pasa como parametro y devuelve un observable
