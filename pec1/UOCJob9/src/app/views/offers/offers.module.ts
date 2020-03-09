@@ -1,17 +1,13 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { NgModule } from "@angular/core";
+import { CommonModule } from "@angular/common";
 
-import { OffersRoutingModule } from './offers-routing.module';
-import { OffersComponent } from './offers.component';
-import { OfferDetailComponent } from '../offer-detail/offer-detail.component';
-
-
+import { OffersRoutingModule } from "./offers-routing.module";
+import { OffersComponent } from "./offers.component";
+import { OfferDetailComponent } from "../offer-detail/offer-detail.component";
+import { MyOffersComponent } from "../my-offers/my-offers.component";
 
 @NgModule({
-  declarations: [OffersComponent, OfferDetailComponent],
-  imports: [
-    CommonModule,
-    OffersRoutingModule
-  ]
+  declarations: [OffersComponent, OfferDetailComponent, MyOffersComponent],
+  imports: [CommonModule, OffersRoutingModule]
 })
-export class OffersModule { }
+export class OffersModule {}

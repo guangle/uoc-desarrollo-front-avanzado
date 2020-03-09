@@ -1,43 +1,54 @@
 .contenedor {
-    display: flex;
-    flex-direction: column;
-    padding: 0 15%;
-  }
-  
-  .row-datos {
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-    
-    .contenedor-botones {
-      justify-content: center;
-      button {
-        margin: 0px 10px;
-        padding: 5px;
-        font-size: 1.6em;
-      }
-    }
+  display: flex;
+  flex-direction: column;
+  padding: 0 15%;
+}
 
-  }
-  
-  .row-header {
+.row-datos {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+
+  .contenedor-botones {
+    justify-content: center;
     display: flex;
-    flex-direction: row;
-    width: 100%;
-    justify-content: space-between;
-  }
-  
-  table {
-    width: 100%;
-    border: 1px solid #cccccc;
-    thead {
-      background-color: #dddddd;
+    margin-top: 20px;
+    button {
+      margin: 0px 10px;
+      padding: 5px;
+      font-size: 1.6em;
     }
+  }
+
+  .div-detalle {
+    margin-left: 20px;
     td {
-      padding: 5px;
-    }
-    th {
-      padding: 5px;
+      padding: 2px;
     }
   }
-  
+
+  .campo-detalle {
+    margin-left: 20px;
+  }
+}
+
+.row-header {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  justify-content: space-between;
+}
+
+table {
+  width: 100%;
+  border: 1px solid #cccccc;
+  thead {
+    background-color: #dddddd;
+  }
+  td {
+    padding: 5px;
+  }
+  th {
+    padding: 5px;
+  }
+}

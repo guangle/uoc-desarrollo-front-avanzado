@@ -247,7 +247,9 @@ export class FakeBackendService implements InMemoryDbService {
         category: { uid: 2, name: "Informática y Comunicaciones" },
         title: [
           { uid: 1, name: "Desarrollo Aplicaciones Web" },
-          { uid: 4, name: "Desarrollo Aplicaciones Multiplataforma" }
+          { uid: 4, name: "Desarrollo Aplicaciones Multiplataforma" },
+          //metemos alguno de los titulos de los usuarios de prueba para que puedan apuntarse
+          { uid: 2, name: "Administracion de sistemas informaticos y redes" }
         ]
       },
       {
@@ -282,7 +284,11 @@ export class FakeBackendService implements InMemoryDbService {
         municipe: { uid: 9, name: "Motril" },
         date: "11/07/2016",
         category: { uid: 2, name: "Informática y Comunicaciones" },
-        title: [{ uid: 4, name: "Desarrollo Aplicaciones Multiplataforma" }]
+        title: [
+          { uid: 4, name: "Desarrollo Aplicaciones Multiplataforma" },
+          //metemos alguno de los titulos de los usuarios de prueba para que puedan apuntarse
+          { uid: 2, name: "Administracion de sistemas informaticos y redes" }
+        ]
       },
       {
         id: 4,

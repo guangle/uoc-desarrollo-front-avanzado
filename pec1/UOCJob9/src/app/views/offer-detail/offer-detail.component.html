@@ -1,67 +1,69 @@
 <div class="contenedor">
-    <div class="row-header">
-      <h1>
-        Detalle de la oferta 
-      </h1>
-      <a [routerLink]="['/admin/offers/list']">
-        Volver al listdo de ofertas
-      </a>
-    </div>
-    <div class="row-datos">
-      
-      <div class="campo-detalle" >
-        <h2>Oferta</h2>
-        <div>
-        <label>Empresanos </label> {{ offer.company?.name }}
+  <div class="row-header">
+    <h1>
+      Detalle de la oferta
+    </h1>
+    <a [routerLink]="['/admin/offers/list']">
+      Volver al listdo de ofertas
+    </a>
+  </div>
+  <div class="row-datos">
+    <div class="div-detalle">
+      <h2>Oferta</h2>
+      <div class="campo-detalle">
+        <label>Empresa: </label> {{ offer.company?.name }}
       </div>
-      <div>
+      <div class="campo-detalle">
         <label>Puesto </label> {{ offer.job?.name }}
       </div>
-      <div>
+      <div class="campo-detalle">
         <label>Descripción </label> {{ offer.job?.description }}
       </div>
+    </div>
+    <div class="div-detalle">
+      <h2>Localización</h2>
+      <div class="campo-detalle">
+        <label>Provincia </label> {{ offer.province?.name }}
+      </div>
+      <div class="campo-detalle">
+        <label>Municipio </label> {{ offer.municipe?.name }}
+      </div>
+    </div>
+    <div class="div-detalle">
+      <h2>Destinado a persona de:</h2>
+      <div class="campo-detalle">
+        <label>Familia profesional </label> {{ offer.category?.name }}
+      </div>
+    </div>
+    <div class="div-detalle">
+      <h2>Títulos</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Id</th>
+            <th>Nombre</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let t of offer.title">
+            <td>
+              {{ t.uid }}
+            </td>
+            <td>
+              {{ t.name }}
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
 
-      </div>
-      <div class="campo-detalle" >
-        <h2>Localización</h2>
-        <div>  
-          <label>Provincia </label> {{ offer.province?.name }} 
-        </div>
-        <div>
-          <label>Municipio </label> {{ offer.municipe?.name }}
-        </div>
-      </div>
-      <div class="campo-detalle" >
-        <h2>Destinado a persona de: </h2>
-        <div>
-          <label>Familia profesional </label> {{ offer.category?.name }} 
-        </div>
-        <div>
-          <h4>Títulos</h4>
-          <table>
-          <thead>
-            <tr>
-              <th>Id</th>
-              <th>Nombre</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr *ngFor="let t of offer.title">
-              <td>
-                {{ t.uid }}
-              </td>
-              <td>
-                {{ t.name }}
-              </td>
-            </tr>
-          </tbody>
-        </table>
-        </div>
-      </div>
-      
-      <div class="contenedor-botones">
-        <button >Inscribirse a la oferta</button>
-      </div>
-    
+    <div class="contenedor-botones">
+      <button *ngIf="!inscrito" (click)="inscribirOferta()">
+        Inscribirse a la oferta
+      </button>
+      <button *ngIf="inscrito" (click)="borrarseOferta()">
+        Borrarse de la oferta
+      </button>
+    </div>
   </div>
-  
+</div>
