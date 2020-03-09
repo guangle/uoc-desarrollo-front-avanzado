@@ -89,7 +89,7 @@ export class EditStudiesComponent implements OnInit {
 
   createForm() {
     console.log("Creando el formulario de edición de estudios");
-    //usamos forms groups anidados
+    //Creamos el formulario sin validaciones porque estas se añadirán dinamicamente
     this.editStudyForm = this.fb.group({
       level: [2, [Validators.required]],
       universidad_centro: [null, []],
@@ -159,8 +159,8 @@ export class EditStudiesComponent implements OnInit {
   }
 
   /* A partir de los campos submitidos, compone el objeto Study que debemos pasar al backend */
-  componerEstudioToPersist() : Study {
-    let studies_to_backend : Study;
+  componerEstudioToPersist(): Study {
+    let studies_to_backend: Study;
     let study_submited: Study = {
       uid: this.id_study ? this.id_study : this.user.studies.length + 1,
       level: this.tipos_titulos.find(
@@ -208,9 +208,7 @@ export class EditStudiesComponent implements OnInit {
         this.editStudyForm.get("ciclo_fecha").value,
         "YYYY-MM-DD"
       ).format("DD/MM/YYYY");
-      estudios_grado.bilingue = this.editStudyForm.get(
-        "ciclo_bilingue"
-      ).value;
+      estudios_grado.bilingue = this.editStudyForm.get("ciclo_bilingue").value;
       estudios_grado.grade = this.tipos_grado.find(
         t => (t.uid = this.editStudyForm.get("ciclo_grado").value)
       );
@@ -293,5 +291,4 @@ export class EditStudiesComponent implements OnInit {
   get otro_titulo() {
     return this.editStudyForm.get("otro_titulo");
   }
-
 }

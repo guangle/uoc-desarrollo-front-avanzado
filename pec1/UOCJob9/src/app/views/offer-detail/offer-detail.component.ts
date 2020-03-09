@@ -53,7 +53,7 @@ export class OfferDetailComponent implements OnInit {
     this.user.offers.push(this.offer);
     this.userService.updateUser(this.user).subscribe(u => {
       console.log("Usuario inscrito a la oferta correctamente");
-      this.router.navigate(["/admin/offers/list"]);
+      this.router.navigate(["/admin/dashboard"]);
     });
   }
 
@@ -63,7 +63,7 @@ export class OfferDetailComponent implements OnInit {
     this.user.offers = this.user.offers.filter(o => o.id != this.id);
     this.userService.updateUser(this.user).subscribe(u => {
       console.log("Usuario borrado de la oferta correctamente");
-      this.router.navigate(["/admin/offers/list"]);
+      this.router.navigate(["/admin/dashboard"]);
     });
   }
 }

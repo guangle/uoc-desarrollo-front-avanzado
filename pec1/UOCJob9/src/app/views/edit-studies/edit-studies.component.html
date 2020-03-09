@@ -112,10 +112,19 @@
             <label for="otro_titulo">Título: </label>
             <input type="text" formControlName="otro_titulo" />
           </div>
+          <div class="fila-form validaciones" *ngIf="editStudyForm.dirty">
+            <div
+              *ngIf="otro_titulo.errors != null && otro_titulo.errors.required"
+            >
+              El campo es obligatorio
+            </div>
+          </div>
         </fieldset>
 
         <div class="fila-form contenedor-botones">
-          <button type="submit">Guardar</button>
+          <button [disabled]="!editStudyForm.valid" type="submit">
+            Guardar
+          </button>
         </div>
       </form>
     </div>

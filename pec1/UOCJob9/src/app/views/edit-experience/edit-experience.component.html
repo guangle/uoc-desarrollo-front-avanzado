@@ -37,7 +37,9 @@
           <textarea rows="10" cols="120" formControlName="tareas"></textarea>
         </div>
         <div class="fila-form contenedor-botones">
-          <button type="submit">Guardar</button>
+          <button [disabled]="!editExperienceForm.valid" type="submit">
+            Guardar
+          </button>
         </div>
       </form>
     </div>
