@@ -43,7 +43,7 @@ export interface User {
   avatar_hash: string;
   address: UserAddress;
   roles: string[];
-  studies: (VocationalStudy | CollegeStudy)[];
+  studies: (Study | VocationalStudy | CollegeStudy)[];
   experiencies: Experience[];
   languages: Language[];
   offers: Offer[];

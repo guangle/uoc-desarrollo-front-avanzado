@@ -20,6 +20,8 @@ export class EditLanguagesComponent implements OnInit {
   public language: Language;
   public editLanguajeForm: FormGroup;
   isSubmitted: boolean = false;
+  //identificador del lenguaje que se esta editando (si se trata de una edición)
+  id_lang;
 
   posibles_lenguas = [
     { uid: 1, name: "Inglés" },
@@ -38,7 +40,7 @@ export class EditLanguagesComponent implements OnInit {
     { uid: 6, name: "C2" }
   ];
 
-  id_lang;
+  
 
   constructor(
     private userService: UserService,

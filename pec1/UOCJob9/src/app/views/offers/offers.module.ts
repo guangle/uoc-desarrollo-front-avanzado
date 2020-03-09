@@ -4,6 +4,8 @@ import { CommonModule } from '@angular/common';
 import { OffersRoutingModule } from './offers-routing.module';
 import { OffersComponent } from './offers.component';
 
+
+
 @NgModule({
   declarations: [OffersComponent],
   imports: [

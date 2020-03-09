@@ -7,7 +7,7 @@ import { Language } from "../models/language.model";
 import { DataService } from "./data.service";
 import { tap, catchError, map, filter } from "rxjs/operators";
 import { Experience } from "../models/experience.model";
-import { Study } from "../models/study.model";
+import { Study, CollegeStudy, VocationalStudy } from "../models/study.model";
 
 @Injectable({
   providedIn: "root"
@@ -75,7 +75,7 @@ export class UserService {
 
   //Estudios
   addStudy(st: Study): Observable<User> {
-    this.user.studies.push(st);
+    this.user.studies.push()
     return this.dataservice.updateUser(this.user);
   }
 
@@ -83,7 +83,7 @@ export class UserService {
     //TODO: implementacion rapida y poco optima..
     //..pero no estamos usando un backend de verdad
     this.user.studies = this.user.studies.filter(l => l.uid != st.uid);
-    return this.addStudy(lang);
+    return this.addStudy(st);
   }
 
   /** Elimina la formacion cuyo id se pasa como parametro y devuelve un observable

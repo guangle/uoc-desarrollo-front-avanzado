@@ -1,3 +1,64 @@
-<p>
-  offers works!
-</p>
+<div class="contenedor">
+  <div class="row-header">
+    <h1> Ofertas </h1>
+    <a [routerLink]="['/admin/dashboard']">
+      Volver al dashboard
+    </a>
+  </div>
+
+  <div class="row-filtros">
+    <div>
+      <h3> Filtros </h3>
+    </div>
+    <div>
+      <span><b>Pendientes para las siguientes PECS --  </b></span>
+      Provincia: <select><option>Pendiente</option><option>Pendiente</option><option>Pendiente</option></select>
+      Fecha: <input type="date">
+    </div>
+  </div>
+  
+
+  <div class="row-datos">
+    <table>
+      <thead>
+        <tr>
+          <th>Puesto</th>
+          <th>Empresa</th>
+          <th>Familia profesional</th>
+          
+          <th>Fecha</th>
+          <th>Ubicación</th>
+          <th>Opciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let offer of offers">
+          <td>
+            {{ offer.job?.name }}
+          </td>
+          <td>
+            {{ offer.company?.name }}
+          </td>
+          <td>
+            {{ offer.category?.name }}
+          </td>
+          <td>
+            {{ offer.date }}
+          </td>
+          <td>
+            {{ offer.province?.name }} / {{ offer.municipe?.name }}
+          </td>
+          
+          <td>
+            <a
+              [routerLink]="['/admin/offers/detail']"
+              [queryParams]="{ id: offer.id }"
+            >
+              Detalle
+            </a>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

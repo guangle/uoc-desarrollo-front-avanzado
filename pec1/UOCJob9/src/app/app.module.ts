@@ -7,6 +7,7 @@ import { rootRouterConfig } from "./app-routing";
 import { HttpClientModule } from "@angular/common/http";
 import { HttpClientInMemoryWebApiModule } from "angular-in-memory-web-api";
 import { ReactiveFormsModule } from "@angular/forms";
+import { OfferDetailComponent } from './views/offer-detail/offer-detail.component';
 
 @NgModule({
   imports: [
@@ -17,7 +18,7 @@ import { ReactiveFormsModule } from "@angular/forms";
     CoreModule,
     RouterModule.forRoot(rootRouterConfig, { useHash: false })
   ],
-  declarations: [AppComponent],
+  declarations: [AppComponent, OfferDetailComponent],
   providers: [],
   bootstrap: [AppComponent]
 })

@@ -15,8 +15,8 @@ import { Offer } from '../models/offer.model';
  */
 export class DataService {
 
-  apiurl_users = 'api/users';                 // Our created Data can be accessed here at api/users
-  apiurl_offers = 'api/offers';                 // Our created Data can be accessed here at api/users
+  apiurl_users = 'api/users';                 
+  apiurl_offers = 'api/offers';                 
   headers = new HttpHeaders().set('Content-Type', 'application/json').set('Accept', 'application/json');
   httpOptions = {
     headers: this.headers
@@ -30,6 +30,7 @@ export class DataService {
     return throwError(error);
   }
 
+  /** Devuelve todos los usuarios de la BBDD realizando una llamada al backend */
   getUsers(): Observable<User[]> {
     return this.http.get<User[]>(this.apiurl_users).pipe(
       tap(data => console.log(data)),
@@ -37,6 +38,7 @@ export class DataService {
     );
   }
 
+  /** Devuelve el usuario cuyo identificador se pasa como parametro */
   getUser (id: number): Observable<User> {
     const url = `${this.apiurl_users}/${id}`;
     return this.http.get<User>(url).pipe(
@@ -52,6 +54,7 @@ export class DataService {
       );
     }
 
+    /* Actualiza en el backend en el usuario que se pasa como parametro */
     updateUser(user: User): Observable<User>{
         const url = `${this.apiurl_users}/${user.id}`;
         return this.http.put<User>(this.apiurl_users, user, this.httpOptions).pipe(
@@ -66,6 +69,14 @@ export class DataService {
       return this.http.get<Offer[]>(this.apiurl_offers).pipe(
         tap(data => console.log(data)),
         catchError(this.handleError)
+      );
+    }
+
+    /** Devuelve la oferta cuyo identificador se pasa como parametro */
+    getOffer (id: number): Observable<Offer> {
+      const url = `${this.apiurl_offers}/${id}`;
+      return this.http.get<Offer>(url).pipe(
+      catchError(this.handleError)
       );
     }
 
