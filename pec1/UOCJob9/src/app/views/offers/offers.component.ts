@@ -26,6 +26,8 @@ export class OffersComponent implements OnInit {
     console.log("obteniendo ofertas..");
     this.dataservice.getOffers().subscribe(data => {
       console.log("Obertas obtenidas..");
+      //TODO "Sólo se mostrarán las ofertas en las que el candidato cumpla con su formación"
+      //¿A qué se refiere? Los title no coinciden entre las ofertas y el usuario de prueba
       this.offers = data;
     });
    }

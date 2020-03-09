@@ -8,184 +8,60 @@
       </a>
     </div>
     <div class="row-datos">
-        aqui el detalle de la oferta
-      <!--
-        <div id="foto">
-        <img src="assets/user.png" alt="User" height="150px" width="150px" />
-        <span id="profile_name"> {{ user.name }} {{ user.surname }} </span>
+      
+      <div class="campo-detalle" >
+        <h2>Oferta</h2>
+        <div>
+        <label>Empresanos </label> {{ offer.company?.name }}
       </div>
-      <div id="datos-basicos">
-        <div>
-          Email: <span>{{ user.email }}</span>
+      <div>
+        <label>Puesto </label> {{ offer.job?.name }}
+      </div>
+      <div>
+        <label>Descripción </label> {{ offer.job?.description }}
+      </div>
+
+      </div>
+      <div class="campo-detalle" >
+        <h2>Localización</h2>
+        <div>  
+          <label>Provincia </label> {{ offer.province?.name }} 
         </div>
         <div>
-          Fecha de nacimiento: <span>{{ user.birthdate }} </span>
-        </div>
-        <div>
-          Teléfono: <span>{{ user.phone }} </span>
-        </div>
-        <div>
-          {{ user.documentType.name }}: <span>{{ user.documentNumber }}</span>
-        </div>
-        <div>
-          Permisos de conducir: <span>{{ user.license }}</span>
+          <label>Municipio </label> {{ offer.municipe?.name }}
         </div>
       </div>
-      <div class="acerca-de acerca-de-1">
-        <span>Acerca de mi: </span
-        ><textarea rows="6" cols="30" readonly> {{ user.aboutMe }}</textarea>
+      <div class="campo-detalle" >
+        <h2>Destinado a persona de: </h2>
+        <div>
+          <label>Familia profesional </label> {{ offer.category?.name }} 
+        </div>
+        <div>
+          <h4>Títulos</h4>
+          <table>
+          <thead>
+            <tr>
+              <th>Id</th>
+              <th>Nombre</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let t of offer.title">
+              <td>
+                {{ t.uid }}
+              </td>
+              <td>
+                {{ t.name }}
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        </div>
       </div>
-      <div class="acerca-de acerca-de-2">
-        <span>Otras competencias:</span
-        ><textarea rows="6" cols="30" readonly>
-   {{ user.otherCompetences }}</textarea
-        >
+      
+      <div class="contenedor-botones">
+        <button >Inscribirse a la oferta</button>
       </div>
-      -->
-    </div>
-    <!--formacion academica-->
-    <!--
-    <div>
-      <h2>
-        Formación académica (
-        <a [routerLink]="['/admin/edit-studies']">
-          Nueva
-        </a>
-        )
-      </h2>
-      <table>
-        <thead>
-          <tr>
-            <th>Nivel</th>
-            <th>Título</th>
-            <th>Centro</th>
-            <th>Fecha</th>
-            <th>Certificado</th>
-            <th>Opciones</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let formacion of user.studies">
-            <td>
-              {{ formacion.level?.name }}
-            </td>
-            <td>
-              {{ formacion.title?.name }}
-            </td>
-            <td>
-              {{ formacion.institution?.name }}
-            </td>
-            <td>
-              {{ formacion.date }}
-            </td>
-            <td></td>
-            <td>
-              <a
-                [routerLink]="['/admin/edit-studies']"
-                [queryParams]="{ id: formacion.uid }"
-              >
-                Editar
-              </a>
-              <a [routerLink]="" (click)="deleteStudies(formacion.uid)">
-                Eliminar
-              </a>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-    -->
-    <!--experiencia laboral -->
-    <!--
-    <div>
-      <h2>
-        Experiencia laboral (
-        <a [routerLink]="['/admin/edit-experience']">
-          Nuevo
-        </a>
-        )
-      </h2>
-      <table>
-        <thead>
-          <tr>
-            <th>Empresa</th>
-            <th>Puesto</th>
-            <th>Fechas</th>
-            <th>Opciones</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let experiencia of user.experiencies">
-            <td>
-              {{ experiencia.empresa }}
-            </td>
-            <td>
-              {{ experiencia.puesto }}
-            </td>
-            <td>
-              Desde {{ experiencia.date_inicio }} hasta {{ experiencia.date_fin }}
-            </td>
-            <td>
-              <a
-                [routerLink]="['/admin/edit-experience']"
-                [queryParams]="{ id: experiencia.uid }"
-              >
-                Editar
-              </a>
-              <a [routerLink]="" (click)="deleteExperience(experiencia.uid)">
-                Eliminar
-              </a>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-    -->
-    <!--idiomas-->
-    <!--
-    <div>
-      <h2>
-        Idiomas (
-        <a [routerLink]="['/admin/edit-languages']">
-          Nuevo
-        </a>
-        )
-      </h2>
-      <table>
-        <thead>
-          <tr>
-            <th>Nivel</th>
-            <th>Idioma</th>
-            <th>Fecha</th>
-            <th>Opciones</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let l of user.languages">
-            <td>
-              {{ l.level.name }}
-            </td>
-            <td>
-              {{ l.name.name }}
-            </td>
-            <td>
-              {{ l.date }}
-            </td>
-            <td>
-              <a
-                [routerLink]="['/admin/edit-languages']"
-                [queryParams]="{ id: l.uid }"
-              >
-                Editar
-              </a>
-              <a [routerLink]="" (click)="deleteLanguaje(l.uid)">
-                Eliminar
-              </a>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-    -->
+    
   </div>
   
