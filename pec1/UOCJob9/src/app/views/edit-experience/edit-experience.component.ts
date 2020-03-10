@@ -65,7 +65,7 @@ export class EditExperienceComponent implements OnInit {
     console.log("Creando el formulario de edición de experiencia");
 
     this.editExperienceForm = this.fb.group({
-      empresa: [this.experience.empresa, [Validators.required]],
+      empresa: [this.experience.empresa, [Validators.required, Validators.minLength(3),Validators.maxLength(55)]],
       date_inicio: [
         this.experience.date_inicio
           ? formatDate(
@@ -86,8 +86,8 @@ export class EditExperienceComponent implements OnInit {
           : null,
         [Validators.required]
       ],
-      puesto: [this.experience.puesto, [Validators.required]],
-      tareas: [this.experience.tareas, [Validators.required]]
+      puesto: [this.experience.puesto, [Validators.required,Validators.minLength(3),Validators.maxLength(55)]],
+      tareas: [this.experience.tareas, [Validators.required, Validators.minLength(30),Validators.maxLength(300)]]
     });
   }
 
@@ -113,6 +113,11 @@ export class EditExperienceComponent implements OnInit {
       }
       if (this.inEditMode()) {
         //Actualizamos la experiencia
+        this.userService.editExperience(this.experience).subscribe(data => {
+          console.log("Se ha editado con exito la experincia al usuario");
+          this.user = data;
+          this.router.navigate(["/admin/profile"]);
+        });
       } else {
         //Creamos una nueva experiencia para el usuario
         this.userService.addExperience(this.experience).subscribe(data => {

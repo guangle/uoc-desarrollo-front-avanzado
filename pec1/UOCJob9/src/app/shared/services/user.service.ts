@@ -63,9 +63,18 @@ export class UserService {
     return this.dataservice.updateUser(this.user);
   }
 
+  /* Añade al usuario custodiado por el servicio la experiencia profesional que se pasa como parametro */
   addExperience(exp: Experience): Observable<User> {
     this.user.experiencies.push(exp);
     return this.dataservice.updateUser(this.user);
+  }
+
+  /* Actualiza la experiencia que se pasa como parametro */
+  editExperience(exp: Experience): Observable<User> {
+    //TODO: implementacion rapida y poco optima..
+    //..pero no estamos usando un backend de verdad
+    this.user.experiencies = this.user.experiencies.filter(l => l.uid != exp.uid);
+    return this.addExperience(exp);
   }
 
   deleteExperience(id: number): Observable<User> {
@@ -75,7 +84,7 @@ export class UserService {
 
   //Estudios
   addStudy(st: Study): Observable<User> {
-    this.user.studies.push()
+    this.user.studies.push(st)
     return this.dataservice.updateUser(this.user);
   }
 

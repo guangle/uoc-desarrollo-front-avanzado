@@ -46,9 +46,9 @@ export class EditStudiesComponent implements OnInit {
   ];
 
   tipos_grado = [
-    { uid: 1, name: "Ciclo Formativo de Grado Superior" },
+    { uid: 1, name: "FP Básica" },
     { uid: 2, name: "Ciclo Formativo de Grado Medio" },
-    { uid: 3, name: "FP Básica" }
+    { uid: 3, name: "Ciclo Formativo de Grado Superior" }
   ];
 
   ciclos = [];
@@ -66,6 +66,8 @@ export class EditStudiesComponent implements OnInit {
     this.id_study = this.route.snapshot.queryParams["id"];
     if (this.inEditMode()) {
       this.study = this.user.studies.find(l => l.uid == this.id_study);
+      console.log('Es una edición de formación académica:');
+      console.log(this.study);
     }
     //Creamos - inicializamos el formulairo reacivo
     this.createForm();
@@ -73,7 +75,7 @@ export class EditStudiesComponent implements OnInit {
     //se deberan validar unos campos u otros. Por tanto, debemos conseguir que nuestras restricciones
     //sean dinámicas. He visto un ejemplo en
     //https://www.codementor.io/@jimohhadi/angular-validators-with-conditional-validation-in-reactive-forms-pj5z7gsq5
-    this.updateValidations();
+    this.estableceValidacionesDinamicas();
   }
 
   ngOnInit(): void {}
@@ -89,9 +91,12 @@ export class EditStudiesComponent implements OnInit {
 
   createForm() {
     console.log("Creando el formulario de edición de estudios");
+    let editMode = this.inEditMode();
+    let level =  editMode?this.study.level.uid:2;
+    
     //Creamos el formulario sin validaciones porque estas se añadirán dinamicamente
     this.editStudyForm = this.fb.group({
-      level: [2, [Validators.required]],
+      level: [level, [Validators.required]],
       universidad_centro: [null, []],
       universidad_titulo: [null, []],
       universidad_fecha: [null, []],
@@ -106,34 +111,70 @@ export class EditStudiesComponent implements OnInit {
       ciclo_dual: [null, []],
       ciclo_bilingue: [null, []],
       ciclo_certificado: [null, []],
+      //campo para cuando es un estudio de tipo otros
       otro_titulo: [null, []]
     });
+    if(editMode) {
+      if(level == 1) {
+        let estudio_grado = this.study as VocationalStudy;
+        this.editStudyForm.get('ciclo_centro').setValue( estudio_grado.institution.uid );
+        this.editStudyForm.get('ciclo_familia').setValue( estudio_grado.category.uid );
+        this.editStudyForm.get('ciclo_grado').setValue( estudio_grado.grade.uid );
+        this.ciclos = [ estudio_grado.title ];
+        this.editStudyForm.get('ciclo_ciclo').setValue( estudio_grado.title.uid );
+        this.editStudyForm.get('ciclo_fecha').setValue(  formatDate(moment( estudio_grado.date, "DD/MM/YYYY").toDate(),  "yyyy-MM-dd", "en" ) );
+        this.editStudyForm.get('ciclo_dual').setValue( estudio_grado.dual );
+        this.editStudyForm.get('ciclo_bilingue').setValue( estudio_grado.bilingue);
+      } else if (level == 2) {
+        let estudio_universitario = this.study as CollegeStudy;
+        this.editStudyForm.get('universidad_centro').setValue( estudio_universitario.institution.name );
+        this.editStudyForm.get('universidad_titulo').setValue( estudio_universitario.title.name );
+        this.editStudyForm.get('universidad_fecha').setValue(  formatDate(moment( estudio_universitario.date, "DD/MM/YYYY").toDate(),  "yyyy-MM-dd", "en" ) );
+        this.editStudyForm.get('universidad_bilingue').setValue( estudio_universitario.bilingue );
+      } else if (level == 3) {
+        this.editStudyForm.get('otro_titulo').setValue( this.study.title.name );
+      }
+    }
+    this.updateValidations(level);
   }
 
-  /** Actualiza las validaciones del formulario en función del tipo de estudios seleccionado */
-  updateValidations() {
+  estableceValidacionesDinamicas() {
     const levelControl = this.editStudyForm.get("level");
     this.editStudyForm.get("level").valueChanges.subscribe(level => {
       console.log("cambia el level, actualizamos las validaciones");
       //limpiamos las validaciones de los diferentes componentes.
-      Object.keys(this.editStudyForm.controls).forEach(key => {
-        this.editStudyForm.controls[key].setValidators(null);
-      });
-      if (level == 2) {
-        console.log("Universidad");
-      } else if (level == 1) {
-        console.log("Cliclo");
-      } else if (level == 3) {
-        console.log("Otros");
-        this.editStudyForm
-          .get("otro_titulo")
-          .setValidators([Validators.required]);
-      }
-      //actualizamos el valor y las validez de todos los componentes
-      Object.keys(this.editStudyForm.controls).forEach(key => {
-        if (key === "level") return;
-        this.editStudyForm.controls[key].updateValueAndValidity();
-      });
+      this.updateValidations(level);
+    });
+  }
+
+  /** Actualiza las validaciones del formulario en función del tipo de estudios seleccionado */
+  updateValidations( level:number ) {
+    Object.keys(this.editStudyForm.controls).forEach(key => {
+      this.editStudyForm.controls[key].setValidators(null);
+    });
+    if (level == 2) {
+      console.log("Universidad");
+      this.editStudyForm.get("universidad_centro").setValidators([Validators.required]);
+      this.editStudyForm.get("universidad_titulo").setValidators([Validators.required]);
+      this.editStudyForm.get("universidad_fecha").setValidators([Validators.required]);
+    } else if (level == 1) {
+      console.log("Cliclo");
+      //Establecemos los campos que deben ser obligatorios
+      this.editStudyForm.get("ciclo_centro").setValidators([Validators.required]);
+      this.editStudyForm.get("ciclo_familia").setValidators([Validators.required]);
+      this.editStudyForm.get("ciclo_grado").setValidators([Validators.required]);
+      this.editStudyForm.get("ciclo_ciclo").setValidators([Validators.required]);
+      this.editStudyForm.get("ciclo_fecha").setValidators([Validators.required]);
+    } else if (level == 3) {
+      console.log("Otros");
+      this.editStudyForm
+        .get("otro_titulo")
+        .setValidators([Validators.required]);
+    }
+    //actualizamos el valor y las validez de todos los componentes
+    Object.keys(this.editStudyForm.controls).forEach(key => {
+      if (key === "level") return;
+      this.editStudyForm.controls[key].updateValueAndValidity();
     });
   }
 
@@ -142,6 +183,8 @@ export class EditStudiesComponent implements OnInit {
     this.isSubmitted = true;
     if (this.editStudyForm.valid) {
       let studies_to_backend: Study = this.componerEstudioToPersist();
+      console.log('Study que se va a enviar al backend: ');
+      console.log(studies_to_backend);
       if (this.inEditMode()) {
         this.userService.editStudy(studies_to_backend).subscribe(data => {
           console.log("Se ha editado con exito el estudio al usuario");

@@ -18,6 +18,19 @@
           <label for="empresa">Empresa: </label>
           <input type="text" formControlName="empresa" size="120" />
         </div>
+        
+        <div class="fila-form validaciones" *ngIf="editExperienceForm.dirty">
+          <div *ngIf=" empresa.touched && empresa.errors != null && empresa.errors.required" >
+            El campo es obligatorio
+          </div> 
+          <div *ngIf=" empresa.touched && empresa.errors != null && empresa.errors.minlength" >
+            El nombre de la empresa debe tener al menos 3 caracteres
+          </div>
+          <div *ngIf=" empresa.touched && empresa.errors != null && empresa.errors.maxlength" >
+            El nombre de la empresa no puede superar los 55 caracteres
+          </div>
+        </div>
+
         <div class="fila-form">
           <div class="fila-form-col">
             <label for="date_inicio">Fecha inicio: </label>
@@ -28,14 +41,54 @@
             <input type="date" formControlName="date_fin" />
           </div>
         </div>
+
+        <div class="fila-form validaciones" *ngIf="editExperienceForm.dirty">
+          <div class="fila-form-col">
+            <div *ngIf=" date_inicio.touched && date_inicio.errors != null && date_inicio.errors.required" >
+              La fecha de inicio es obligatoria
+            </div> 
+          </div>
+          <div class="fila-form-col">
+            <div *ngIf=" date_fin.touched && date_fin.errors != null && date_fin.errors.required" >
+              La fecha de fin es obligatoria
+            </div> 
+          </div>
+        </div>
+
         <div class="fila-form">
           <label for="puesto">Puesto: </label>
           <input type="text" formControlName="puesto" size="120" />
         </div>
+
+        <div class="fila-form validaciones" *ngIf="editExperienceForm.dirty">
+          <div *ngIf=" puesto.touched && puesto.errors != null && puesto.errors.required" >
+            El campo es obligatorio
+          </div> 
+          <div *ngIf=" puesto.touched && puesto.errors != null && puesto.errors.minlength" >
+            El puesto debe tener al menos 3 caracteres
+          </div>
+          <div *ngIf=" puesto.touched && puesto.errors != null && puesto.errors.maxlength" >
+            El puesto no puede superar los 55 caracteres
+          </div>
+        </div>
+
         <div class="fila-form">
           <label for="tareas">Tareas: </label>
           <textarea rows="10" cols="120" formControlName="tareas"></textarea>
         </div>
+
+        <div class="fila-form validaciones" *ngIf="editExperienceForm.dirty">
+          <div *ngIf=" tareas.touched && tareas.errors != null && tareas.errors.required" >
+            El campo es obligatorio
+          </div> 
+          <div *ngIf=" tareas.touched && tareas.errors != null && tareas.errors.minlength" >
+            La descripción de las tareas debe tener al menos 30 caracteres
+          </div>
+          <div *ngIf=" tareas.touched && tareas.errors != null && tareas.errors.maxlength" >
+            La descripción de las tareas no puede superar los 55 caracteres
+          </div>
+        </div>
+
         <div class="fila-form contenedor-botones">
           <button [disabled]="!editExperienceForm.valid" type="submit">
             Guardar
