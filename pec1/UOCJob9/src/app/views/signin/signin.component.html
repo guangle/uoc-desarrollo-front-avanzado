@@ -16,7 +16,7 @@
   <form [formGroup]="loginForm" (ngSubmit)="doLogin()">
     <div>
       <label for="email">Email:</label>
-      <input type="email" formControlName="email" required />
+      <input type="email" formControlName="email" required size="50" />
     </div>
     <div class="validaciones">
       <div *ngIf="loginForm.dirty && isSubmitted">
@@ -71,6 +71,5 @@
         Consulta las notas de la implementación
       </a>
     </div>
-
   </div>
 </div>

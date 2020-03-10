@@ -10,7 +10,13 @@
 
   <div id="contenidoFormulario">
     <div id="colFoto">
-      <img src="assets/user.png" alt="User" height="150px" width="150px" />
+      <img
+        src="assets/user.png"
+        alt="User"
+        height="150px"
+        width="150px"
+        onclick="alert('Subir documento - pendiente');"
+      />
       <span id="profile_name"> {{ user.name }} {{ user.surname }} </span>
     </div>
 
@@ -125,15 +131,13 @@
             >
               <option value="">Seleccione provincia..</option>
               <option *ngFor="let p of provincias" [ngValue]="p.uid">
-                {{p.name}}
+                {{ p.name }}
               </option>
             </select>
           </div>
           <div class="fila-form-col">
             <label for="municipio">Municipio:</label>
-            <select
-              formControlName="municipio"
-            >
+            <select formControlName="municipio">
               <option value="">Seleccione municipio..</option>
               <option *ngFor="let m of municipios" [ngValue]="m.uid">{{
                 m.name
@@ -141,6 +145,20 @@
             </select>
           </div>
         </div>
+
+        <div class="fila-form validaciones" *ngIf="editProfileForm.dirty">
+          <div class="fila-form-col">
+            <div *ngIf="provincia.errors != null && provincia.errors.required">
+              La provincia es obligatoria
+            </div>
+          </div>
+          <div class="fila-form-col">
+            <div *ngIf="municipio.errors != null && municipio.errors.required">
+              El municipio es obligatorio
+            </div>
+          </div>
+        </div>
+
         <div class="fila-form">
           <label for="license">Permiso de conducir: </label
           ><input type="text" size="50" formControlName="license" />

@@ -1,7 +1,7 @@
 <div class="contenedor">
   <div class="row-header">
     <h1>
-      Profile (
+      Datos personales (
       <a [routerLink]="['/admin/edit-profile']">
         Editar
       </a>
@@ -35,11 +35,11 @@
     </div>
     <div class="acerca-de acerca-de-1">
       <span>Acerca de mi: </span
-      ><textarea rows="6" cols="30" readonly> {{ user.aboutMe }}</textarea>
+      ><textarea rows="6" cols="35" readonly> {{ user.aboutMe }}</textarea>
     </div>
     <div class="acerca-de acerca-de-2">
       <span>Otras competencias:</span
-      ><textarea rows="6" cols="30" readonly>
+      ><textarea rows="6" cols="35" readonly>
  {{ user.otherCompetences }}</textarea
       >
     </div>
@@ -77,7 +77,7 @@
           <td>
             {{ formacion.date }}
           </td>
-          <td></td>
+          <td><small>(pdte pec de manejo de ficheros)</small></td>
           <td>
             <a
               [routerLink]="['/admin/edit-studies']"

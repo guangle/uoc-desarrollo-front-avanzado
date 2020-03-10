@@ -19,8 +19,8 @@ export class FakeBackendService implements InMemoryDbService {
         documentType: { uid: 1, name: "NIF" },
         documentNumber: "26808956H",
         license: "B1",
-        aboutMe: "LOREM IPSUM",
-        otherCompetences: "LOREM IPSUM",
+        aboutMe: "LOREM IPSUM LOREM IPSUMLOREM IPSUM",
+        otherCompetences: "LOREM IPSUM LOREM IPSUMLOREM IPSUM",
         address: {
           street: "Urbanización las Areanas - 45",
           province: { uid: 4, name: "Cádiz" },
@@ -101,7 +101,7 @@ export class FakeBackendService implements InMemoryDbService {
         license: "B1",
         aboutMe:
           "licenciado en ing informática, me apasiona todo lo relacionado con el software en general y la IA en particular",
-        otherCompetences: "baloncesto, billar",
+        otherCompetences: "baloncesto, billar y sobre todo javascript :P",
         address: {
           street: "Gerión - 45",
           province: { uid: 4, name: "Cádiz" },
@@ -246,40 +246,40 @@ export class FakeBackendService implements InMemoryDbService {
       }
     ];
 
-    const companies : any[] = [
+    const companies: any[] = [
       {
         password: "1234",
         id: 1,
         username: "rrhh@fujitsu.es",
-      
+
         nombre_comercial: "Fujitsu",
-        razon_social : "Fujitsu",
-        cif : "G17537499",
-        direccion : "Isla de la Cartuja",
-        provincia : { uid: 2, name: "Sevilla" },
-        municipio : { uid: 2, name: "Sevilla" },
-        url : "http://fujitu.es",
-      
+        razon_social: "Fujitsu",
+        cif: "G17537499",
+        direccion: "Isla de la Cartuja",
+        provincia: { uid: 2, name: "Sevilla" },
+        municipio: { uid: 2, name: "Sevilla" },
+        url: "http://fujitu.es",
+
         contacto_nombre: "Eva Gonzalez Alonso",
-        contacto_telefono : 658770044,
-        contacto_mail : "rrhh@fujitsu.es"
+        contacto_telefono: 658770044,
+        contacto_mail: "rrhh@fujitsu.es"
       },
       {
         password: "1234",
         id: 2,
         username: "rrhh@everis.es",
-      
+
         nombre_comercial: "Everis",
-        razon_social : "Everis",
-        cif : "C75946657",
-        direccion : "Isla de la Cartuja",
-        provincia : { uid: 2, name: "Sevilla" },
-        municipio : { uid: 2, name: "Sevilla" },
-        url : "http://everis.es",
-      
+        razon_social: "Everis",
+        cif: "C75946657",
+        direccion: "Isla de la Cartuja",
+        provincia: { uid: 2, name: "Sevilla" },
+        municipio: { uid: 2, name: "Sevilla" },
+        url: "http://everis.es",
+
         contacto_nombre: "Cristina Nuñez Garrido",
-        contacto_telefono : 611447702,
-        contacto_mail : "rrhh@everis.es"
+        contacto_telefono: 611447702,
+        contacto_mail: "rrhh@everis.es"
       }
     ];
 

@@ -66,7 +66,7 @@ export class EditStudiesComponent implements OnInit {
     this.id_study = this.route.snapshot.queryParams["id"];
     if (this.inEditMode()) {
       this.study = this.user.studies.find(l => l.uid == this.id_study);
-      console.log('Es una edición de formación académica:');
+      console.log("Es una edición de formación académica:");
       console.log(this.study);
     }
     //Creamos - inicializamos el formulairo reacivo
@@ -92,8 +92,8 @@ export class EditStudiesComponent implements OnInit {
   createForm() {
     console.log("Creando el formulario de edición de estudios");
     let editMode = this.inEditMode();
-    let level =  editMode?this.study.level.uid:2;
-    
+    let level = editMode ? this.study.level.uid : 2;
+
     //Creamos el formulario sin validaciones porque estas se añadirán dinamicamente
     this.editStudyForm = this.fb.group({
       level: [level, [Validators.required]],
@@ -114,25 +114,53 @@ export class EditStudiesComponent implements OnInit {
       //campo para cuando es un estudio de tipo otros
       otro_titulo: [null, []]
     });
-    if(editMode) {
-      if(level == 1) {
+    if (editMode) {
+      if (level == 1) {
         let estudio_grado = this.study as VocationalStudy;
-        this.editStudyForm.get('ciclo_centro').setValue( estudio_grado.institution.uid );
-        this.editStudyForm.get('ciclo_familia').setValue( estudio_grado.category.uid );
-        this.editStudyForm.get('ciclo_grado').setValue( estudio_grado.grade.uid );
-        this.ciclos = [ estudio_grado.title ];
-        this.editStudyForm.get('ciclo_ciclo').setValue( estudio_grado.title.uid );
-        this.editStudyForm.get('ciclo_fecha').setValue(  formatDate(moment( estudio_grado.date, "DD/MM/YYYY").toDate(),  "yyyy-MM-dd", "en" ) );
-        this.editStudyForm.get('ciclo_dual').setValue( estudio_grado.dual );
-        this.editStudyForm.get('ciclo_bilingue').setValue( estudio_grado.bilingue);
+        this.editStudyForm
+          .get("ciclo_centro")
+          .setValue(estudio_grado.institution.uid);
+        this.editStudyForm
+          .get("ciclo_familia")
+          .setValue(estudio_grado.category.uid);
+        this.editStudyForm.get("ciclo_grado").setValue(estudio_grado.grade.uid);
+        this.ciclos = [estudio_grado.title];
+        this.editStudyForm.get("ciclo_ciclo").setValue(estudio_grado.title.uid);
+        this.editStudyForm
+          .get("ciclo_fecha")
+          .setValue(
+            formatDate(
+              moment(estudio_grado.date, "DD/MM/YYYY").toDate(),
+              "yyyy-MM-dd",
+              "en"
+            )
+          );
+        this.editStudyForm.get("ciclo_dual").setValue(estudio_grado.dual);
+        this.editStudyForm
+          .get("ciclo_bilingue")
+          .setValue(estudio_grado.bilingue);
       } else if (level == 2) {
         let estudio_universitario = this.study as CollegeStudy;
-        this.editStudyForm.get('universidad_centro').setValue( estudio_universitario.institution.name );
-        this.editStudyForm.get('universidad_titulo').setValue( estudio_universitario.title.name );
-        this.editStudyForm.get('universidad_fecha').setValue(  formatDate(moment( estudio_universitario.date, "DD/MM/YYYY").toDate(),  "yyyy-MM-dd", "en" ) );
-        this.editStudyForm.get('universidad_bilingue').setValue( estudio_universitario.bilingue );
+        this.editStudyForm
+          .get("universidad_centro")
+          .setValue(estudio_universitario.institution.name);
+        this.editStudyForm
+          .get("universidad_titulo")
+          .setValue(estudio_universitario.title.name);
+        this.editStudyForm
+          .get("universidad_fecha")
+          .setValue(
+            formatDate(
+              moment(estudio_universitario.date, "DD/MM/YYYY").toDate(),
+              "yyyy-MM-dd",
+              "en"
+            )
+          );
+        this.editStudyForm
+          .get("universidad_bilingue")
+          .setValue(estudio_universitario.bilingue);
       } else if (level == 3) {
-        this.editStudyForm.get('otro_titulo').setValue( this.study.title.name );
+        this.editStudyForm.get("otro_titulo").setValue(this.study.title.name);
       }
     }
     this.updateValidations(level);
@@ -148,23 +176,39 @@ export class EditStudiesComponent implements OnInit {
   }
 
   /** Actualiza las validaciones del formulario en función del tipo de estudios seleccionado */
-  updateValidations( level:number ) {
+  updateValidations(level: number) {
     Object.keys(this.editStudyForm.controls).forEach(key => {
       this.editStudyForm.controls[key].setValidators(null);
     });
     if (level == 2) {
       console.log("Universidad");
-      this.editStudyForm.get("universidad_centro").setValidators([Validators.required]);
-      this.editStudyForm.get("universidad_titulo").setValidators([Validators.required]);
-      this.editStudyForm.get("universidad_fecha").setValidators([Validators.required]);
+      this.editStudyForm
+        .get("universidad_centro")
+        .setValidators([Validators.required]);
+      this.editStudyForm
+        .get("universidad_titulo")
+        .setValidators([Validators.required]);
+      this.editStudyForm
+        .get("universidad_fecha")
+        .setValidators([Validators.required]);
     } else if (level == 1) {
       console.log("Cliclo");
       //Establecemos los campos que deben ser obligatorios
-      this.editStudyForm.get("ciclo_centro").setValidators([Validators.required]);
-      this.editStudyForm.get("ciclo_familia").setValidators([Validators.required]);
-      this.editStudyForm.get("ciclo_grado").setValidators([Validators.required]);
-      this.editStudyForm.get("ciclo_ciclo").setValidators([Validators.required]);
-      this.editStudyForm.get("ciclo_fecha").setValidators([Validators.required]);
+      this.editStudyForm
+        .get("ciclo_centro")
+        .setValidators([Validators.required]);
+      this.editStudyForm
+        .get("ciclo_familia")
+        .setValidators([Validators.required]);
+      this.editStudyForm
+        .get("ciclo_grado")
+        .setValidators([Validators.required]);
+      this.editStudyForm
+        .get("ciclo_ciclo")
+        .setValidators([Validators.required]);
+      this.editStudyForm
+        .get("ciclo_fecha")
+        .setValidators([Validators.required]);
     } else if (level == 3) {
       console.log("Otros");
       this.editStudyForm
@@ -183,7 +227,7 @@ export class EditStudiesComponent implements OnInit {
     this.isSubmitted = true;
     if (this.editStudyForm.valid) {
       let studies_to_backend: Study = this.componerEstudioToPersist();
-      console.log('Study que se va a enviar al backend: ');
+      console.log("Study que se va a enviar al backend: ");
       console.log(studies_to_backend);
       if (this.inEditMode()) {
         this.userService.editStudy(studies_to_backend).subscribe(data => {
@@ -253,14 +297,15 @@ export class EditStudiesComponent implements OnInit {
       ).format("DD/MM/YYYY");
       estudios_grado.bilingue = this.editStudyForm.get("ciclo_bilingue").value;
       estudios_grado.grade = this.tipos_grado.find(
-        t => (t.uid = this.editStudyForm.get("ciclo_grado").value)
+        t => t.uid == this.editStudyForm.get("ciclo_grado").value
       );
       estudios_grado.category = this.familias_profesionales.find(
-        t => (t.uid = this.editStudyForm.get("ciclo_familia").value)
+        t => t.uid == this.editStudyForm.get("ciclo_familia").value
       );
+
       estudios_grado.dual = this.editStudyForm.get("ciclo_dual").value;
       estudios_grado.institution = this.centros_educativos.find(
-        t => (t.uid = this.editStudyForm.get("ciclo_centro").value)
+        t => t.uid == this.editStudyForm.get("ciclo_centro").value
       );
       studies_to_backend = estudios_grado;
     }

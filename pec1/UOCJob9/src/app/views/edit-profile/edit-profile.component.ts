@@ -22,24 +22,34 @@ export class EditProfileComponent implements OnInit {
   //TODO: temporal hasta futuras practicas (donde estos datos vendrán del backend)
 
   provincias = [
-    { uid: 1, name: "Málaga", municipios : [
-      { uid: 7, name: "Estepona" },
-      { uid: 8, name: "Campanillas (PTA)" } ] 
+    {
+      uid: 1,
+      name: "Málaga",
+      municipios: [
+        { uid: 7, name: "Estepona" },
+        { uid: 8, name: "Campanillas (PTA)" }
+      ]
     },
-    { uid: 2, name: "Sevilla", municipios : [
-      { uid: 10, name: "Osuna" },
-      { uid: 11, name: "Mairena" } ] 
+    {
+      uid: 2,
+      name: "Sevilla",
+      municipios: [
+        { uid: 10, name: "Osuna" },
+        { uid: 11, name: "Mairena" }
+      ]
     },
-    { uid: 4, name: "Cádiz", municipios : [
-      { uid: 6, name: "Chiclana de la Frontera" },
-      { uid: 2, name: "San Fernando" } ] 
+    {
+      uid: 4,
+      name: "Cádiz",
+      municipios: [
+        { uid: 6, name: "Chiclana de la Frontera" },
+        { uid: 2, name: "San Fernando" }
+      ]
     },
-    { uid: 5, name: "Granada", municipios : [
-      { uid: 9, name: "Motril" } ] 
-    }
+    { uid: 5, name: "Granada", municipios: [{ uid: 9, name: "Motril" }] }
   ];
   municipios = [];
-  
+
   //TODO: en futuras practicas esto vendrá del backend
   tiposDocumentos = [
     { uid: 1, name: "NIF" },
@@ -75,14 +85,18 @@ export class EditProfileComponent implements OnInit {
         "YYYY-MM-DD"
       ).format("DD/MM/YYYY");
 
-      this.user.address.province = this.provincias.find(p => p.uid == this.editProfileForm.get('provincia').value);
-      this.user.address.municipe = this.municipios.find(p => p.uid == this.editProfileForm.get('municipio').value);
+      this.user.address.province = this.provincias.find(
+        p => p.uid == this.editProfileForm.get("provincia").value
+      );
+      this.user.address.municipe = this.municipios.find(
+        p => p.uid == this.editProfileForm.get("municipio").value
+      );
 
       this.user.aboutMe = this.editProfileForm.get("aboutMe").value;
       this.user.otherCompetences = this.editProfileForm.get(
         "otherCompetences"
       ).value;
-      
+
       this.user.documentNumber = this.editProfileForm.get(
         "documentNumber"
       ).value;
@@ -107,7 +121,9 @@ export class EditProfileComponent implements OnInit {
   createForm() {
     console.log("Creando el formulario de edición de perfil");
     //En primera instancia, cargaremos los municipios de la provincia actual del usuario
-    this.municipios = this.provincias.find(  p => p.uid == this.user.address.province.uid ).municipios;
+    this.municipios = this.provincias.find(
+      p => p.uid == this.user.address.province.uid
+    ).municipios;
     this.editProfileForm = this.fb.group(
       {
         name: [
@@ -142,8 +158,8 @@ export class EditProfileComponent implements OnInit {
         documentType: [this.user.documentType.uid, []],
         documentNumber: [this.user.documentNumber, []],
         address: [this.user.address.street, [Validators.required]],
-        provincia: [this.user.address.province.uid, []],
-        municipio: [this.user.address.municipe.uid, []],
+        provincia: [this.user.address.province.uid, [Validators.required]],
+        municipio: [this.user.address.municipe.uid, [Validators.required]],
         license: [
           this.user.license,
           [
@@ -167,9 +183,15 @@ export class EditProfileComponent implements OnInit {
 
   // Ante un cambio de la provincia en el formulario, debemos actualizar la lista de municipios
   changeProvincia(e) {
-    this.municipios = this.provincias.find(  p => p.uid == this.editProfileForm.get('provincia').value ).municipios;
+    if (!this.editProfileForm.get("provincia").value) {
+      this.municipios = [];
+    } else {
+      this.municipios = this.provincias.find(
+        p => p.uid == this.editProfileForm.get("provincia").value
+      ).municipios;
+    }
   }
-  
+
   //Getters para acceder a los diferentes campos en la vista más comodamente
   get name() {
     return this.editProfileForm.get("name");

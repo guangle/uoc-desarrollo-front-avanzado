@@ -26,11 +26,15 @@
           <!--univervidad-->
           <div class="fila-form">
             <label for="universidad_centro">Nombre del centro: </label>
-            <input type="text" formControlName="universidad_centro" />
+            <input type="text" formControlName="universidad_centro" size="30" />
           </div>
           <div class="fila-form validaciones" *ngIf="editStudyForm.dirty">
             <div
-              *ngIf=" universidad_centro.touched && universidad_centro.errors != null && universidad_centro.errors.required"
+              *ngIf="
+                universidad_centro.touched &&
+                universidad_centro.errors != null &&
+                universidad_centro.errors.required
+              "
             >
               El campo es obligatorio
             </div>
@@ -38,11 +42,15 @@
 
           <div class="fila-form">
             <label for="universidad_titulo">Título: </label>
-            <input type="text" formControlName="universidad_titulo" />
+            <input type="text" formControlName="universidad_titulo" size="30" />
           </div>
           <div class="fila-form validaciones" *ngIf="editStudyForm.dirty">
             <div
-              *ngIf=" universidad_titulo.touched && universidad_titulo.errors != null && universidad_titulo.errors.required"
+              *ngIf="
+                universidad_titulo.touched &&
+                universidad_titulo.errors != null &&
+                universidad_titulo.errors.required
+              "
             >
               El campo es obligatorio
             </div>
@@ -54,7 +62,11 @@
           </div>
           <div class="fila-form validaciones" *ngIf="editStudyForm.dirty">
             <div
-              *ngIf=" universidad_fecha.touched && universidad_fecha.errors != null && universidad_fecha.errors.required"
+              *ngIf="
+                universidad_fecha.touched &&
+                universidad_fecha.errors != null &&
+                universidad_fecha.errors.required
+              "
             >
               El campo es obligatorio
             </div>
@@ -78,11 +90,14 @@
                 t.name
               }}</option>
             </select>
-            
           </div>
           <div class="fila-form validaciones" *ngIf="editStudyForm.dirty">
             <div
-              *ngIf=" ciclo_centro.touched && ciclo_centro.errors != null && ciclo_centro.errors.required"
+              *ngIf="
+                ciclo_centro.touched &&
+                ciclo_centro.errors != null &&
+                ciclo_centro.errors.required
+              "
             >
               El campo es obligatorio
             </div>
@@ -100,10 +115,14 @@
               >
             </select>
           </div>
-          
+
           <div class="fila-form validaciones" *ngIf="editStudyForm.dirty">
             <div
-              *ngIf=" ciclo_familia.touched && ciclo_familia.errors != null && ciclo_familia.errors.required"
+              *ngIf="
+                ciclo_familia.touched &&
+                ciclo_familia.errors != null &&
+                ciclo_familia.errors.required
+              "
             >
               El campo es obligatorio
             </div>
@@ -123,7 +142,11 @@
 
           <div class="fila-form validaciones" *ngIf="editStudyForm.dirty">
             <div
-              *ngIf=" ciclo_grado.touched && ciclo_grado.errors != null && ciclo_grado.errors.required"
+              *ngIf="
+                ciclo_grado.touched &&
+                ciclo_grado.errors != null &&
+                ciclo_grado.errors.required
+              "
             >
               El campo es obligatorio
             </div>
@@ -140,7 +163,11 @@
 
           <div class="fila-form validaciones" *ngIf="editStudyForm.dirty">
             <div
-              *ngIf=" ciclo_ciclo.touched && ciclo_ciclo.errors != null && ciclo_ciclo.errors.required"
+              *ngIf="
+                ciclo_ciclo.touched &&
+                ciclo_ciclo.errors != null &&
+                ciclo_ciclo.errors.required
+              "
             >
               El campo es obligatorio
             </div>
@@ -152,7 +179,11 @@
           </div>
           <div class="fila-form validaciones" *ngIf="editStudyForm.dirty">
             <div
-              *ngIf=" ciclo_fecha.touched && ciclo_fecha.errors != null && ciclo_fecha.errors.required"
+              *ngIf="
+                ciclo_fecha.touched &&
+                ciclo_fecha.errors != null &&
+                ciclo_fecha.errors.required
+              "
             >
               El campo es obligatorio
             </div>
@@ -179,7 +210,11 @@
           </div>
           <div class="fila-form validaciones" *ngIf="editStudyForm.dirty">
             <div
-              *ngIf=" otro_titulo.touched && otro_titulo.errors != null && otro_titulo.errors.required"
+              *ngIf="
+                otro_titulo.touched &&
+                otro_titulo.errors != null &&
+                otro_titulo.errors.required
+              "
             >
               El campo es obligatorio
             </div>
