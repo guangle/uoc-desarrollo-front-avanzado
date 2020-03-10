@@ -47,20 +47,11 @@
   }
 }
 
-.row-header {
-  display: flex;
-  flex-direction: row;
-  width: 100%;
-  justify-content: space-between;
-}
+
 
 fieldset {
   border-width: 1px;
   border-radius: 20px;
   padding: 20px;
   border-color: #dddddd;
-}
-
-.validaciones {
-  color: tomato;
 }

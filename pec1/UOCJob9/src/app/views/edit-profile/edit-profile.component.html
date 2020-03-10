@@ -124,20 +124,19 @@
               formControlName="provincia"
             >
               <option value="">Seleccione provincia..</option>
-              <option *ngFor="let p of provincias" [ngValue]="p">{{
-                p
-              }}</option>
+              <option *ngFor="let p of provincias" [ngValue]="p.uid">
+                {{p.name}}
+              </option>
             </select>
           </div>
           <div class="fila-form-col">
             <label for="municipio">Municipio:</label>
             <select
-              (change)="changeMunicipio($event)"
               formControlName="municipio"
             >
               <option value="">Seleccione municipio..</option>
-              <option *ngFor="let m of municipios" [ngValue]="m">{{
-                m
+              <option *ngFor="let m of municipios" [ngValue]="m.uid">{{
+                m.name
               }}</option>
             </select>
           </div>

@@ -84,37 +84,6 @@ export class FakeBackendService implements InMemoryDbService {
           }
         ],
         offers: []
-        /*         experiences: [
-          {
-            id: 0,
-            eid: 0,
-            empresa: 'Suma',
-            date_incio: '1548320228',
-            date_fin: '1548320228',
-            puesto: 'Junior',
-            tareas: 'Desarrollador front-end'
-          },
-          {
-            id: 0,
-            eid: 1,
-            empresa: 'Indra',
-            date_incio: '1548320228',
-            date_fin: '1548320228',
-            puesto: 'Ingeniero',
-            tareas: 'Desarrollador back-end'
-          }
-        ],
-        languages: [
-          { id: 0, lid: 0, idioma: 'Inglés', nivel: 'B2', date: '30/06/2008' },
-          {
-            id: 0,
-            lid: 1,
-            idioma: 'Portugués',
-            nivel: 'A2',
-            date: '30/06/2013'
-          }
-        ]
-     */
       },
       {
         id: 2,
@@ -196,37 +165,6 @@ export class FakeBackendService implements InMemoryDbService {
           }
         ],
         offers: []
-        /*         experiences: [
-          {
-            id: 0,
-            eid: 0,
-            empresa: 'Suma',
-            date_incio: '1548320228',
-            date_fin: '1548320228',
-            puesto: 'Junior',
-            tareas: 'Desarrollador front-end'
-          },
-          {
-            id: 0,
-            eid: 1,
-            empresa: 'Indra',
-            date_incio: '1548320228',
-            date_fin: '1548320228',
-            puesto: 'Ingeniero',
-            tareas: 'Desarrollador back-end'
-          }
-        ],
-        languages: [
-          { id: 0, lid: 0, idioma: 'Inglés', nivel: 'B2', date: '30/06/2008' },
-          {
-            id: 0,
-            lid: 1,
-            idioma: 'Portugués',
-            nivel: 'A2',
-            date: '30/06/2013'
-          }
-        ]
-     */
       }
     ];
 
@@ -307,6 +245,44 @@ export class FakeBackendService implements InMemoryDbService {
         title: [{ uid: 6, name: "Empresariales" }]
       }
     ];
-    return { users, offers };
+
+    const companies : any[] = [
+      {
+        password: "1234",
+        id: 1,
+        username: "rrhh@fujitsu.es",
+      
+        nombre_comercial: "Fujitsu",
+        razon_social : "Fujitsu",
+        cif : "G17537499",
+        direccion : "Isla de la Cartuja",
+        provincia : { uid: 2, name: "Sevilla" },
+        municipio : { uid: 2, name: "Sevilla" },
+        url : "http://fujitu.es",
+      
+        contacto_nombre: "Eva Gonzalez Alonso",
+        contacto_telefono : 658770044,
+        contacto_mail : "rrhh@fujitsu.es"
+      },
+      {
+        password: "1234",
+        id: 2,
+        username: "rrhh@everis.es",
+      
+        nombre_comercial: "Everis",
+        razon_social : "Everis",
+        cif : "C75946657",
+        direccion : "Isla de la Cartuja",
+        provincia : { uid: 2, name: "Sevilla" },
+        municipio : { uid: 2, name: "Sevilla" },
+        url : "http://everis.es",
+      
+        contacto_nombre: "Cristina Nuñez Garrido",
+        contacto_telefono : 611447702,
+        contacto_mail : "rrhh@everis.es"
+      }
+    ];
+
+    return { users, offers, companies };
   }
 }

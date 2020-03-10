@@ -30,6 +30,12 @@ export const rootRouterConfig: Routes = [
     data: { title: "Signup" }
   },
   {
+    path: "notes",
+    loadChildren: () =>
+      import("./views/notes/notes.module").then(m => m.NotesModule),
+    data: { title: "Notas de la implementación" }
+  },
+  {
     path: "admin",
     /*  component: AdminLayoutComponent, */
     /* canActivate: [AuthGuard], */

@@ -23,6 +23,10 @@ export class EditLanguagesComponent implements OnInit {
   //identificador del lenguaje que se esta editando (si se trata de una edición)
   id_lang;
 
+  //Tal y como indica el enunciado, de momento inicializamos los arrays en los componentes
+  //aunque en un ejemplo real estos datos ddeberían venir del backend. En futuras practicas
+  //cuando el volumen de trabajo no sea tan elevado lo llevaré al memory-data-service
+
   posibles_lenguas = [
     { uid: 1, name: "Inglés" },
     { uid: 2, name: "Francés" },
@@ -55,9 +59,7 @@ export class EditLanguagesComponent implements OnInit {
     this.id_lang = this.route.snapshot.queryParams["id"];
 
     if (this.inEditMode()) {
-      console.log(
-        "Iniciamos la variable language porque estamos en una edicion"
-      );
+      console.log("Iniciamos la variable language porque estamos en una edicion");
       this.language = this.user.languages.find(l => l.uid == this.id_lang);
     }
     //Creamos - inicializamos el formulairo reacivo
@@ -66,22 +68,31 @@ export class EditLanguagesComponent implements OnInit {
 
   ngOnInit(): void {}
 
+  /** true si estamos editando un lenguaje, false si estamos creando un nuevo */
   inEditMode() {
     return (
       this.id_lang != null && this.id_lang != "" && this.id_lang != "undefined"
     );
   }
 
+  /* Crea e inicia el formulario reactivo de idioma */
   createForm() {
-    console.log("Creando el formulario de edición de perfil");
+    console.log("Creando el formulario de edición de idioma");
     const otroIdioma =
       this.language && this.language.name.uid == 5
         ? this.language.name.name
         : "";
+    //Creamos el form llamando al formbuilder. Le damos un valor por defecto si 
+    //estamos ante una edición
+
+    //Nota: al no estar definidas, hemos implementado las validaciones básicas (campos requeridos)
+    //Se podrían haber implementado validaciones más complejas como se ha realizado en el perfil
+    //de usuario o los estudios
+
     this.editLanguajeForm = this.fb.group({
-      name: [this.language ? this.language.name.uid : "-1", []],
+      name: [this.language ? this.language.name.uid : null, [ Validators.required ]],
       other: [otroIdioma, []],
-      level: [this.language ? this.language.level.uid : "-1", []],
+      level: [this.language ? this.language.level.uid : null, [ Validators.required ]],
       date: [
         this.language
           ? formatDate(
@@ -95,9 +106,11 @@ export class EditLanguagesComponent implements OnInit {
     });
   }
 
+  /* El usuario ha pulsado el boton submit, creamos/actualizamos el idioma */
   submitLanguaje() {
-    console.log("Submit del formulario de lenguaje..");
+    console.log("Submit del formulario de idioma");
     this.isSubmitted = true;
+    //Esto realmente es redundante, porque el boton no se activa mientras el formulario no sea válido
     if (this.editLanguajeForm.valid) {
       let name_submited: LanguageName;
       if (this.editLanguajeForm.get("name").value == 5) {
@@ -110,7 +123,7 @@ export class EditLanguagesComponent implements OnInit {
           l => l.uid == this.editLanguajeForm.get("name").value
         );
       }
-
+      //Objeto para enviar al backend
       let lang_object: Language = {
         uid: this.id_lang ? this.id_lang : this.user.languages.length + 1,
         level: this.niveles.find(

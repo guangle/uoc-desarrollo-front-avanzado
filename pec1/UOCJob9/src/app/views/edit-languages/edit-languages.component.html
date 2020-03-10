@@ -15,31 +15,52 @@
     <div id="colDatos">
       <form [formGroup]="editLanguajeForm" (ngSubmit)="submitLanguaje()">
         <div class="fila-form">
-          <label for="phone">Idioma: </label>
+          <label for="name">Idioma: </label>
           <select formControlName="name">
-            <option value="-1">Seleccione idioma..</option>
+            <option value="">Seleccione idioma..</option>
             <option *ngFor="let t of posibles_lenguas" [ngValue]="t.uid">{{
               t.name
             }}</option>
           </select>
         </div>
+
+        <div class="fila-form validaciones" *ngIf="editLanguajeForm.dirty">
+          <div  *ngIf="name.touched && name.errors != null &&  name.errors.required">
+            El campo es obligatorio
+          </div>
+        </div>
+
         <div class="fila-form" *ngIf="name.value == 5">
           <label for="other">Otra: </label>
           <input type="text" formControlName="other" />
         </div>
         <div class="fila-form">
-          <label for="phone">Nivel: </label>
+          <label for="level">Nivel: </label>
           <select formControlName="level">
-            <option value="-1">Seleccione nivel..</option>
+            <option value="">Seleccione nivel..</option>
             <option *ngFor="let t of niveles" [ngValue]="t.uid">{{
               t.name
             }}</option>
           </select>
         </div>
+
+        <div class="fila-form validaciones" *ngIf="editLanguajeForm.dirty">
+          <div  *ngIf="name.touched && level.errors != null &&  level.errors.required">
+            El nivel es obligatorio
+          </div>
+        </div>
+
         <div class="fila-form">
           <label for="date">Fecha:</label>
           <input type="date" formControlName="date" />
         </div>
+
+        <div class="fila-form validaciones" *ngIf="editLanguajeForm.dirty">
+          <div  *ngIf="date.touched && date.errors != null &&  date.errors.required">
+            La fecha es obligatoria
+          </div>
+        </div>
+
         <div class="fila-form contenedor-botones">
           <button [disabled]="!editLanguajeForm.valid" type="submit">
             Guardar

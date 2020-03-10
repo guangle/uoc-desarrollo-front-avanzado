@@ -19,10 +19,27 @@ export class EditProfileComponent implements OnInit {
   public user: User;
   public editProfileForm: FormGroup;
 
-  //TODO: temporal hasta futuras practicas (donde irán enlazadas prov y municipio)
-  // y procederan del backend
-  provincias = ["Cádiz", "Málaga"];
-  municipios = ["Chiclana de la Frontera", "Marbella"];
+  //TODO: temporal hasta futuras practicas (donde estos datos vendrán del backend)
+
+  provincias = [
+    { uid: 1, name: "Málaga", municipios : [
+      { uid: 7, name: "Estepona" },
+      { uid: 8, name: "Campanillas (PTA)" } ] 
+    },
+    { uid: 2, name: "Sevilla", municipios : [
+      { uid: 10, name: "Osuna" },
+      { uid: 11, name: "Mairena" } ] 
+    },
+    { uid: 4, name: "Cádiz", municipios : [
+      { uid: 6, name: "Chiclana de la Frontera" },
+      { uid: 2, name: "San Fernando" } ] 
+    },
+    { uid: 5, name: "Granada", municipios : [
+      { uid: 9, name: "Motril" } ] 
+    }
+  ];
+  municipios = [];
+  
   //TODO: en futuras practicas esto vendrá del backend
   tiposDocumentos = [
     { uid: 1, name: "NIF" },
@@ -43,9 +60,11 @@ export class EditProfileComponent implements OnInit {
 
   ngOnInit(): void {}
 
+  /** Actualiza el perfil del usuario llamando al backend */
   editProfile() {
     console.log("Edit profile: submit");
     if (this.editProfileForm.valid) {
+      //1. Actualizamos los datos del usuario con lo procedente del form
       this.user.name = this.editProfileForm.get("name").value;
       this.user.surname = this.editProfileForm.get("surname").value;
       this.user.phone = this.editProfileForm.get("phone").value;
@@ -55,18 +74,22 @@ export class EditProfileComponent implements OnInit {
         this.editProfileForm.get("birthdate").value,
         "YYYY-MM-DD"
       ).format("DD/MM/YYYY");
+
+      this.user.address.province = this.provincias.find(p => p.uid == this.editProfileForm.get('provincia').value);
+      this.user.address.municipe = this.municipios.find(p => p.uid == this.editProfileForm.get('municipio').value);
+
       this.user.aboutMe = this.editProfileForm.get("aboutMe").value;
       this.user.otherCompetences = this.editProfileForm.get(
         "otherCompetences"
       ).value;
-      this.user.license = this.editProfileForm.get("license").value;
-      this.user.address = this.editProfileForm.get("address").value;
+      
       this.user.documentNumber = this.editProfileForm.get(
         "documentNumber"
       ).value;
       this.user.documentType = this.tiposDocumentos.find(
         t => t.uid == this.editProfileForm.get("documentType").value
       );
+      //2. Realizo una llamada al servicio de negocio para actualizar el usuario en el back
       this.userService.updateUser(this.user).subscribe(newUser => {
         this.user = newUser;
         console.log("Usuario actualizado correctamente");
@@ -80,8 +103,11 @@ export class EditProfileComponent implements OnInit {
     }
   }
 
+  /** Crea un nuevo formulario reacitvo para editar el perfil de usuario */
   createForm() {
     console.log("Creando el formulario de edición de perfil");
+    //En primera instancia, cargaremos los municipios de la provincia actual del usuario
+    this.municipios = this.provincias.find(  p => p.uid == this.user.address.province.uid ).municipios;
     this.editProfileForm = this.fb.group(
       {
         name: [
@@ -116,8 +142,8 @@ export class EditProfileComponent implements OnInit {
         documentType: [this.user.documentType.uid, []],
         documentNumber: [this.user.documentNumber, []],
         address: [this.user.address.street, [Validators.required]],
-        provincia: [this.user.address.province.name, []],
-        municipio: [this.user.address.municipe.name, []],
+        provincia: [this.user.address.province.uid, []],
+        municipio: [this.user.address.municipe.uid, []],
         license: [
           this.user.license,
           [
@@ -137,28 +163,13 @@ export class EditProfileComponent implements OnInit {
       },
       { validator: NumeroIdentificacionValidator }
     );
-    /*
-    console.log(this.user.address.province.name);
-    this.editProfileForm.controls["provincia"].setValue(
-      this.user.address.province.name,
-      { onlySelf: true }
-    );
-    */
   }
 
+  // Ante un cambio de la provincia en el formulario, debemos actualizar la lista de municipios
   changeProvincia(e) {
-    /*
-    this.cityName.setValue(e.target.value, {
-      onlySelf: true
-    })
-    */
-    console.log("-->");
-    console.log(e.target.value);
-    //this.municipios = ["Antequera"];
+    this.municipios = this.provincias.find(  p => p.uid == this.editProfileForm.get('provincia').value ).municipios;
   }
-
-  changeMunicipio(e) {}
-
+  
   //Getters para acceder a los diferentes campos en la vista más comodamente
   get name() {
     return this.editProfileForm.get("name");

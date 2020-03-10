@@ -4,6 +4,8 @@ import { Observable, throwError } from "rxjs";
 import { tap, catchError, map } from "rxjs/operators";
 import { User } from "../models/user.model";
 import { Offer } from "../models/offer.model";
+import { Company } from '../models/company.model';
+
 
 @Injectable({
   providedIn: "root"
@@ -15,6 +17,8 @@ import { Offer } from "../models/offer.model";
 export class DataService {
   apiurl_users = "api/users";
   apiurl_offers = "api/offers";
+  apiurl_companies = "api/companies";
+
   headers = new HttpHeaders()
     .set("Content-Type", "application/json")
     .set("Accept", "application/json");
@@ -74,4 +78,38 @@ export class DataService {
     const url = `${this.apiurl_offers}/${id}`;
     return this.http.get<Offer>(url).pipe(catchError(this.handleError));
   }
+
+  //CRUD de companies: No sé si me va a dar tiempo a implementar esta parte dada la magnitud de la práctica
+
+  getCompanies(): Observable<Company[]> {
+    return this.http.get<Company[]>(this.apiurl_companies).pipe(
+      tap(data => console.log(data)),
+      catchError(this.handleError)
+    );
+  }
+
+
+  getCompany(id: number): Observable<Company> {
+    const url = `${this.apiurl_companies}/${id}`;
+    return this.http.get<Company>(url).pipe(catchError(this.handleError));
+  }
+
+  addCompany(user: Company): Observable<Company> {
+    user.id = null;
+    return this.http.post<Company>(this.apiurl_companies, user, this.httpOptions).pipe(
+      tap(data => console.log(data)),
+      catchError(this.handleError)
+    );
+  }
+
+
+  updateCompany(user: Company): Observable<Company> {
+    const url = `${this.apiurl_companies}/${user.id}`;
+    return this.http.put<Company>(this.apiurl_companies, user, this.httpOptions).pipe(
+      map(() => user),
+      catchError(this.handleError)
+    );
+  }
+
+
 }
