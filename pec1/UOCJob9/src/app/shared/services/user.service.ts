@@ -38,7 +38,7 @@ export class UserService {
   /** Actualiza el usuario con los nuevos datos tras la edicion del perfil*/
   updateUser(user: User): Observable<User> {
     //actualizamos el usuario
-    this.user = user;
+    this._user = user;
     //llamamos al backend para persistir en BBDD
     return this.dataservice.updateUser(this.user);
   }

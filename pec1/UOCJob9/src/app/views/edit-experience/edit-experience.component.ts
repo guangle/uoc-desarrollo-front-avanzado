@@ -65,7 +65,7 @@ export class EditExperienceComponent implements OnInit {
     console.log("Creando el formulario de edición de experiencia");
 
     this.editExperienceForm = this.fb.group({
-      empresa: [this.experience.empresa, [Validators.required, Validators.minLength(3),Validators.maxLength(55)]],
+      empresa: [this.experience.empresa, [Validators.required, Validators.minLength(3),Validators.maxLength(255), EspaciosValidator]],
       date_inicio: [
         this.experience.date_inicio
           ? formatDate(
@@ -86,8 +86,8 @@ export class EditExperienceComponent implements OnInit {
           : null,
         [Validators.required]
       ],
-      puesto: [this.experience.puesto, [Validators.required,Validators.minLength(3),Validators.maxLength(55)]],
-      tareas: [this.experience.tareas, [Validators.required, Validators.minLength(30),Validators.maxLength(300)]]
+      puesto: [this.experience.puesto, [Validators.required,Validators.minLength(3),Validators.maxLength(255), EspaciosValidator]],
+      tareas: [this.experience.tareas, [Validators.required, Validators.minLength(30),Validators.maxLength(500)]]
     });
   }
 

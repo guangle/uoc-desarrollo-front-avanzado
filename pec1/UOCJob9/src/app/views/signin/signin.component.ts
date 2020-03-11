@@ -5,6 +5,7 @@ import { Router } from "@angular/router";
 
 import { DataService } from "../../shared/services/data.service";
 import { UserService } from "../../shared/services/user.service";
+import { CompanyService } from '../../shared/services/company.service';
 
 @Component({
   selector: "app-signin",
@@ -20,7 +21,8 @@ export class SigninComponent implements OnInit {
     private fb: FormBuilder,
     private router: Router,
     private dataservice: DataService,
-    private userService: UserService
+    private userService: UserService,
+    private companyService : CompanyService
   ) {
     this.createForm();
   }
@@ -79,15 +81,42 @@ export class SigninComponent implements OnInit {
             this.userService.userName = data[0].username;
             //El backend debería devolvernos un token, por ahora lo inventamos
             this.userService.token = this.randomStr(20);
+            
             this.router.navigate(["/admin/dashboard"]);
+
           } else {
-            this.mensaje = "No se ha podido realizar el login en la aplicación";
+            //No se ha podido haer el login de usuario ¿es una empresa? intentamos con empresa
+            this.tryLoginCompany( 
+              this.loginForm.get("email").value,
+              this.loginForm.get("password").value 
+            );
           }
         });
     } else {
       console.log("El formulario no es válido, no realizamos el login");
       this.mensaje = "El formulario no es válido, no realizamos el login";
     }
+  }
+
+  tryLoginCompany(mail:string, password:string) {
+
+    this.companyService.login(mail, password).subscribe(data => {
+      console.log("Se ha realizado el login contra el backend para intentar identificar a una empresa");
+      console.log(data);
+      if (data != null && data.length == 1) {
+        this.companyService.company = data[0];
+        this.companyService.companyName = data[0].nombre_comercial;
+        //El backend debería devolvernos un token, por ahora lo inventamos
+        this.userService.token = this.randomStr(20);
+        
+        this.router.navigate(["/companies/dashboard-company"]);
+
+      } else {
+        this.mensaje = "No se ha podido realizar el login en la aplicación";
+      }
+    });
+
+    
   }
 
   //Getters para acceder a los diferentes campos en la vista más comodamente

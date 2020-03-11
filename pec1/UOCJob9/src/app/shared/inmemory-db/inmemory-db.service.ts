@@ -251,6 +251,7 @@ export class FakeBackendService implements InMemoryDbService {
         password: "1234",
         id: 1,
         username: "rrhh@fujitsu.es",
+        email: "rrhh@fujitsu.es",
 
         nombre_comercial: "Fujitsu",
         razon_social: "Fujitsu",
@@ -262,12 +263,15 @@ export class FakeBackendService implements InMemoryDbService {
 
         contacto_nombre: "Eva Gonzalez Alonso",
         contacto_telefono: 658770044,
-        contacto_mail: "rrhh@fujitsu.es"
+        contacto_mail: "rrhh@fujitsu.es",
+
+        idioma_app : { uid: 6, name: "Castellano" }
       },
       {
         password: "1234",
         id: 2,
         username: "rrhh@everis.es",
+        email: "rrhh@everis.es",
 
         nombre_comercial: "Everis",
         razon_social: "Everis",
@@ -279,7 +283,9 @@ export class FakeBackendService implements InMemoryDbService {
 
         contacto_nombre: "Cristina Nuñez Garrido",
         contacto_telefono: 611447702,
-        contacto_mail: "rrhh@everis.es"
+        contacto_mail: "rrhh@everis.es",
+
+        idioma_app : { uid: 6, name: "Castellano" }
       }
     ];
 

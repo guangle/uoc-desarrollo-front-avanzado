@@ -1,0 +1,31 @@
+<div class="contenedor">
+  <div class="row-header">
+    <h1 >
+      Configuración de la aplicación
+    </h1>
+    <a [routerLink]="['/companies/dashboard-company']">
+      Volver al dashboard
+    </a>
+  </div>
+
+  <div id="contenidoFormulario">
+    <div id="colDatos">
+      <form [formGroup]="configurationForm" (ngSubmit)="submitConfiguration()">
+        <div class="fila-form">
+          <label for="language">Idioma: </label>
+          <select formControlName="language">
+            <option *ngFor="let t of idiomas" [ngValue]="t.uid">{{
+              t.name
+            }}</option>
+          </select>
+        </div>
+
+        <div class="fila-form contenedor-botones">
+          <button [disabled]="!configurationForm.valid" type="submit">
+            Guardar
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

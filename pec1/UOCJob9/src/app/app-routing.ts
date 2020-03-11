@@ -106,6 +106,44 @@ export const rootRouterConfig: Routes = [
     ]
   },
   {
+    path: "companies",
+    children: [
+      {
+        path: "dashboard-company",
+        loadChildren: () =>
+          import("./views/dashboard-company/dashboard-company.module").then(
+            m => m.DashboardCompanyModule
+          ),
+        data: { title: "Dashboard", breadcrumb: "DASHBOARD" }
+      },
+      //Imposible llegar!
+      /*
+      {
+        path: "edit-profile",
+        loadChildren: () =>
+          import("./views/edit-profile/edit-profile.module").then(
+            m => m.EditProfileModule
+          ),
+        data: { title: "Material", breadcrumb: "MATERIAL" }
+      },
+      {
+        path: "offers",
+        loadChildren: () =>
+          import("./views/offers/offers.module").then(m => m.OffersModule),
+        data: { title: "Offers", breadcrumb: "Offers" }
+      }
+      */
+      {
+        path: "configuration",
+        loadChildren: () =>
+          import("./views/company-configuration/company-configuration.module").then(
+            m => m.CompanyConfigurationComponentModule
+          ),
+        data: { title: "Material", breadcrumb: "MATERIAL" }
+      },
+    ]
+  },
+  {
     path: "**",
     redirectTo: "sessions/404"
   }

@@ -27,7 +27,10 @@
             El nombre de la empresa debe tener al menos 3 caracteres
           </div>
           <div *ngIf=" empresa.touched && empresa.errors != null && empresa.errors.maxlength" >
-            El nombre de la empresa no puede superar los 55 caracteres
+            El nombre de la empresa no puede superar los 255 caracteres
+          </div>
+          <div *ngIf="empresa.touched && empresa.errors != null && empresa.errors.espacio">
+            El nombre de la empresano puede empezar o terminar con un espacio en blanco
           </div>
         </div>
 
@@ -68,7 +71,10 @@
             El puesto debe tener al menos 3 caracteres
           </div>
           <div *ngIf=" puesto.touched && puesto.errors != null && puesto.errors.maxlength" >
-            El puesto no puede superar los 55 caracteres
+            El puesto no puede superar los 255 caracteres
+          </div>
+          <div *ngIf="puesto.touched && puesto.errors != null && puesto.errors.espacio">
+            El puesto no puede empezar o terminar con un espacio en blanco
           </div>
         </div>
 
@@ -85,7 +91,7 @@
             La descripción de las tareas debe tener al menos 30 caracteres
           </div>
           <div *ngIf=" tareas.touched && tareas.errors != null && tareas.errors.maxlength" >
-            La descripción de las tareas no puede superar los 55 caracteres
+            La descripción de las tareas no puede superar los 500 caracteres
           </div>
         </div>
 
