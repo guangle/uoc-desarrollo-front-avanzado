@@ -1,0 +1,232 @@
+<div class="contenedor">
+  <div class="row-header">
+    <h1>
+      Editar Perfil
+    </h1>
+    <a [routerLink]="['/companies/dashboard-company']">
+      Volver al dashboard
+    </a>
+  </div>
+
+  <div id="contenidoFormulario">
+    <div id="colFoto">
+      <img
+        src="assets/logo_empresa.png"
+        alt="Empresa logo"
+        height="150px"
+        width="150px"
+        onclick="alert('Subir documento - pendiente');"
+      />
+      <span id="profile_name"> {{ company.nombre_comercial }}</span>
+    </div>
+
+    <div id="colDatos">
+      <form
+        [formGroup]="editProfileCompanyForm"
+        (ngSubmit)="editProfileCompany()"
+      >
+        <div class="fila-form">
+          <label for="address">Nombre comercial: </label>
+          <input type="text" size="80" formControlName="nombre_comercial" />
+        </div>
+        <div
+          class="fila-form validaciones"
+          *ngIf="editProfileCompanyForm.dirty"
+        >
+          <div
+            *ngIf="
+              nombre_comercial.errors != null &&
+              nombre_comercial.errors.required
+            "
+          >
+            El nombre comercial es obligatorio
+          </div>
+          <div
+            *ngIf="
+              nombre_comercial.errors != null &&
+              nombre_comercial.errors.minlength
+            "
+          >
+            El nombre debe tener al menos 3 caracteres
+          </div>
+          <div
+            *ngIf="
+              nombre_comercial.errors != null &&
+              nombre_comercial.errors.maxlength
+            "
+          >
+            El nombre no puede tener mas de 255 caracteres
+          </div>
+          <div
+            *ngIf="
+              nombre_comercial.errors != null && nombre_comercial.errors.espacio
+            "
+          >
+            El nombre no puede empezar o terminar con un espacio en blanco
+          </div>
+        </div>
+
+        <div class="fila-form">
+          <label for="razon_social">Razón social: </label>
+          <input type="text" size="80" formControlName="razon_social" />
+        </div>
+        <div
+          class="fila-form validaciones"
+          *ngIf="editProfileCompanyForm.dirty"
+        >
+          <div
+            *ngIf="razon_social.errors != null && razon_social.errors.required"
+          >
+            La razón social es obligatoria
+          </div>
+          <div
+            *ngIf="razon_social.errors != null && razon_social.errors.minlength"
+          >
+            La razón social debe tener al menos 3 caracteres
+          </div>
+          <div
+            *ngIf="razon_social.errors != null && razon_social.errors.maxlength"
+          >
+            La razón social no puede tener mas de 255 caracteres
+          </div>
+          <div
+            *ngIf="razon_social.errors != null && razon_social.errors.espacio"
+          >
+            La razón social no puede empezar o terminar con un espacio en blanco
+          </div>
+        </div>
+
+        <div class="fila-form">
+          <div class="fila-form-col">
+            <label for="cif">CIF</label>
+            <input type="text" formControlName="cif" />
+          </div>
+        </div>
+
+        <div class="fila-form">
+          <label for="direccion">Dirección: </label>
+          <input type="text" size="50" formControlName="direccion" />
+        </div>
+        <div
+          class="fila-form validaciones"
+          *ngIf="editProfileCompanyForm.dirty"
+        >
+          <div *ngIf="direccion.errors != null && direccion.errors.required">
+            La dirección es obligatoria
+          </div>
+        </div>
+
+        <div class="fila-form">
+          <div class="fila-form-col">
+            <label for="provincia">Provincia:</label>
+            <select
+              (change)="changeProvincia($event)"
+              formControlName="provincia"
+            >
+              <option value="">Seleccione provincia..</option>
+              <option *ngFor="let p of provincias" [ngValue]="p.uid">
+                {{ p.name }}
+              </option>
+            </select>
+          </div>
+          <div class="fila-form-col">
+            <label for="municipio">Municipio:</label>
+            <select formControlName="municipio">
+              <option value="">Seleccione municipio..</option>
+              <option *ngFor="let m of municipios" [ngValue]="m.uid">{{
+                m.name
+              }}</option>
+            </select>
+          </div>
+        </div>
+
+        <div
+          class="fila-form validaciones"
+          *ngIf="editProfileCompanyForm.dirty"
+        >
+          <div class="fila-form-col">
+            <div *ngIf="provincia.errors != null && provincia.errors.required">
+              La provincia es obligatoria
+            </div>
+          </div>
+          <div class="fila-form-col">
+            <div *ngIf="municipio.errors != null && municipio.errors.required">
+              El municipio es obligatorio
+            </div>
+          </div>
+        </div>
+
+        <div class="fila-form">
+          <label for="url">Url: </label>
+          <input type="text" size="80" formControlName="url" />
+        </div>
+        <div
+          class="fila-form validaciones"
+          *ngIf="editProfileCompanyForm.dirty"
+        >
+          <div *ngIf="url.errors != null && url.errors.required">
+            La url es obligatoria
+          </div>
+        </div>
+
+        <div class="fila-form">
+          <label for="contacto_nombre"
+            >Nombre de la persona de contacto:
+          </label>
+          <input type="text" size="80" formControlName="contacto_nombre" />
+        </div>
+        <div
+          class="fila-form validaciones"
+          *ngIf="editProfileCompanyForm.dirty"
+        >
+          <div
+            *ngIf="
+              contacto_nombre.errors != null && contacto_nombre.errors.required
+            "
+          >
+            El nombre de la persona de contacto es obligatoria
+          </div>
+        </div>
+
+        <div class="fila-form">
+          <label for="contacto_telefono">Teléfono de contacto: </label>
+          <input type="text" size="80" formControlName="contacto_telefono" />
+        </div>
+        <div
+          class="fila-form validaciones"
+          *ngIf="editProfileCompanyForm.dirty"
+        >
+          <div
+            *ngIf="
+              contacto_telefono.errors != null &&
+              contacto_telefono.errors.required
+            "
+          >
+            El teléfono de contacto es obligatorio
+          </div>
+        </div>
+
+        <div class="fila-form">
+          <label for="contacto_mail">Email de contacto: </label>
+          <input type="text" size="80" formControlName="contacto_mail" />
+        </div>
+        <div
+          class="fila-form validaciones"
+          *ngIf="editProfileCompanyForm.dirty"
+        >
+          <div
+            *ngIf="
+              contacto_mail.errors != null && contacto_mail.errors.required
+            "
+          >
+            El email de contacto es obligatorio
+          </div>
+        </div>
+
+        <div class="fila-form contenedor-botones">
+          <button type="submit">Guardar</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

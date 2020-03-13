@@ -116,16 +116,16 @@ export const rootRouterConfig: Routes = [
           ),
         data: { title: "Dashboard", breadcrumb: "DASHBOARD" }
       },
-      //Imposible llegar!
-      /*
       {
         path: "edit-profile",
         loadChildren: () =>
-          import("./views/edit-profile/edit-profile.module").then(
-            m => m.EditProfileModule
-          ),
+          import(
+            "./views/edit-profile-company/edit-profile-company.module"
+          ).then(m => m.EditProfileCompanyModule),
         data: { title: "Material", breadcrumb: "MATERIAL" }
       },
+      //Imposible llegar!
+      /*
       {
         path: "offers",
         loadChildren: () =>
@@ -136,11 +136,11 @@ export const rootRouterConfig: Routes = [
       {
         path: "configuration",
         loadChildren: () =>
-          import("./views/company-configuration/company-configuration.module").then(
-            m => m.CompanyConfigurationComponentModule
-          ),
+          import(
+            "./views/company-configuration/company-configuration.module"
+          ).then(m => m.CompanyConfigurationComponentModule),
         data: { title: "Material", breadcrumb: "MATERIAL" }
-      },
+      }
     ]
   },
   {

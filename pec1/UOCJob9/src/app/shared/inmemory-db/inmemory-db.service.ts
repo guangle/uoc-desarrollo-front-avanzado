@@ -256,16 +256,19 @@ export class FakeBackendService implements InMemoryDbService {
         nombre_comercial: "Fujitsu",
         razon_social: "Fujitsu",
         cif: "G17537499",
-        direccion: "Isla de la Cartuja",
-        provincia: { uid: 2, name: "Sevilla" },
-        municipio: { uid: 2, name: "Sevilla" },
+        direccion: {
+          street: "Isla de la Cartuja",
+          province: { uid: 2, name: "Sevilla" },
+          municipe: { uid: 2, name: "Sevilla" }
+        },
         url: "http://fujitu.es",
+        contacto: {
+          contacto_nombre: "Eva Gonzalez Alonso",
+          contacto_telefono: 658770044,
+          contacto_mail: "rrhh@fujitsu.es"
+        },
 
-        contacto_nombre: "Eva Gonzalez Alonso",
-        contacto_telefono: 658770044,
-        contacto_mail: "rrhh@fujitsu.es",
-
-        idioma_app : { uid: 6, name: "Castellano" }
+        idioma_app: { uid: 6, name: "Castellano" }
       },
       {
         password: "1234",
@@ -276,16 +279,19 @@ export class FakeBackendService implements InMemoryDbService {
         nombre_comercial: "Everis",
         razon_social: "Everis",
         cif: "C75946657",
-        direccion: "Isla de la Cartuja",
-        provincia: { uid: 2, name: "Sevilla" },
-        municipio: { uid: 2, name: "Sevilla" },
+        direccion: {
+          street: "Isla de la Cartuja",
+          province: { uid: 2, name: "Sevilla" },
+          municipe: { uid: 2, name: "Sevilla" }
+        },
         url: "http://everis.es",
+        contacto: {
+          contacto_nombre: "Cristina Nuñez Garrido",
+          contacto_telefono: 611447702,
+          contacto_mail: "rrhh@everis.es"
+        },
 
-        contacto_nombre: "Cristina Nuñez Garrido",
-        contacto_telefono: 611447702,
-        contacto_mail: "rrhh@everis.es",
-
-        idioma_app : { uid: 6, name: "Castellano" }
+        idioma_app: { uid: 6, name: "Castellano" }
       }
     ];
 

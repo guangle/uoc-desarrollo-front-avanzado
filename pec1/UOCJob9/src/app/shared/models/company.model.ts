@@ -1,5 +1,5 @@
-import { Province, Municipe } from './user.model';
-import { Language, LanguageName } from './language.model';
+import { Province, Municipe, UserAddress } from "./user.model";
+import { Language, LanguageName } from "./language.model";
 
 export interface Company {
   password: string; // Only for mock
@@ -8,17 +8,18 @@ export interface Company {
   email: string;
 
   nombre_comercial: string;
-  razon_social : string;
-  cif : string;
-  direccion : string;
-  provincia : Province;
-  municipio : Municipe;
-  url : string;
+  razon_social: string;
+  cif: string;
+  direccion: UserAddress;
+  url: string;
 
+  contacto: ContactoEmpresa;
+
+  idioma_app: LanguageName;
+}
+
+export interface ContactoEmpresa {
   contacto_nombre: string;
-  contacto_telefono : number;
-  contacto_mail : string
-
-  idioma_app : LanguageName
-
+  contacto_telefono: number;
+  contacto_mail: string;
 }
