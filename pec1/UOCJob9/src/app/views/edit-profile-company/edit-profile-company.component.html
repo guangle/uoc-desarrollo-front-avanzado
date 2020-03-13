@@ -167,6 +167,9 @@
           <div *ngIf="url.errors != null && url.errors.required">
             La url es obligatoria
           </div>
+          <div *ngIf="url.errors != null && url.errors.pattern">
+            La url no es correcta
+          </div>
         </div>
 
         <div class="fila-form">
@@ -185,6 +188,27 @@
             "
           >
             El nombre de la persona de contacto es obligatoria
+          </div>
+          <div
+            *ngIf="
+              contacto_nombre.errors != null && contacto_nombre.errors.minlength
+            "
+          >
+            El nombre debe tener al menos 3 caracteres
+          </div>
+          <div
+            *ngIf="
+              contacto_nombre.errors != null && contacto_nombre.errors.maxlength
+            "
+          >
+            El nombre no puede tener mas de 255 caracteres
+          </div>
+          <div
+            *ngIf="
+              contacto_nombre.errors != null && contacto_nombre.errors.espacio
+            "
+          >
+            El nombre no puede empezar o terminar con un espacio en blanco
           </div>
         </div>
 
@@ -221,10 +245,17 @@
           >
             El email de contacto es obligatorio
           </div>
+          <div
+            *ngIf="contacto_mail.errors != null && contacto_mail.errors.email"
+          >
+            El email no tiene un formato válido
+          </div>
         </div>
 
         <div class="fila-form contenedor-botones">
-          <button type="submit">Guardar</button>
+          <button type="submit" [disabled]="!editProfileCompanyForm.valid">
+            Guardar
+          </button>
         </div>
       </form>
     </div>

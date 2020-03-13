@@ -118,9 +118,9 @@ export class EditProfileCompanyComponent implements OnInit {
       p => p.uid == this.company.direccion.province.uid
     ).municipios;
 
-    console.log(this.municipios);
-    console.log("..");
-    console.log(this.company.direccion);
+    //Expresion regular para validar la url
+    const urlRegExp =
+      "^(http://www.|https://www.|http://|https://)?[a-z0-9]+([-.]{1}[a-z0-9]+)*.[a-z]{2,5}(:[0-9]{1,5})?(/.*)?$";
 
     this.editProfileCompanyForm = this.fb.group({
       nombre_comercial: [
@@ -146,18 +146,31 @@ export class EditProfileCompanyComponent implements OnInit {
       provincia: [this.company.direccion.province.uid, [Validators.required]],
       municipio: [this.company.direccion.municipe.uid, [Validators.required]],
 
-      url: [this.company.url, [Validators.required]],
+      url: [
+        this.company.url,
+        [Validators.required, Validators.pattern(urlRegExp)]
+      ],
       contacto_nombre: [
         this.company.contacto.contacto_nombre,
-        [Validators.required]
+        [
+          Validators.required,
+          Validators.minLength(3),
+          Validators.maxLength(255),
+          EspaciosValidator
+        ]
       ],
       contacto_telefono: [
         this.company.contacto.contacto_telefono,
-        [Validators.required]
+        [
+          Validators.required
+        ]
       ],
       contacto_mail: [
         this.company.contacto.contacto_mail,
-        [Validators.required]
+        [
+          Validators.required,
+          Validators.email
+        ]
       ]
     });
   }
