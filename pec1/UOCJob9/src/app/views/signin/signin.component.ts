@@ -5,7 +5,7 @@ import { Router } from "@angular/router";
 
 import { DataService } from "../../shared/services/data.service";
 import { UserService } from "../../shared/services/user.service";
-import { CompanyService } from '../../shared/services/company.service';
+import { CompanyService } from "../../shared/services/company.service";
 
 @Component({
   selector: "app-signin",
@@ -22,7 +22,7 @@ export class SigninComponent implements OnInit {
     private router: Router,
     private dataservice: DataService,
     private userService: UserService,
-    private companyService : CompanyService
+    private companyService: CompanyService
   ) {
     this.createForm();
   }
@@ -81,14 +81,13 @@ export class SigninComponent implements OnInit {
             this.userService.userName = data[0].username;
             //El backend debería devolvernos un token, por ahora lo inventamos
             this.userService.token = this.randomStr(20);
-            
-            this.router.navigate(["/admin/dashboard"]);
 
+            this.router.navigate(["/admin/dashboard"]);
           } else {
             //No se ha podido haer el login de usuario ¿es una empresa? intentamos con empresa
-            this.tryLoginCompany( 
+            this.tryLoginCompany(
               this.loginForm.get("email").value,
-              this.loginForm.get("password").value 
+              this.loginForm.get("password").value
             );
           }
         });
@@ -98,25 +97,26 @@ export class SigninComponent implements OnInit {
     }
   }
 
-  tryLoginCompany(mail:string, password:string) {
-
+  /*  Método que se ejecuta tas el login fallido contra la BBDD de usuario. Intenta realizar un login
+  contra el conjunto de empresas. De esta forma, reaprovechamos la pantalla de login para autenticar
+  a estudiantes y compañias */
+  tryLoginCompany(mail: string, password: string) {
     this.companyService.login(mail, password).subscribe(data => {
-      console.log("Se ha realizado el login contra el backend para intentar identificar a una empresa");
+      console.log(
+        "Se ha realizado el login contra el backend para intentar identificar a una empresa"
+      );
       console.log(data);
       if (data != null && data.length == 1) {
         this.companyService.company = data[0];
         this.companyService.companyName = data[0].nombre_comercial;
         //El backend debería devolvernos un token, por ahora lo inventamos
         this.userService.token = this.randomStr(20);
-        
-        this.router.navigate(["/companies/dashboard-company"]);
 
+        this.router.navigate(["/companies/dashboard-company"]);
       } else {
         this.mensaje = "No se ha podido realizar el login en la aplicación";
       }
     });
-
-    
   }
 
   //Getters para acceder a los diferentes campos en la vista más comodamente

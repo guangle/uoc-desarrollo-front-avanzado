@@ -25,6 +25,7 @@ export class ProfileComponent implements OnInit {
     });
   }
 
+  /** Elimina el estudio del usuario cuyo id se pasa como parametro  */
   deleteStudies(id) {
     console.log("Se va a borrar la formacion del usuario con id: " + id);
     this.userService.deleteStudies(id).subscribe(data => {
@@ -33,6 +34,7 @@ export class ProfileComponent implements OnInit {
     });
   }
 
+  /** Elimina la experiencia del usuario cuyo id se pasa como parametro */
   deleteExperience(id) {
     console.log("Se va a borrar la experiecia del usuario con id: " + id);
     this.userService.deleteExperience(id).subscribe(data => {

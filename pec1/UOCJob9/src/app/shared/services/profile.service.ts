@@ -1,78 +1,82 @@
-import { Injectable } from '@angular/core';
-import { AppSettings } from '../app.settings';
+import { Injectable } from "@angular/core";
+import { AppSettings } from "../app.settings";
 /* import { UserOptions } from '../models/user'; */
-import { HttpClient } from '@angular/common/http';
-import { of, Observable } from 'rxjs';
+import { HttpClient } from "@angular/common/http";
+import { of, Observable } from "rxjs";
 /* import { AppStore } from '../states/store.inteface';
 import { Store } from '@ngrx/store';
 import * as UserActions from 'app/shared/states/user/actions';
 import { User } from 'app/shared/models/user'; */
 
+//Nota: no hemos usado este servicio que venía en el código de la pec,
+//la gestión de usuarios, empresas y comunicación con el backend
+//esta en UserService, CompanyService y DataService
+
 @Injectable()
 export class ProfileService {
   private mockUser = {
-    uid: 'ajvazquez',
-    name: 'Antonio Jesús',
-    surname: 'Vázquez Muñoz',
-    email: 'antoniojesusvazquezmunozz@gmail.com',
+    uid: "ajvazquez",
+    name: "Antonio Jesús",
+    surname: "Vázquez Muñoz",
+    email: "antoniojesusvazquezmunozz@gmail.com",
     roles: [AppSettings.COMPANY_ROL.value],
-    avatar_hash: 'ef72d0e94ba5015d64de8522d845cfd2',
+    avatar_hash: "ef72d0e94ba5015d64de8522d845cfd2",
     parents: [],
     childrens: [],
     hasFailed: false,
     studies: {
-      action: 'SHOW',
+      action: "SHOW",
       entities: [
         {
           uid: 0,
-          level: 'Ciclo formativo',
-          title: 'Desarrollo de aplicaciones web',
-          institution: 'IES Politécnico Jesús Marin',
-          date: '1548320228',
+          level: "Ciclo formativo",
+          title: "Desarrollo de aplicaciones web",
+          institution: "IES Politécnico Jesús Marin",
+          date: "1548320228",
           certificate: false
         },
         {
           uid: 1,
-          level: 'Ciclo formativo',
-          title: 'Administracion de sistemas informaticos y redes',
-          institution: 'IES Politécnico Jesús Marin',
-          date: '1397293028',
+          level: "Ciclo formativo",
+          title: "Administracion de sistemas informaticos y redes",
+          institution: "IES Politécnico Jesús Marin",
+          date: "1397293028",
           certificate: true
         }
       ]
     },
     experiences: {
-      action: 'SHOW',
+      action: "SHOW",
       entities: [
         {
           uid: 0,
-          company: 'Suma',
-          position: 'Junior',
-          date: '1548320228'
+          company: "Suma",
+          position: "Junior",
+          date: "1548320228"
         },
         {
           uid: 0,
-          company: 'Indra',
-          position: 'engineer',
-          date: '1548320228'
+          company: "Indra",
+          position: "engineer",
+          date: "1548320228"
         }
       ]
     },
 
     languages: {
-      action: 'SHOW',
+      action: "SHOW",
       entities: [
         {
           uid: 0,
-          level: '6',
-          name: 'English',
-          date: '1548320228'
+          level: "6",
+          name: "English",
+          date: "1548320228"
         },
         {
           uid: 0,
-          level: '4',
-          name: 'French',
-          date: '1548320228'
+          level: "4",
+          name: "French",
+          date: "1548320228"
         }
       ]
     },
@@ -80,40 +84,40 @@ export class ProfileService {
     offers: {
       entities: [
         {
-          position: 'Professor Extraescolars programació i robòtica educativa',
-          company: 'Eixos Creativa',
-          family: 'Informática y Comunicaciones',
-          date: '30/01/2019'
+          position: "Professor Extraescolars programació i robòtica educativa",
+          company: "Eixos Creativa",
+          family: "Informática y Comunicaciones",
+          date: "30/01/2019"
         },
         {
-          position: 'Programaador Jr Java',
-          company: 'Ki - Works',
-          family: 'Informática y Comunicaciones',
-          date: '28/01/2019'
+          position: "Programaador Jr Java",
+          company: "Ki - Works",
+          family: "Informática y Comunicaciones",
+          date: "28/01/2019"
         },
         {
-          position: 'Programador.net',
-          company: 'Tecnic Consultores',
-          family: 'Informática y Comunicaciones',
-          date: '28/01/2019'
+          position: "Programador.net",
+          company: "Tecnic Consultores",
+          family: "Informática y Comunicaciones",
+          date: "28/01/2019"
         },
         {
-          position: 'Programador Junior Java Spring boot',
-          company: 'GRUPO CMC',
-          family: 'Informática y Comunicaciones',
-          date: '25/01/2019'
+          position: "Programador Junior Java Spring boot",
+          company: "GRUPO CMC",
+          family: "Informática y Comunicaciones",
+          date: "25/01/2019"
         },
         {
-          position: 'Administrativa',
-          company: 'Servium',
-          family: 'Administración y Gestión',
-          date: '25/01/2019'
+          position: "Administrativa",
+          company: "Servium",
+          family: "Administración y Gestión",
+          date: "25/01/2019"
         },
         {
-          position: 'DESARROLLADOR/A SOFTWARE',
-          company: 'PEPPER',
-          family: 'Informática y Comunicaciones',
-          date: '23/01/2019'
+          position: "DESARROLLADOR/A SOFTWARE",
+          company: "PEPPER",
+          family: "Informática y Comunicaciones",
+          date: "23/01/2019"
         }
       ]
     }

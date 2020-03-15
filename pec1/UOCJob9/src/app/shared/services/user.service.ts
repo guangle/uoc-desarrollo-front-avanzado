@@ -14,8 +14,7 @@ import { Study, CollegeStudy, VocationalStudy } from "../models/study.model";
 })
 /* Servicio de negocio encargado de la gestion de usuarios */
 export class UserService {
-  //TODO jjgr comentar esto
-
+  //El servicio almacena una copia del usuario autenticado en la aplicación
   private _user: User;
   private _token: string = null;
   private _userName: string = null;
@@ -73,7 +72,9 @@ export class UserService {
   editExperience(exp: Experience): Observable<User> {
     //TODO: implementacion rapida y poco optima..
     //..pero no estamos usando un backend de verdad
-    this.user.experiencies = this.user.experiencies.filter(l => l.uid != exp.uid);
+    this.user.experiencies = this.user.experiencies.filter(
+      l => l.uid != exp.uid
+    );
     return this.addExperience(exp);
   }
 
@@ -83,11 +84,13 @@ export class UserService {
   }
 
   //Estudios
+  /* Añade el estudio que se pasa como parametro al usuario logado */
   addStudy(st: Study): Observable<User> {
-    this.user.studies.push(st)
+    this.user.studies.push(st);
     return this.dataservice.updateUser(this.user);
   }
 
+  /* Actualiza el estudio que se pasa como parametro en el usuario logado */
   editStudy(st: Study): Observable<User> {
     //TODO: implementacion rapida y poco optima..
     //..pero no estamos usando un backend de verdad

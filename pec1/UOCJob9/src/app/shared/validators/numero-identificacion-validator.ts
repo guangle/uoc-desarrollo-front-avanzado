@@ -4,6 +4,12 @@ import { FormGroup } from "@angular/forms";
 //Cross field validator, leido en
 //https://medium.com/@realTomaszKula/angular-cross-field-validation-d94e0d063b61
 
+/*
+En base al tipo de identificación 'documentType', aplicamos una validación u otra
+al número del documento de identificación: 'documentNumber'
+
+*/
+
 export function NumeroIdentificacionValidator(fg: FormGroup) {
   const documentType = fg.get("documentType").value;
   const documentNumber = fg.get("documentNumber").value;
