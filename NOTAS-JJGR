@@ -1,0 +1,45 @@
+Actions describe unique events that are dispatched from components and services.
+State changes are handled by pure functions called reducers that take the current state and the latest action to compute a new state.
+Selectors are pure functions used to select, derive and compose pieces of state.
+State accessed with the store, an observable of state and an observer of actions. > No lo entiendo xD
+
+Actions -> eventos que ejecutan los servicios y componentes. Definen QUE OFRECE LA APLICACIÓN A NIVEL DE FUNCIONALIDAD
+Reducer -> Implementan los cambios de stado Recuder(estado, acción) => nuevo estado
+Selectors -> funciones para acceder o conectarse con el estado
+
+
+04/03/2020
+    .Desglosar store ***
+    .Auth Store, montar structura
+    .Auth store, metodo login
+    .Bajar proyecto de ejemplo
+    .Leer por encima
+    .Renombrar carpeta
+    .Sincro svn
+
+
+PENDIENTE
+    Repasar comentarios de mi ejemplo
+    Barra de colors
+    REMEMBER ME
+    Refact servicios de negocio
+    Notas, html _ _
+    Notas ejericio 1
+
+Estructura del Store
+    Auth -> Informaición de autenticación
+        logged
+        last_login
+        name
+        token
+    User -> Info del usuario logado (o empresa)
+        Atributo User / Company
+        
+        * Esto no son subatributos?
+        Profile
+        Studies
+        Experiences
+        Languages
+    Offers -> Info de ofertas disponibles
+        all_offers
+        user_offers

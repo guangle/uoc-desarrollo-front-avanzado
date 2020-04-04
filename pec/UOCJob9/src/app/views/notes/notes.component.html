@@ -1,0 +1,61 @@
+<div class="contenedor">
+  <div class="row-header">
+    <h1>
+      Notas de la versión
+    </h1>
+    <a [routerLink]="['/']">
+      Volver
+    </a>
+  </div>
+
+  <div>
+    Primeras pruebas con ngrx
+  </div>
+  <div>{{ users$ | async }}</div>
+
+  <div>
+    <ul>
+      <li>
+        No he hecho especial incapié en los estilos de los diferentes
+        componentes, lo justo para visualizar y distribuir cómodamente los datos
+        en pantalla. Incluso hay algunos selectores css duplicados entre
+        ficheros scss, pero se comento que en practicas posteriores utilizaremos
+        alguna herramienta de maquetación mas avanzada.
+      </li>
+
+      <li>
+        Algunas listas están 'hardcodeadas' en los componentes, cuando en
+        realidad deberían venir del backend: provincias, municipios, centros de
+        formación, etc.. Esto se solucionará en versiones posteriores de la
+        aplicación
+      </li>
+
+      <li>
+        En algunos casos de edición, se renderiza el formulario antes de obtener
+        el objeto que se quiere editar, lo que no corta la ejecución pero
+        eventualmente hace que se muestre algún error en consola. Esto se
+        soluciona implementando una guarda pero se ha comentado en el foro que
+        las guardas se implementarán en posteriores PECs
+      </li>
+
+      <li>
+        He modificado algunos datos de pruebas y la definición de algún elemento
+        del modelo, ya que los datos proporcionados y el modelo a veces
+        mostraban discrepancia en la estructura
+      </li>
+
+      <li>
+        No sé si este es el medio adecuado para comentar esto, pero la práctica
+        me ha desbordado por su volumen (he visto otros compañeros en el foro
+        expresando lo mismo), es la más grande de todas las asignaturas que
+        llevo cursado en la UOC con diferencia. Es por esto que no todas las
+        pantalla opcionales están implementadas al 100% y algunos elementos
+        están solo apuntalados. En general, he pretendido desarrollar las cosas
+        con la estructura correcta y contar con una buena 'arquitectura' antes
+        de cumplir con toda la funcionalidad opcional 100% 'de cualquier forma'
+      </li>
+
+      <li>..</li>
+    </ul>
+  </div>
+</div>
