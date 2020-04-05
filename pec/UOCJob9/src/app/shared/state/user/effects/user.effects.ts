@@ -33,36 +33,3 @@ export class UserEffects {
 
   //Faltan 2 effects..
 }
-
-//Ejemplo pokemon
-/*
-@Effect()
-  loadAllPokemon$: Observable<any> = this.actions$.pipe(
-    ofType(PokemonActions.PokemonActionTypes.LOAD_POKEMONS),
-    switchMap(() =>
-      this.pokemonService.getAll().pipe(
-        map(pokemons => new PokemonActions.LoadPokemonSuccess(pokemons)),
-        catchError(error => of(new PokemonActions.LoadPokemonFailed(error)))
-      )
-    )
-  );
-
-  @Effect({ dispatch: false })
-  successNotification$ = this.actions$.pipe(
-    ofType(...this.POKEMON_ACTIONS_SUCCESS),
-    tap(() =>
-      this.snackBar.open('SUCCESS', 'Operation success', {
-        duration: 2000
-      })
-    )
-  );
-  @Effect({ dispatch: false })
-  failedNotification$ = this.actions$.pipe(
-    ofType(...this.POKEMON_ACTIONS_FAILED),
-    tap(() =>
-      this.snackBar.open('FAILED', 'Operation failed', {
-        duration: 2000
-      })
-    )
-  );
-  */

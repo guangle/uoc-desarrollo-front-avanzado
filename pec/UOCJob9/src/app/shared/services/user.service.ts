@@ -1,6 +1,5 @@
 import { Injectable } from "@angular/core";
-import { Observable } from "rxjs";
-import { throwError as ObservableThrow } from "rxjs";
+import { Observable, throwError } from "rxjs";
 import { HttpClient } from "@angular/common/http";
 import { User } from "../models/user.model";
 import { Language } from "../models/language.model";
@@ -31,6 +30,7 @@ export class UserService {
   constructor(private dataservice: DataService) {}
 
   /** Realiza el login contra el fake-backend */
+  //TODO: ESTO YA NO SE UTILIZA, SE PODRÁ ELIMINAR EN EL REFACT FINAL
   login(email: string, password: string): Observable<User[]> {
     //obtiene un observable con todos los usuarios y posteriormente filtra por usuario/password
     return this.dataservice
@@ -45,18 +45,21 @@ export class UserService {
   /** Realiza el login contra el fake-backend */
   loginUser(email: string, password: string): Observable<User> {
     //obtiene un observable con todos los usuarios y posteriormente filtra por usuario/password
-    return this.dataservice
-      .getUsers()
-      .pipe(
-        flatMap(usuarios =>
-          usuarios.filter(u => u.email == email && u.password == password)
-        )
-      );
-  }
-
-  getAll(): Observable<User[]> {
-    //obtiene un observable con todos los usuarios y posteriormente filtra por usuario/password
-    return this.dataservice.getUsers();
+    return this.dataservice.getUsers().pipe(
+      flatMap(usuarios => {
+        let usus = usuarios.filter(
+          u => u.email == email && u.password == password
+        );
+        console.log("usus");
+        console.log(usus);
+        if (usus && usus.length == 1) {
+          return usus;
+        } else {
+          //no hay ningun usuario que coincida, devolvemos un error
+          return throwError("Email o contraseña no válidos");
+        }
+      })
+    );
   }
 
   /** Actualiza el usuario con los nuevos datos tras la edicion del perfil*/
@@ -182,4 +185,14 @@ export class UserService {
     }
     return this._user;
   }
+
+  getAll(): Observable<User[]> {
+    //obtiene un observable con todos los usuarios y posteriormente filtra por usuario/password
+    return this.dataservice.getUsers();
+  }
+
+  //Todo este códig es ya obsoleto y creo que se puede eliminar
+  /*
+    
+    */
 }

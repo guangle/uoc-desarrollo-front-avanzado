@@ -1,6 +1,5 @@
 import { Injectable } from "@angular/core";
-import { Observable } from "rxjs";
-import { throwError as ObservableThrow } from "rxjs";
+import { Observable, throwError } from "rxjs";
 import { HttpClient } from "@angular/common/http";
 import { User } from "../models/user.model";
 import { Company } from "../models/company.model";
@@ -24,6 +23,7 @@ export class CompanyService {
   constructor(private dataservice: DataService) {}
 
   /** Realiza el login de empresa contra el fake-backend */
+  //TODO: ESTO YA NO SE UTILIZA, SE PODRÁ ELIMINAR EN EL REFACT FINAL
   login(email: string, password: string): Observable<Company[]> {
     //obtiene un observable con todos las empresas y posteriormente filtra por usuario/password
     return this.dataservice
@@ -37,13 +37,18 @@ export class CompanyService {
 
   loginCompany(email: string, password: string): Observable<Company> {
     //obtiene un observable con todos las empresas y posteriormente filtra por usuario/password
-    return this.dataservice
-      .getCompanies()
-      .pipe(
-        flatMap(usuarios =>
-          usuarios.filter(u => u.username == email && u.password == password)
-        )
-      );
+    return this.dataservice.getCompanies().pipe(
+      flatMap(empresas => {
+        let emp = empresas.filter(
+          u => u.email == email && u.password == password
+        );
+        if (emp && emp.length == 1) {
+          return emp;
+        } else {
+          return throwError("Email o contraseña no válidos");
+        }
+      })
+    );
   }
 
   /** Actualiza el usuario con los nuevos datos tras la edicion del perfil*/
@@ -55,6 +60,7 @@ export class CompanyService {
   }
 
   /** Realiza el logout de la aplicacion, borrando los atributos y el localStorage */
+  //TODO: ESTO YA NO SE UTILIZA, SE PODRÁ ELIMINAR EN EL REFACT FINAL
   clear() {
     this._token = null;
     window.localStorage.removeItem("token");
@@ -65,6 +71,7 @@ export class CompanyService {
   }
 
   /** true si tenemos un usuario logado y false en caso contrario */
+  //TODO: ESTO YA NO SE UTILIZA, SE PODRÁ ELIMINAR EN EL REFACT FINAL
   isLoggedIn() {
     if (window.localStorage.getItem("token") != null) {
       this._token = window.localStorage.getItem("token");

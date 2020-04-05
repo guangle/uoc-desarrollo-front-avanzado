@@ -5,7 +5,7 @@ import { Action } from "@ngrx/store";
 import { User } from "../../../models/user.model";
 //Actions -> Algo así como 'Qué funcionalidades ofrece esta parte de la aplicación'
 
-//Son simplemente constantes para enumerar las acciones. Algo así como una interfaz, ya que leyendo
+//Son simplemente constantes para enumerar las acciones. Una expecie de interfaz, ya que leyendo
 //estas constantes nos podemos hacer una idea de que funcionalidad ofrece este submodulo
 export enum DemoActionTypes {
   ACCION1 = "[DEMO] Accion1",
@@ -37,12 +37,8 @@ export class Accion1OK implements Action {
 
 export class Accion2OK implements Action {
   readonly type = DemoActionTypes.ACCION2_OK;
-  constructor(public payload: Array<Date>) {
-    console.log("----eymd constructor de Accion2OK");
-  }
+  constructor(public payload: Array<Date>) {}
 }
-
-//prueba usuario comentar
 
 export class Accion3 implements Action {
   readonly type = DemoActionTypes.ACCION3;
@@ -55,10 +51,10 @@ export class Accion3OK implements Action {
 }
 
 //Opcional. El constructor de la acción puede tener un 'payload'. Un payload parece ser un objeto que voy a tener
-//si la acción se ejecuta satisfactoriamente. Por ejemplo, un Action de Load users va a tener un payload de tipo
+//si la acción necesita para ejecutarse(la recibe en el constructor). Por ejemplo, un Action de Load users va a tener un payload de tipo
 //array de usuarios.
 
-//Quién y como se rellena este payload todavía no lo sé. >> PENDIENTE
+//El payload lo setea el encargado de invocar a la accion, puede ser un componente o un efecto
 
 //Exportamos todas nuestras clases
 export type DemoActions =

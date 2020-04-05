@@ -71,6 +71,8 @@ export class DemoEffects {
     )
   );
 
+  //Métodos de apoyo que devuelven observables de prueba, en la practica
+  //se llamarán a servicios de negocio, apis rest externas, etc
   getNumbers(): Observable<number[]> {
     console.log("--> se invoca a getNumeros");
     return from([[1, 2, 3, 4, 5]]);

@@ -1,4 +1,11 @@
 /* You can add global styles to this file, and also import other style files */
+
+$color1: rgba(130, 35, 178, 1);
+$color2: rgba(217, 3, 104, 1);
+$color3: rgba(241, 233, 218, 1);
+$color4: rgba(46, 41, 78, 1);
+$color5: rgba(255, 230, 107, 1);
+
 body {
   margin: 0;
   padding: 0;
@@ -9,15 +16,14 @@ header {
   text-align: center;
   padding-top: 20px;
   span {
-    font-size:1.3em;
-    display:block
+    font-size: 1.3em;
+    display: block;
   }
   small {
-    font-size:0.8em;
-    display:block
+    font-size: 0.8em;
+    display: block;
   }
 }
-
 
 table {
   width: 100%;
@@ -33,7 +39,6 @@ table {
   }
 }
 
-
 .row-header {
   display: flex;
   flex-direction: row;
@@ -41,7 +46,22 @@ table {
   justify-content: space-between;
 }
 
-
 .validaciones {
   color: tomato;
+}
+
+// añado algo de estilos más, solo porque no se vea igual que la pec1
+#barra-multicolor {
+  background: linear-gradient(
+    to right,
+    $color1 20%,
+    $color2 20%,
+    $color2 40%,
+    $color3 40%,
+    $color3 60%,
+    $color4 60%,
+    $color4 80%,
+    $color5 80%
+  );
+  height: 6px;
 }

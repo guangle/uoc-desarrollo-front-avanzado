@@ -26,6 +26,7 @@ export function demoReducer(
       //Solo actualizo el atributo numeros, el resto tal y como estaba
       return {
         ...state,
+        //la accion1OK ha recibido en su constructor el array de números
         numeros: action.payload
       };
     case DemoActionTypes.ACCION2_OK:

@@ -10,21 +10,28 @@ Selectors -> funciones para acceder o conectarse con el estado
 
 04/03/2020
     .Desglosar store ***
-    .Auth Store, montar structura
-    .Auth store, metodo login
-    .Bajar proyecto de ejemplo
-    .Leer por encima
-    .Renombrar carpeta
-    .Sincro svn
+    .Auth Store, montar structura **
+    .Auth store, metodo login **
+    .Bajar proyecto de ejemplo **
+    .Leer por encima ***
+    .Renombrar carpeta ***
+    .Sincro svn ***
 
+
+    .Repasar comentarios de mi ejemplo **
+    .Barra de colors ***
+    .REMEMBER ME (foro) ***
+    .Refact servicios de negocio
+
+    Notas, html ***
 
 PENDIENTE
-    Repasar comentarios de mi ejemplo
-    Barra de colors
-    REMEMBER ME
-    Refact servicios de negocio
-    Notas, html _ _
+    
     Notas ejericio 1
+    Store de usuario
+    Acción, set user
+    Invocar a setUser
+    Notas ++
 
 Estructura del Store
     Auth -> Informaición de autenticación
