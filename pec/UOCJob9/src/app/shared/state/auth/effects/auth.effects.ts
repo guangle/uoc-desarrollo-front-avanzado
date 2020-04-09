@@ -9,6 +9,7 @@ import { Injectable } from "@angular/core";
 import { from } from "rxjs";
 
 import * as AuthActions from "../actions/auth.actions";
+import * as UserActions from "../../user/actions/user.actions";
 import { UserService } from "../../../services/user.service";
 import { CompanyService } from "../../../services/company.service";
 
@@ -29,9 +30,14 @@ export class AuthEffects {
     ofType(AuthActions.AuthActionTypes.LOGIN_USER),
     switchMap((action: AuthActions.LoginUser) =>
       this.userService.loginUser(action.email, action.password).pipe(
-        map(user => new AuthActions.LoginUserSuccess(user)), //Todo ha ido bien, lanzamos una acción LOGIN_USER_SUCCESS
+        switchMap((user) => [
+          //Todo ha ido bien, lanzamos una acción LOGIN_USER_SUCCESS
+          new AuthActions.LoginUserSuccess(user),
+          //.. y establecemos el usuario logado
+          new UserActions.SetCurrentUser(user),
+        ]),
         //Si no hemos podido logar al usurio, comprobamos si son credenciales de una empresa
-        catchError(error =>
+        catchError((error) =>
           of(new AuthActions.LoginCompany(action.email, action.password))
         )
       )
@@ -43,8 +49,8 @@ export class AuthEffects {
     ofType(AuthActions.AuthActionTypes.LOGIN_COMPANY),
     switchMap((action: AuthActions.LoginCompany) =>
       this.companyService.loginCompany(action.email, action.password).pipe(
-        map(company => new AuthActions.LoginCompanySuccess(company)),
-        catchError(error => of(new AuthActions.LoginCompanyError(error)))
+        map((company) => new AuthActions.LoginCompanySuccess(company)),
+        catchError((error) => of(new AuthActions.LoginCompanyError(error)))
       )
     )
   );

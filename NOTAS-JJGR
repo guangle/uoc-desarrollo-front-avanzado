@@ -25,9 +25,15 @@ Selectors -> funciones para acceder o conectarse con el estado
 
     Notas, html ***
 
+05/03/2020
+    .Notas ejercicio1
+    .onpush detection strategy
+    Store de usuario
+    accion setCurrentUser
+
 PENDIENTE
     
-    Notas ejericio 1
+    Notas ejericio 1 ***
     Store de usuario
     Acción, set user
     Invocar a setUser

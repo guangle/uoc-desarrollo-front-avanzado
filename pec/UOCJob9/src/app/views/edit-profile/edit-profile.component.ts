@@ -1,4 +1,4 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, ChangeDetectionStrategy } from "@angular/core";
 import { UserService } from "../../shared/services/user.service";
 import { User } from "../../shared/models/user.model";
 import { Router } from "@angular/router";
@@ -8,11 +8,17 @@ import { formatDate } from "@angular/common";
 import { EspaciosValidator } from "../../shared/validators/espacios-validator";
 import { NumeroIdentificacionValidator } from "../../shared/validators/numero-identificacion-validator";
 import * as moment from "moment";
+import { Store } from "@ngrx/store";
+import { AppStore } from "../../shared/state/store.interface";
+import { Observable } from "rxjs";
+import * as UserSelectors from "../../shared/state/user/selectors/user.selector";
+import * as UserActions from "../../shared/state/user/actions/user.actions";
 
 @Component({
   selector: "app-edit-profile",
   templateUrl: "./edit-profile.component.html",
-  styleUrls: ["./edit-profile.component.scss"]
+  styleUrls: ["./edit-profile.component.scss"],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 /** Componente encargado de la modificación de los datos de perfil del usuario */
 export class EditProfileComponent implements OnInit {
@@ -27,26 +33,26 @@ export class EditProfileComponent implements OnInit {
       name: "Málaga",
       municipios: [
         { uid: 7, name: "Estepona" },
-        { uid: 8, name: "Campanillas (PTA)" }
-      ]
+        { uid: 8, name: "Campanillas (PTA)" },
+      ],
     },
     {
       uid: 2,
       name: "Sevilla",
       municipios: [
         { uid: 10, name: "Osuna" },
-        { uid: 11, name: "Mairena" }
-      ]
+        { uid: 11, name: "Mairena" },
+      ],
     },
     {
       uid: 4,
       name: "Cádiz",
       municipios: [
         { uid: 6, name: "Chiclana de la Frontera" },
-        { uid: 2, name: "San Fernando" }
-      ]
+        { uid: 2, name: "San Fernando" },
+      ],
     },
-    { uid: 5, name: "Granada", municipios: [{ uid: 9, name: "Motril" }] }
+    { uid: 5, name: "Granada", municipios: [{ uid: 9, name: "Motril" }] },
   ];
   municipios = [];
 
@@ -54,18 +60,33 @@ export class EditProfileComponent implements OnInit {
   tiposDocumentos = [
     { uid: 1, name: "NIF" },
     { uid: 2, name: "Otro" },
-    { uid: 3, name: "Pasaporte" }
+    { uid: 3, name: "Pasaporte" },
   ];
+
+  //Observamos el usuario actual del store, que es sobre el que vamos a trabajar
+  public currentUser$: Observable<any> = this.store$.select(
+    UserSelectors.currentUserSelector
+  );
 
   constructor(
     private userService: UserService,
+    //TODO: pendiene, hay que quitar el servicio de aqui
+    private store$: Store<AppStore>,
     private router: Router,
     private fb: FormBuilder
   ) {
+    //Llegados a este punto, tenemos un usuario en el store
+    this.currentUser$.subscribe((u) => {
+      console.log("currentUser", u);
+      this.user = u;
+      this.createForm();
+    });
+    /*
     //Llegados a este punto, tenemos un usuario logado en la aplicacion que custodia usuarioService
     this.user = this.userService.user;
     //Creamos - inicializamos el formulairo reacivo
     this.createForm();
+    */
   }
 
   ngOnInit(): void {}
@@ -74,42 +95,61 @@ export class EditProfileComponent implements OnInit {
   editProfile() {
     console.log("Edit profile: submit");
     if (this.editProfileForm.valid) {
+      /*
+      let userSubmited = {
+        ...this.user,
+      };
+
+      console.log(userSubmited);
+      userSubmited = Object.create(this.user);
+      */
+      //let userSubmited = Object.assign({}, this.user);
+      //COMENTAR, LO HAGO ASI PORQUE EL SPREAD OPERATOR NO ES DEEP
+      let userSubmited = JSON.parse(JSON.stringify(this.user));
+
       //1. Actualizamos los datos del usuario con lo procedente del form
-      this.user.name = this.editProfileForm.get("name").value;
-      this.user.surname = this.editProfileForm.get("surname").value;
-      this.user.phone = this.editProfileForm.get("phone").value;
-      this.user.phone2 = this.editProfileForm.get("phone2").value;
+      userSubmited.name = this.editProfileForm.get("name").value;
+      userSubmited.surname = this.editProfileForm.get("surname").value;
+      userSubmited.phone = this.editProfileForm.get("phone").value;
+      userSubmited.phone2 = this.editProfileForm.get("phone2").value;
       //usamos moment.js para parsear la fecha de entrada y guardarla en formato dd/MM/yyyy
-      this.user.birthdate = moment(
+      userSubmited.birthdate = moment(
         this.editProfileForm.get("birthdate").value,
         "YYYY-MM-DD"
       ).format("DD/MM/YYYY");
 
-      this.user.address.province = this.provincias.find(
-        p => p.uid == this.editProfileForm.get("provincia").value
+      userSubmited.address.province = this.provincias.find(
+        (p) => p.uid == this.editProfileForm.get("provincia").value
       );
-      this.user.address.municipe = this.municipios.find(
-        p => p.uid == this.editProfileForm.get("municipio").value
+      userSubmited.address.municipe = this.municipios.find(
+        (p) => p.uid == this.editProfileForm.get("municipio").value
       );
 
-      this.user.aboutMe = this.editProfileForm.get("aboutMe").value;
-      this.user.otherCompetences = this.editProfileForm.get(
+      userSubmited.aboutMe = this.editProfileForm.get("aboutMe").value;
+      userSubmited.otherCompetences = this.editProfileForm.get(
         "otherCompetences"
       ).value;
 
-      this.user.documentNumber = this.editProfileForm.get(
+      userSubmited.documentNumber = this.editProfileForm.get(
         "documentNumber"
       ).value;
-      this.user.documentType = this.tiposDocumentos.find(
-        t => t.uid == this.editProfileForm.get("documentType").value
+      userSubmited.documentType = this.tiposDocumentos.find(
+        (t) => t.uid == this.editProfileForm.get("documentType").value
       );
+      //Nuevo PEC2: invoca a la acción para actualizar el usuario
+      this.store$.dispatch(new UserActions.UpdateUser(userSubmited));
+
+      /*
+
       //2. Realizo una llamada al servicio de negocio para actualizar el usuario en el back
-      this.userService.updateUser(this.user).subscribe(newUser => {
+      this.userService.updateUser(this.user).subscribe((newUser) => {
         this.user = newUser;
         console.log("Usuario actualizado correctamente");
         //volvemos a la pantalla de perfil
         this.router.navigate(["/admin/profile"]);
       });
+
+      */
     } else {
       console.error(
         "El formulario no es valido, no nos cmunicamos con el backend"
@@ -122,7 +162,7 @@ export class EditProfileComponent implements OnInit {
     console.log("Creando el formulario de edición de perfil");
     //En primera instancia, cargaremos los municipios de la provincia actual del usuario
     this.municipios = this.provincias.find(
-      p => p.uid == this.user.address.province.uid
+      (p) => p.uid == this.user.address.province.uid
     ).municipios;
     this.editProfileForm = this.fb.group(
       {
@@ -132,8 +172,8 @@ export class EditProfileComponent implements OnInit {
             Validators.required,
             Validators.minLength(3),
             Validators.maxLength(55),
-            EspaciosValidator
-          ]
+            EspaciosValidator,
+          ],
         ],
         surname: [
           this.user.surname,
@@ -141,8 +181,8 @@ export class EditProfileComponent implements OnInit {
             Validators.required,
             Validators.minLength(3),
             Validators.maxLength(55),
-            EspaciosValidator
-          ]
+            EspaciosValidator,
+          ],
         ],
         birthdate: [
           formatDate(
@@ -150,7 +190,7 @@ export class EditProfileComponent implements OnInit {
             "yyyy-MM-dd",
             "en"
           ),
-          [Validators.required]
+          [Validators.required],
         ],
         //Teléfonos: No se pondrán restricciones, puesto que hoy en día puede haber números internacionales
         phone: [this.user.phone, []],
@@ -165,17 +205,17 @@ export class EditProfileComponent implements OnInit {
           [
             Validators.required,
             Validators.minLength(2),
-            Validators.maxLength(30)
-          ]
+            Validators.maxLength(30),
+          ],
         ],
         aboutMe: [
           this.user.aboutMe,
-          [Validators.required, Validators.minLength(30)]
+          [Validators.required, Validators.minLength(30)],
         ],
         otherCompetences: [
           this.user.otherCompetences,
-          [Validators.required, Validators.minLength(30)]
-        ]
+          [Validators.required, Validators.minLength(30)],
+        ],
       },
       { validator: NumeroIdentificacionValidator }
     );
@@ -187,7 +227,7 @@ export class EditProfileComponent implements OnInit {
       this.municipios = [];
     } else {
       this.municipios = this.provincias.find(
-        p => p.uid == this.editProfileForm.get("provincia").value
+        (p) => p.uid == this.editProfileForm.get("provincia").value
       ).municipios;
     }
   }

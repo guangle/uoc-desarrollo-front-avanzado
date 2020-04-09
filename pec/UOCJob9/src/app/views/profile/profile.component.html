@@ -47,7 +47,7 @@
   <div>
     <h2>
       Formación académica (
-      <a [routerLink]="['/admin/edit-studies']">
+      <a [routerLink]="" (click)="newStudy()">
         Nueva
       </a>
       )
@@ -64,7 +64,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let formacion of user.studies">
+        <tr *ngFor="let formacion of (currentUser$ | async)?.studies">
           <td>
             {{ formacion.level?.name }}
           </td>
@@ -79,13 +79,10 @@
           </td>
           <td><small>(pdte pec de manejo de ficheros)</small></td>
           <td>
-            <a
-              [routerLink]="['/admin/edit-studies']"
-              [queryParams]="{ id: formacion.uid }"
-            >
-              Editar
+            <a [routerLink]="" (click)="editStudy(formacion)">
+              Editar new ngrx
             </a>
-            <a [routerLink]="" (click)="deleteStudies(formacion.uid)">
+            <a [routerLink]="" (click)="deleteStudies(formacion)">
               Eliminar
             </a>
           </td>
@@ -96,8 +93,8 @@
   <div>
     <h2>
       Experiencia laboral (
-      <a [routerLink]="['/admin/edit-experience']">
-        Nuevo
+      <a [routerLink]="" (click)="newExperience()">
+        Nueva
       </a>
       )
     </h2>
@@ -111,7 +108,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let experiencia of user.experiencies">
+        <tr *ngFor="let experiencia of (currentUser$ | async)?.experiencies">
           <td>
             {{ experiencia.empresa }}
           </td>
@@ -128,7 +125,7 @@
             >
               Editar
             </a>
-            <a [routerLink]="" (click)="deleteExperience(experiencia.uid)">
+            <a [routerLink]="" (click)="deleteExperience(experiencia)">
               Eliminar
             </a>
           </td>

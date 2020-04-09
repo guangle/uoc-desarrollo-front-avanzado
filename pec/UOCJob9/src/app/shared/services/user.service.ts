@@ -11,13 +11,16 @@ import {
   filter,
   first,
   take,
-  flatMap
+  flatMap,
 } from "rxjs/operators";
 import { Experience } from "../models/experience.model";
 import { Study, CollegeStudy, VocationalStudy } from "../models/study.model";
 
+//import { _ } from "lodash";
+import { cloneDeep } from "lodash";
+
 @Injectable({
-  providedIn: "root"
+  providedIn: "root",
 })
 /* Servicio de negocio encargado de la gestion de usuarios */
 export class UserService {
@@ -36,8 +39,8 @@ export class UserService {
     return this.dataservice
       .getUsers()
       .pipe(
-        map(usuarios =>
-          usuarios.filter(u => u.email == email && u.password == password)
+        map((usuarios) =>
+          usuarios.filter((u) => u.email == email && u.password == password)
         )
       );
   }
@@ -46,9 +49,9 @@ export class UserService {
   loginUser(email: string, password: string): Observable<User> {
     //obtiene un observable con todos los usuarios y posteriormente filtra por usuario/password
     return this.dataservice.getUsers().pipe(
-      flatMap(usuarios => {
+      flatMap((usuarios) => {
         let usus = usuarios.filter(
-          u => u.email == email && u.password == password
+          (u) => u.email == email && u.password == password
         );
         console.log("usus");
         console.log(usus);
@@ -78,7 +81,7 @@ export class UserService {
   editLanguage(lang: Language): Observable<User> {
     //TODO: implementacion rapida y poco optima..
     //..pero no estamos usando un backend de verdad
-    this.user.languages = this.user.languages.filter(l => l.uid != lang.uid);
+    this.user.languages = this.user.languages.filter((l) => l.uid != lang.uid);
     return this.addLanguage(lang);
   }
 
@@ -86,51 +89,71 @@ export class UserService {
    * Devuelve un observable para el usuario actualizado
    */
   deleteLanguaje(id: number): Observable<User> {
-    this.user.languages = this.user.languages.filter(l => l.uid != id);
+    this.user.languages = this.user.languages.filter((l) => l.uid != id);
     return this.dataservice.updateUser(this.user);
   }
 
-  /* Añade al usuario custodiado por el servicio la experiencia profesional que se pasa como parametro */
-  addExperience(exp: Experience): Observable<User> {
-    this.user.experiencies.push(exp);
-    return this.dataservice.updateUser(this.user);
+  addExperience(us: User, exp: Experience): Observable<User> {
+    //let userToUpdate = JSON.parse(JSON.stringify(us));
+    //const userToUpdate = rfdc(us);
+    const userToUpdate = cloneDeep(us);
+    userToUpdate.experiencies.push(exp);
+    return this.dataservice.updateUser(userToUpdate);
   }
 
-  /* Actualiza la experiencia que se pasa como parametro */
-  editExperience(exp: Experience): Observable<User> {
+  editExperience(us: User, exp: Experience): Observable<User> {
+    //let userToUpdate = JSON.parse(JSON.stringify(us));
+    //const userToUpdate = rfdc(us);
+    const userToUpdate = _.cloneDeep(us);
     //TODO: implementacion rapida y poco optima..
     //..pero no estamos usando un backend de verdad
-    this.user.experiencies = this.user.experiencies.filter(
-      l => l.uid != exp.uid
+    userToUpdate.experiencies = userToUpdate.experiencies.filter(
+      (l) => l.uid != exp.uid
     );
-    return this.addExperience(exp);
+    return this.addExperience(userToUpdate, exp);
   }
 
-  deleteExperience(id: number): Observable<User> {
-    this.user.experiencies = this.user.experiencies.filter(l => l.uid != id);
-    return this.dataservice.updateUser(this.user);
+  /** Elimina la experiencia 'exp' del usuario 'us' */
+  deleteExperience(us: User, exp: Experience): Observable<User> {
+    //Realizamos una copia del parametro
+    let userToUpdate = JSON.parse(JSON.stringify(us));
+    userToUpdate.experiencies = userToUpdate.experiencies.filter(
+      (l) => l.uid != exp.uid
+    );
+    return this.dataservice.updateUser(userToUpdate);
   }
 
   //Estudios
-  /* Añade el estudio que se pasa como parametro al usuario logado */
-  addStudy(st: Study): Observable<User> {
-    this.user.studies.push(st);
-    return this.dataservice.updateUser(this.user);
+
+  addStudy(us: User, st: Study): Observable<User> {
+    //Creamos una copia del objeto para extenderla
+    let userToUpdate = JSON.parse(JSON.stringify(us));
+    userToUpdate.studies.push(st);
+    return this.dataservice.updateUser(userToUpdate);
   }
 
   /* Actualiza el estudio que se pasa como parametro en el usuario logado */
-  editStudy(st: Study): Observable<User> {
+  editStudy(us: User, st: Study): Observable<User> {
     //TODO: implementacion rapida y poco optima..
     //..pero no estamos usando un backend de verdad
-    this.user.studies = this.user.studies.filter(l => l.uid != st.uid);
-    return this.addStudy(st);
+
+    let userToUpdate = JSON.parse(JSON.stringify(us));
+    userToUpdate.studies = userToUpdate.studies.filter((l) => l.uid != st.uid);
+    return this.addStudy(userToUpdate, st);
   }
 
   /** Elimina la formacion cuyo id se pasa como parametro y devuelve un observable
    * que tendrá el usuario resultante
    */
-  deleteStudies(id: number): Observable<User> {
-    this.user.studies = this.user.studies.filter(l => l.uid != id);
+  //TODO: VOLVER A COMENTAR
+  deleteStudies(us: User, st: Study): Observable<User> {
+    let userToUpdate = JSON.parse(JSON.stringify(us));
+    userToUpdate.studies = userToUpdate.studies.filter((l) => l.uid != st.uid);
+    return this.dataservice.updateUser(userToUpdate);
+  }
+
+  deleteStudiesOld(id: number): Observable<User> {
+    this.user.studies = this.user.studies.filter((l) => l.uid != id);
     return this.dataservice.updateUser(this.user);
   }
 

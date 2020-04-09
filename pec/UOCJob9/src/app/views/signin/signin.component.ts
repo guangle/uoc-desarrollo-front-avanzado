@@ -1,4 +1,4 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, ChangeDetectionStrategy } from "@angular/core";
 import { FormControl, FormGroup } from "@angular/forms";
 import { Validators, FormBuilder } from "@angular/forms";
 import { Router } from "@angular/router";
@@ -16,7 +16,8 @@ import * as AuthActions from "../../shared/state/auth/actions/auth.actions";
 @Component({
   selector: "app-signin",
   templateUrl: "./signin.component.html",
-  styleUrls: ["./signin.component.scss"]
+  styleUrls: ["./signin.component.scss"],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SigninComponent implements OnInit {
   public loginForm: FormGroup;
@@ -41,7 +42,7 @@ export class SigninComponent implements OnInit {
     console.log("prueba de concepto, iniciado todo el store y el selector");
     console.log("-------");
 
-    this.authInfo$.subscribe(login_state => {
+    this.authInfo$.subscribe((login_state) => {
       console.log("Algo ha cambiado en el login");
       console.log("Estado actual del login:");
       console.log(login_state);
@@ -68,9 +69,9 @@ export class SigninComponent implements OnInit {
     this.loginForm = this.fb.group({
       email: [
         null,
-        [Validators.required, Validators.minLength(10), Validators.email]
+        [Validators.required, Validators.minLength(10), Validators.email],
       ],
-      password: [null, [Validators.required, Validators.minLength(4)]]
+      password: [null, [Validators.required, Validators.minLength(4)]],
     });
   }
 
@@ -102,7 +103,7 @@ export class SigninComponent implements OnInit {
   contra el conjunto de empresas. De esta forma, reaprovechamos la pantalla de login para autenticar
   a estudiantes y compañias */
   tryLoginCompany(mail: string, password: string) {
-    this.companyService.login(mail, password).subscribe(data => {
+    this.companyService.login(mail, password).subscribe((data) => {
       console.log(
         "Se ha realizado el login contra el backend para intentar identificar a una empresa"
       );

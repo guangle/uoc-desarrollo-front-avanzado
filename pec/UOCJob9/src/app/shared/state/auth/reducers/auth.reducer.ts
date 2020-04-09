@@ -11,7 +11,7 @@ export function authInitialState(): AuthState {
     name: "",
     token: "",
     type: "",
-    message: ""
+    message: "",
   };
 }
 
@@ -22,9 +22,6 @@ export function authReducer(
   state: AuthState = authInitialState(),
   action: AuthActions
 ): AuthState {
-  console.log("Dentro del reducer Auth");
-  console.log(action);
-
   switch (action.type) {
     case AuthActionTypes.LOGIN_USER_SUCCESS:
       //El payload es el UserLogado
@@ -35,7 +32,7 @@ export function authReducer(
         name: action.payload.username,
         token: randomStr(20), // inventado
         type: "user",
-        message: "Login de usuario relizado correctamente"
+        message: "Login de usuario relizado correctamente",
       };
 
     case AuthActionTypes.LOGIN_COMPANY_SUCCESS:
@@ -47,21 +44,21 @@ export function authReducer(
         name: action.payload.username,
         token: randomStr(20), // inventado
         type: "company",
-        message: "Login de empresa relizado correctamente"
+        message: "Login de empresa relizado correctamente",
       };
 
     case AuthActionTypes.LOGIN_USER_ERROR:
       return {
         ...state,
         logged: false,
-        message: "Error durante el proceso de login"
+        message: "Error durante el proceso de login",
       };
 
     case AuthActionTypes.LOGIN_COMPANY_ERROR:
       return {
         ...state,
         logged: false,
-        message: "Error durante el proceso de login"
+        message: "Error durante el proceso de login",
       };
 
     //Si no es ninguno de las acciones que yo contemplo, devuelvo el estado

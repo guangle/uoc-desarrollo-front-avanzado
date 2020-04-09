@@ -3,8 +3,9 @@
     <div class="elemento-centrado" id="header-dashboard">
       <h1>DashBoard</h1>
       <p>
-        Hola, {{ user.username }}
-        <button style="display:inline;" (click)="logout()">Salir</button>
+        Hola,
+        {{ (currentUser$ | async)?.username }}
+        <button style="display: inline;" (click)="logout()">Salir</button>
       </p>
     </div>
     <div class="elemento-centrado">
@@ -22,12 +23,5 @@
         Mis Ofertas
       </a>
     </div>
-    <!--
-    <div class="elemento-centrado">
-      <a [routerLink]="['/admin/edit-profile']">
-        Editar perfil
-      </a>
-    </div>
-    -->
   </div>
 </div>

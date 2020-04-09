@@ -1,4 +1,4 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, ChangeDetectionStrategy } from "@angular/core";
 import { Router } from "@angular/router";
 import { FormControl, FormGroup } from "@angular/forms";
 import { Validators, FormBuilder } from "@angular/forms";
@@ -10,11 +10,17 @@ import { ActivatedRoute } from "@angular/router";
 import { formatDate } from "@angular/common";
 import { EspaciosValidator } from "../../shared/validators/espacios-validator";
 import * as moment from "moment";
+import { Store } from "@ngrx/store";
+import { AppStore } from "../../shared/state/store.interface";
+import { Observable } from "rxjs";
+import * as UserSelectors from "../../shared/state/user/selectors/user.selector";
+import * as UserActions from "../../shared/state/user/actions/user.actions";
 
 @Component({
   selector: "app-edit-experience",
   templateUrl: "./edit-experience.component.html",
-  styleUrls: ["./edit-experience.component.scss"]
+  styleUrls: ["./edit-experience.component.scss"],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class EditExperienceComponent implements OnInit {
   public user: User;
@@ -22,50 +28,70 @@ export class EditExperienceComponent implements OnInit {
   public editExperienceForm: FormGroup;
   isSubmitted: boolean = false;
   id_exp;
+  edit_mode: boolean = false;
+
+  public currentExperience$: Observable<any> = this.store$.select(
+    UserSelectors.currentExperienceSelector
+  );
+
+  //La propiedad readOnly del store nos indica si estamos ante una edición
+  //o un alta
+  public editMode$: Observable<any> = this.store$.select(
+    UserSelectors.editModeSelector
+  );
+
+  public currentUser$: Observable<any> = this.store$.select(
+    UserSelectors.currentUserSelector
+  );
 
   constructor(
     private userService: UserService,
+    //TODO: pendiene, hay que quitar el servicio de aqui
+    private store$: Store<AppStore>,
     private router: Router,
     private route: ActivatedRoute,
     private fb: FormBuilder
   ) {
-    //Llegados a este punto, tenemos un usuario logado en la aplicacion que custodia usuarioService
-    this.user = this.userService.user;
-    //obtenemos el parametro que indica el identificdor de la experiencia que estamos editando
-    //(en caso de que se trate de una edicion)
-    this.id_exp = this.route.snapshot.queryParams["id"];
-    if (this.inEditMode()) {
-      console.log(
-        "Iniciamos la variable language porque estamos en una edicion"
-      );
-      this.experience = this.user.experiencies.find(l => l.uid == this.id_exp);
-    } else {
-      this.experience = {
-        uid: 0,
-        empresa: null,
-        date_inicio: null,
-        date_fin: null,
-        puesto: null,
-        tareas: null
-      };
-    }
-    //Creamos - inicializamos el formulairo reacivo
+    this.currentUser$.subscribe((u) => {
+      this.user = u;
+    });
+
+    this.editMode$.subscribe((b) => {
+      this.edit_mode = b;
+    });
+
+    //Llegados a este punto, tenemos en el store la experiencia con la que estamos trabajando
+    //(o un objeto experiencia 'vacía' si se trata de una creación)
+    this.currentExperience$.subscribe((e) => {
+      console.log("currentExperience", e);
+      this.experience = e;
+      this.id_exp = this.experience ? this.experience.uid : null;
+    });
+  }
+
+  ngOnInit(): void {
+    //Una vez construido el componente,
+    //creamos - inicializamos el formulairo reacivo
     this.createForm();
   }
 
-  ngOnInit(): void {}
-
   inEditMode() {
-    return (
-      this.id_exp != null && this.id_exp != "" && this.id_exp != "undefined"
-    );
+    return this.edit_mode;
   }
 
   createForm() {
     console.log("Creando el formulario de edición de experiencia");
 
     this.editExperienceForm = this.fb.group({
-      empresa: [this.experience.empresa, [Validators.required, Validators.minLength(3),Validators.maxLength(255), EspaciosValidator]],
+      empresa: [
+        this.experience.empresa,
+        [
+          Validators.required,
+          Validators.minLength(3),
+          Validators.maxLength(255),
+          EspaciosValidator,
+        ],
+      ],
       date_inicio: [
         this.experience.date_inicio
           ? formatDate(
@@ -74,7 +100,7 @@ export class EditExperienceComponent implements OnInit {
               "en"
             )
           : null,
-        [Validators.required]
+        [Validators.required],
       ],
       date_fin: [
         this.experience.date_fin
@@ -84,47 +110,61 @@ export class EditExperienceComponent implements OnInit {
               "en"
             )
           : null,
-        [Validators.required]
+        [Validators.required],
       ],
-      puesto: [this.experience.puesto, [Validators.required,Validators.minLength(3),Validators.maxLength(255), EspaciosValidator]],
-      tareas: [this.experience.tareas, [Validators.required, Validators.minLength(30),Validators.maxLength(500)]]
+      puesto: [
+        this.experience.puesto,
+        [
+          Validators.required,
+          Validators.minLength(3),
+          Validators.maxLength(255),
+          EspaciosValidator,
+        ],
+      ],
+      tareas: [
+        this.experience.tareas,
+        [
+          Validators.required,
+          Validators.minLength(30),
+          Validators.maxLength(500),
+        ],
+      ],
     });
   }
 
   submitExperience() {
-    console.log("Submit del formulario de experiencia..");
+    console.log("Submit del formulario de experiencia..*****");
     this.isSubmitted = true;
     if (this.editExperienceForm.valid) {
-      this.experience.empresa = this.editExperienceForm.get("empresa").value;
-      this.experience.date_inicio = moment(
+      //COMENTAR, LO HAGO ASI PORQUE EL SPREAD OPERATOR NO ES DEEP
+      let experienceToSubmit = JSON.parse(JSON.stringify(this.experience));
+
+      experienceToSubmit.empresa = this.editExperienceForm.get("empresa").value;
+      experienceToSubmit.date_inicio = moment(
         this.editExperienceForm.get("date_inicio").value,
         "YYYY-MM-DD"
       ).format("DD/MM/YYYY");
-      this.experience.date_fin = moment(
+      experienceToSubmit.date_fin = moment(
         this.editExperienceForm.get("date_fin").value,
         "YYYY-MM-DD"
       ).format("DD/MM/YYYY");
-      this.experience.puesto = this.editExperienceForm.get("puesto").value;
-      this.experience.tareas = this.editExperienceForm.get("tareas").value;
+      experienceToSubmit.puesto = this.editExperienceForm.get("puesto").value;
+      experienceToSubmit.tareas = this.editExperienceForm.get("tareas").value;
       if (this.inEditMode()) {
-        this.experience.uid = this.id_exp;
+        experienceToSubmit.uid = this.id_exp;
       } else {
-        this.experience.uid = this.user.experiencies.length + 1;
+        experienceToSubmit.uid = this.user.experiencies.length + 1;
       }
       if (this.inEditMode()) {
-        //Actualizamos la experiencia
-        this.userService.editExperience(this.experience).subscribe(data => {
-          console.log("Se ha editado con exito la experincia al usuario");
-          this.user = data;
-          this.router.navigate(["/admin/profile"]);
-        });
+        //Actualiamos la experiencia llamando a la acción para ello
+        this.store$.dispatch(
+          new UserActions.UpdateExperience(this.user, experienceToSubmit)
+        );
       } else {
-        //Creamos una nueva experiencia para el usuario
-        this.userService.addExperience(this.experience).subscribe(data => {
-          console.log("Se ha añadido con exito la experincia al usuario");
-          this.user = data;
-          this.router.navigate(["/admin/profile"]);
-        });
+        //Creamos una nueva experiencia para el usuario llamando a la acción correspondiente
+        this.store$.dispatch(
+          new UserActions.CreateExperience(this.user, experienceToSubmit)
+        );
       }
     } else {
       console.log(
@@ -132,6 +172,9 @@ export class EditExperienceComponent implements OnInit {
       );
     }
   }
+
+  /** Se invoca cuando se destruye el componente */
+  ngOnDestroy() {}
 
   //Getters para acceder a los diferentes campos en la vista más comodamente
   get empresa() {
