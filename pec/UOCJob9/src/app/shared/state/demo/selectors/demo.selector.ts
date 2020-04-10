@@ -17,15 +17,14 @@ import { DemoState } from "../store.demo";
 
 export const selectDemoState = createFeatureSelector<DemoState>("demo");
 
-export const selectNumeros = createSelector(selectDemoState, state => {
-  console.log("slect all");
+export const selectNumeros = createSelector(selectDemoState, (state) => {
   return state.numeros;
 });
 
-export const selectFechas = createSelector(selectDemoState, state => {
+export const selectFechas = createSelector(selectDemoState, (state) => {
   return state.fechas;
 });
 
-export const selectUsuarios = createSelector(selectDemoState, state => {
+export const selectUsuarios = createSelector(selectDemoState, (state) => {
   return state.usuarios;
 });

@@ -6,6 +6,7 @@ export function userInitialState(): UserState {
     currentUser: null,
     currentStudy: null,
     currentExperience: null,
+    currentLanguage: null,
     editMode: false,
   };
 }
@@ -83,6 +84,32 @@ export function userReducer(
         editMode: false,
       };
     case UserActionTypes.DELETE_EXPERIENCE_SUCCESS:
+      return {
+        ...state,
+        currentUser: action.payload,
+      };
+    //Idiomas
+    case UserActionTypes.SET_CURRENT_LANGUAGE:
+      return {
+        ...state,
+        currentLanguage: action.payload ? action.payload : null,
+        editMode: action.payload ? true : false,
+      };
+    case UserActionTypes.CREATE_LANGUAGE_SUCCESS:
+      return {
+        ...state,
+        currentUser: action.payload,
+        currentLanguage: null,
+        editMode: false,
+      };
+    case UserActionTypes.UPDATE_LANGUAGE_SUCCESS:
+      return {
+        ...state,
+        currentUser: action.payload,
+        currentLanguage: null,
+        editMode: false,
+      };
+    case UserActionTypes.DELETE_LANGUAGE_SUCCESS:
       return {
         ...state,
         currentUser: action.payload,

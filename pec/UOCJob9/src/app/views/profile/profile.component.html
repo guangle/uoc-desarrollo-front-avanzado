@@ -119,10 +119,7 @@
             Desde {{ experiencia.date_inicio }} hasta {{ experiencia.date_fin }}
           </td>
           <td>
-            <a
-              [routerLink]="['/admin/edit-experience']"
-              [queryParams]="{ id: experiencia.uid }"
-            >
+            <a [routerLink]="" (click)="editExperience(experiencia)">
               Editar
             </a>
             <a [routerLink]="" (click)="deleteExperience(experiencia)">
@@ -136,7 +133,7 @@
   <div>
     <h2>
       Idiomas (
-      <a [routerLink]="['/admin/edit-languages']">
+      <a [routerLink]="" (click)="newLanguage()">
         Nuevo
       </a>
       )
@@ -151,7 +148,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let l of user.languages">
+        <tr *ngFor="let l of (currentUser$ | async)?.languages">
           <td>
             {{ l.level.name }}
           </td>
@@ -162,13 +159,10 @@
             {{ l.date }}
           </td>
           <td>
-            <a
-              [routerLink]="['/admin/edit-languages']"
-              [queryParams]="{ id: l.uid }"
-            >
+            <a [routerLink]="" (click)="editLanguage(l)">
               Editar
             </a>
-            <a [routerLink]="" (click)="deleteLanguaje(l.uid)">
+            <a [routerLink]="" (click)="deleteLanguaje(l)">
               Eliminar
             </a>
           </td>

@@ -16,6 +16,7 @@ import { StoreRouterConnectingModule, routerReducer } from "@ngrx/router-store";
 import { UserEffects } from "../app/shared/state/user/effects/user.effects";
 import { DemoEffects } from "../app/shared/state/demo/effects/demo.effects";
 import { AuthEffects } from "../app/shared/state/auth/effects/auth.effects";
+import { OfferEffects } from "../app/shared/state/offer/effects/offer.effects";
 
 @NgModule({
   imports: [
@@ -29,16 +30,21 @@ import { AuthEffects } from "../app/shared/state/auth/effects/auth.effects";
       metaReducers,
       runtimeChecks: {
         strictStateImmutability: true,
-        strictActionImmutability: true
-      }
+        strictActionImmutability: true,
+      },
     }),
-    EffectsModule.forRoot([AuthEffects, UserEffects, DemoEffects]),
+    EffectsModule.forRoot([
+      AuthEffects,
+      UserEffects,
+      DemoEffects,
+      OfferEffects,
+    ]),
     !environment.production ? StoreDevtoolsModule.instrument() : [],
     //mete las rutas en el store para poder debuguear por las rutas ejecutadas
-    StoreRouterConnectingModule.forRoot({ stateKey: "router" })
+    StoreRouterConnectingModule.forRoot({ stateKey: "router" }),
   ],
   declarations: [AppComponent],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
 export class AppModule {}

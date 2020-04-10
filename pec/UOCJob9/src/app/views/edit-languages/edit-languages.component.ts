@@ -1,4 +1,4 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, ChangeDetectionStrategy } from "@angular/core";
 import { Router } from "@angular/router";
 import { FormControl, FormGroup } from "@angular/forms";
 import { Validators, FormBuilder } from "@angular/forms";
@@ -9,11 +9,17 @@ import { ActivatedRoute } from "@angular/router";
 import { formatDate } from "@angular/common";
 import { EspaciosValidator } from "../../shared/validators/espacios-validator";
 import * as moment from "moment";
+import { Store } from "@ngrx/store";
+import { AppStore } from "../../shared/state/store.interface";
+import { Observable } from "rxjs";
+import * as UserSelectors from "../../shared/state/user/selectors/user.selector";
+import * as UserActions from "../../shared/state/user/actions/user.actions";
 
 @Component({
   selector: "app-edit-languages",
   templateUrl: "./edit-languages.component.html",
-  styleUrls: ["./edit-languages.component.scss"]
+  styleUrls: ["./edit-languages.component.scss"],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class EditLanguagesComponent implements OnInit {
   public user: User;
@@ -22,6 +28,7 @@ export class EditLanguagesComponent implements OnInit {
   isSubmitted: boolean = false;
   //identificador del lenguaje que se esta editando (si se trata de una edición)
   id_lang;
+  edit_mode: boolean = false;
 
   //Tal y como indica el enunciado, de momento inicializamos los arrays en los componentes
   //aunque en un ejemplo real estos datos ddeberían venir del backend. En futuras practicas
@@ -32,7 +39,7 @@ export class EditLanguagesComponent implements OnInit {
     { uid: 2, name: "Francés" },
     { uid: 3, name: "Italiano" },
     { uid: 4, name: "Chino" },
-    { uid: 5, name: "Otro" }
+    { uid: 5, name: "Otro" },
   ];
 
   niveles = [
@@ -41,38 +48,60 @@ export class EditLanguagesComponent implements OnInit {
     { uid: 3, name: "B1" },
     { uid: 4, name: "B2" },
     { uid: 5, name: "C1" },
-    { uid: 6, name: "C2" }
+    { uid: 6, name: "C2" },
   ];
 
-  
+  //Partes del store que nos interesa observar en esta pantalla:
+  //lenguaje actual, edit mode y usuario actual
+
+  public currentLanguage$: Observable<any> = this.store$.select(
+    UserSelectors.currentLanguageSelector
+  );
+
+  //La propiedad editMode del store nos indica si estamos ante una edición
+  //o un alta
+  public editMode$: Observable<any> = this.store$.select(
+    UserSelectors.editModeSelector
+  );
+
+  public currentUser$: Observable<any> = this.store$.select(
+    UserSelectors.currentUserSelector
+  );
 
   constructor(
     private userService: UserService,
+    //TODO: pendiene, hay que quitar el servicio de aqui
+    private store$: Store<AppStore>,
     private router: Router,
     private route: ActivatedRoute,
     private fb: FormBuilder
   ) {
-    //Llegados a este punto, tenemos un usuario logado en la aplicacion que custodia usuarioService
-    this.user = this.userService.user;
-    //obtenemos el parametro que indica el identificdor de lenguaje que estamos editando
-    //(en cso de que se trate de una edicion)
-    this.id_lang = this.route.snapshot.queryParams["id"];
+    this.currentUser$.subscribe((u) => {
+      this.user = u;
+    });
 
-    if (this.inEditMode()) {
-      console.log("Iniciamos la variable language porque estamos en una edicion");
-      this.language = this.user.languages.find(l => l.uid == this.id_lang);
-    }
-    //Creamos - inicializamos el formulairo reacivo
+    this.editMode$.subscribe((b) => {
+      this.edit_mode = b;
+    });
+
+    //Llegados a este punto, tenemos en el store la experiencia con la que estamos trabajando
+    //(o un objeto experiencia 'vacía' si se trata de una creación)
+    this.currentLanguage$.subscribe((l) => {
+      console.log("currentLanguage", l);
+      this.language = l;
+      this.id_lang = this.language ? this.language.uid : null;
+    });
+  }
+
+  ngOnInit(): void {
+    //Una vez construido el componente,
+    //creamos - inicializamos el formulairo reacivo
     this.createForm();
   }
 
-  ngOnInit(): void {}
-
   /** true si estamos editando un lenguaje, false si estamos creando un nuevo */
   inEditMode() {
-    return (
-      this.id_lang != null && this.id_lang != "" && this.id_lang != "undefined"
-    );
+    return this.edit_mode;
   }
 
   /* Crea e inicia el formulario reactivo de idioma */
@@ -82,7 +111,7 @@ export class EditLanguagesComponent implements OnInit {
       this.language && this.language.name.uid == 5
         ? this.language.name.name
         : "";
-    //Creamos el form llamando al formbuilder. Le damos un valor por defecto si 
+    //Creamos el form llamando al formbuilder. Le damos un valor por defecto si
     //estamos ante una edición
 
     //Nota: al no estar definidas, hemos implementado las validaciones básicas (campos requeridos)
@@ -90,9 +119,15 @@ export class EditLanguagesComponent implements OnInit {
     //de usuario o los estudios
 
     this.editLanguajeForm = this.fb.group({
-      name: [this.language ? this.language.name.uid : null, [ Validators.required ]],
+      name: [
+        this.language ? this.language.name.uid : null,
+        [Validators.required],
+      ],
       other: [otroIdioma, []],
-      level: [this.language ? this.language.level.uid : null, [ Validators.required ]],
+      level: [
+        this.language ? this.language.level.uid : null,
+        [Validators.required],
+      ],
       date: [
         this.language
           ? formatDate(
@@ -101,8 +136,8 @@ export class EditLanguagesComponent implements OnInit {
               "en"
             )
           : null,
-        [Validators.required]
-      ]
+        [Validators.required],
+      ],
     });
   }
 
@@ -116,36 +151,35 @@ export class EditLanguagesComponent implements OnInit {
       if (this.editLanguajeForm.get("name").value == 5) {
         name_submited = {
           uid: 5,
-          name: this.editLanguajeForm.get("other").value
+          name: this.editLanguajeForm.get("other").value,
         };
       } else {
         name_submited = this.posibles_lenguas.find(
-          l => l.uid == this.editLanguajeForm.get("name").value
+          (l) => l.uid == this.editLanguajeForm.get("name").value
         );
       }
       //Objeto para enviar al backend
       let lang_object: Language = {
         uid: this.id_lang ? this.id_lang : this.user.languages.length + 1,
         level: this.niveles.find(
-          n => n.uid == this.editLanguajeForm.get("level").value
+          (n) => n.uid == this.editLanguajeForm.get("level").value
         ),
         name: name_submited,
         date: moment(
           this.editLanguajeForm.get("date").value,
           "YYYY-MM-DD"
-        ).format("DD/MM/YYYY")
+        ).format("DD/MM/YYYY"),
       };
 
+      //Prescindimos de los servicios: ahora despachamos las acciones
       if (this.inEditMode()) {
-        this.userService.editLanguage(lang_object).subscribe(data => {
-          console.log("Se ha editado con exito el lenguaje al usuario");
-          this.router.navigate(["/admin/profile"]);
-        });
+        this.store$.dispatch(
+          new UserActions.UpdateLanguage(this.user, lang_object)
+        );
       } else {
-        this.userService.addLanguage(lang_object).subscribe(data => {
-          console.log("Se ha añadido con exito el lenguaje al usuario");
-          this.router.navigate(["/admin/profile"]);
-        });
+        this.store$.dispatch(
+          new UserActions.CreateLanguage(this.user, lang_object)
+        );
       }
     } else {
       console.error("El formulario es invalido, no relizamos ninguna acción");

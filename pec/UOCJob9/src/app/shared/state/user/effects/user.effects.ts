@@ -7,8 +7,6 @@ import { catchError, map, switchMap, tap, exhaustMap } from "rxjs/operators";
 
 import { Injectable } from "@angular/core";
 
-//import { Pokemon } from '@shared/interfaces/pokemon.interface';
-//import { PokemonService } from '@services/pokemon.service';
 import { Router } from "@angular/router";
 import { User } from "../../../models/user.model";
 import { UserService } from "../../../services/user.service";
@@ -19,11 +17,7 @@ export class UserEffects {
     private actions$: Actions,
     private userService: UserService,
     private router: Router
-  ) {
-    console.log(
-      "Constructor de usereffect. ahora me encuentor perdido en esto.."
-    );
-  }
+  ) {}
 
   @Effect()
   loadAllUsers$: Observable<any> = this.actions$.pipe(
@@ -125,19 +119,8 @@ export class UserEffects {
 
   //En los error podriamos redirigir a una pantalla de error, mandar un mail al administrador,..
 
-  //CREO QUE LOAD STUDY NO VA A HACER FALTA.
-  @Effect()
-  loadStudy$: Observable<any> = this.actions$.pipe(
-    ofType(UserActions.UserActionTypes.LOAD_STUDY),
-    switchMap(() =>
-      this.userService.getAll().pipe(
-        map((users) => new UserActions.LoadUsersSuccess(users)),
-        catchError((error) => of(new UserActions.LoadUsersFailed(error)))
-      )
-    )
-  );
-
   //Efectos relacionados con la expriencia laboral
+  //----------------------------------------------
   @Effect({ dispatch: false })
   setCurrentExperience$ = this.actions$.pipe(
     ofType(UserActions.UserActionTypes.SET_CURRENT_EXPERIENCE),
@@ -185,6 +168,63 @@ export class UserEffects {
       this.userService.deleteExperience(action.user, action.experience).pipe(
         map((user) => new UserActions.DeleteExperienceSuccess(user)),
         catchError((error) => of(new UserActions.DeleteExperienceError(error)))
+      )
+    )
+  );
+
+  //Efectos relacionados con los idiomas
+  //----------------------------------------------
+
+  //Junto a actualizar el store, la ejecucion de SET_CURRENT_LANGUAGE
+  //provocará una redireccion de la aplicación a la pantalla de edicion
+  //de idioma
+  @Effect({ dispatch: false })
+  setCurrentLanguage$ = this.actions$.pipe(
+    ofType(UserActions.UserActionTypes.SET_CURRENT_LANGUAGE),
+    tap(() => this.router.navigate(["/admin/edit-languages"]))
+  );
+
+  @Effect()
+  createLanguage$: Observable<any> = this.actions$.pipe(
+    ofType(UserActions.UserActionTypes.CREATE_LANGUAGE),
+    switchMap((action: UserActions.CreateLanguage) =>
+      this.userService.addLanguage(action.user, action.newLanguage).pipe(
+        map((user) => new UserActions.CreateLanguageSuccess(user)),
+        catchError((error) => of(new UserActions.CreateLanguageError(error)))
+      )
+    )
+  );
+
+  @Effect({ dispatch: false })
+  createLanguageSuccess$ = this.actions$.pipe(
+    ofType(UserActions.UserActionTypes.CREATE_LANGUAGE_SUCCESS),
+    tap(() => this.router.navigate(["/admin/profile"]))
+  );
+
+  @Effect()
+  updateLanguage$: Observable<any> = this.actions$.pipe(
+    ofType(UserActions.UserActionTypes.UPDATE_LANGUAGE),
+    switchMap((action: UserActions.UpdateLanguage) =>
+      this.userService.editLanguage(action.user, action.language).pipe(
+        map((user) => new UserActions.UpdateLanguageSuccess(user)),
+        catchError((error) => of(new UserActions.UpdateLanguageError(error)))
+      )
+    )
+  );
+
+  @Effect({ dispatch: false })
+  updateLanguageSuccess$ = this.actions$.pipe(
+    ofType(UserActions.UserActionTypes.UPDATE_LANGUAGE_SUCCESS),
+    tap(() => this.router.navigate(["/admin/profile"]))
+  );
+
+  @Effect()
+  deleteLanguage$: Observable<any> = this.actions$.pipe(
+    ofType(UserActions.UserActionTypes.DELETE_LANGUAGE),
+    switchMap((action: UserActions.DeleteLanguage) =>
+      this.userService.deleteLanguaje(action.user, action.language).pipe(
+        map((user) => new UserActions.DeleteLanguageSuccess(user)),
+        catchError((error) => of(new UserActions.DeleteLanguageError(error)))
       )
     )
   );

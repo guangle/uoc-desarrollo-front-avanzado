@@ -34,7 +34,7 @@ export class EditExperienceComponent implements OnInit {
     UserSelectors.currentExperienceSelector
   );
 
-  //La propiedad readOnly del store nos indica si estamos ante una edición
+  //La propiedad editMode del store nos indica si estamos ante una edición
   //o un alta
   public editMode$: Observable<any> = this.store$.select(
     UserSelectors.editModeSelector

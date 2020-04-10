@@ -14,31 +14,11 @@ import * as UserSelectors from "../../shared/state/user/selectors/user.selector"
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DashboardComponent implements OnInit {
-  //public user: User;
   public currentUser$: Observable<any> = this.store$.select(
     UserSelectors.currentUserSelector
   );
 
-  constructor(
-    //private userService: UserService,
-    private store$: Store<AppStore>,
-    private router: Router
-  ) {
-    //this.user = this.userService.user;
-    //console.log(this.user);
-    //this.store$.dispatch(new PokemonActions.LoadPokemon());
-
-    this.currentUser$.subscribe((d) => {
-      console.log("-----jjgr");
-      console.log(d);
-    });
-
-    this.store$
-      .select((state) => state)
-      .subscribe((data) => {
-        console.log("data", data);
-      });
-  }
+  constructor(private store$: Store<AppStore>, private router: Router) {}
 
   ngOnInit() {}
 

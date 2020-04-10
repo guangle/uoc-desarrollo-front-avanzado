@@ -2,23 +2,21 @@ import { Action } from "@ngrx/store";
 import { User } from "../../../models/user.model";
 import { Study } from "../../../models/study.model";
 import { Experience } from "../../../models/experience.model";
+import { Language } from "../../../models/language.model";
 
 export enum UserActionTypes {
   LOAD_USERS = "[Users] Load users",
   LOAD_USERS_SUCCESS = "[Users] Load users success",
   LOAD_USERS_FAILED = "[Users] Load users failed",
 
-  //Acciones de verdad
-  //Establece el usuario logado en el store
-
-  SET_CURRENT_USER = "[User] Set current user",
-
+  //Acciones relacionadas con el perfil de usuario
+  SET_CURRENT_USER = "[User] Set current user", //Establece el usuario logado en el store
   UPDATE_USER = "[User] Update user",
   UPDATE_USER_SUCCESS = "[User] Update user Success",
   UPDATE_USER_ERROR = "[User] Update user Error",
 
-  //Establece el estudio que e va a editar (o crear)
-  SET_CURRENT_STUDY = "[STUDY] Set current study",
+  //Acciones relacionadas con la gestión de la formación del usuario
+  SET_CURRENT_STUDY = "[STUDY] Set current study", //Establece el estudio que e va a editar (o crear)
   CREATE_STUDY = "[STUDY] Create new study",
   CREATE_STUDY_SUCCESS = "[STUDY] Create new study success",
   CREATE_STUDY_ERROR = "[STUDY] Create new study error",
@@ -28,11 +26,8 @@ export enum UserActionTypes {
   DELETE_STUDY = "[STUDY] Delete study",
   DELETE_STUDY_SUCCESS = "[STUDY] Delete study Success",
   DELETE_STUDY_ERROR = "[STUDY] Delete study Error",
-  //Temp, esto no va a hacer falta
-  LOAD_STUDY = "[Study] Load study",
-  LOAD_STUDY_SUCCESS = "[Study] Load study success",
-  LOAD_STUDY_FAILED = "[Study] Load study failed",
 
+  //Acciones relacionadas con la gestión de experiencia laboral del usuario
   SET_CURRENT_EXPERIENCE = "[EXPERIENCE] Set current experience",
   CREATE_EXPERIENCE = "[EXPERIENCE] Create new experience",
   CREATE_EXPERIENCE_SUCCESS = "[EXPERIENCE] Create new experience success",
@@ -43,19 +38,33 @@ export enum UserActionTypes {
   DELETE_EXPERIENCE = "[EXPERIENCE] Delete experience",
   DELETE_EXPERIENCE_SUCCESS = "[EXPERIENCE] Delete experience Success",
   DELETE_EXPERIENCE_ERROR = "[EXPERIENCE] Delete experience Error",
+
+  //Acciones relacionadas con la gestión de idiomas
+  SET_CURRENT_LANGUAGE = "[LANGUAGE] Set current Language",
+  CREATE_LANGUAGE = "[LANGUAGE] Create new Language",
+  CREATE_LANGUAGE_SUCCESS = "[LANGUAGE] Create new Language success",
+  CREATE_LANGUAGE_ERROR = "[LANGUAGE] Create new Language error",
+  UPDATE_LANGUAGE = "[LANGUAGE] Update Language",
+  UPDATE_LANGUAGE_SUCCESS = "[LANGUAGE] Update Language Success",
+  UPDATE_LANGUAGE_ERROR = "[LANGUAGE] Update Language Error",
+  DELETE_LANGUAGE = "[LANGUAGE] Delete Language",
+  DELETE_LANGUAGE_SUCCESS = "[LANGUAGE] Delete Language Success",
+  DELETE_LANGUAGE_ERROR = "[LANGUAGE] Delete Language Error",
 }
 
-//Acciones que podrán ser invocadas desde nuestra aplicacion
+/** Carga todos los usuarios de nuestra backend */
 export class LoadUsers implements Action {
   readonly type = UserActionTypes.LOAD_USERS;
   constructor() {}
 }
 
+/** Exito al cargar los usuarios de nuestro backend */
 export class LoadUsersSuccess implements Action {
   readonly type = UserActionTypes.LOAD_USERS_SUCCESS;
-  //Si esta accion se ejecuta, tendremo sun array de usuarios
+  //Si esta accion se ejecuta, tendremo sun array de usuarios procedente de nuestro fake-backend
   constructor(public payload: Array<User>) {}
 }
+/** Acción que se invocará si ha ocurrido un error cargando los usuarios  */
 export class LoadUsersFailed implements Action {
   readonly type = UserActionTypes.LOAD_USERS_FAILED;
   //Si esta accion se ejecuta, tendremos un mensaje de error
@@ -75,11 +84,13 @@ export class UpdateUser implements Action {
   constructor(public payload: User) {}
 }
 
+/** Exito al actualizar el usuario */
 export class UpdateUserSuccess implements Action {
   readonly type = UserActionTypes.UPDATE_USER_SUCCESS;
   //Payload = usuario actualizado
   constructor(public payload: User) {}
 }
+
 export class UpdateUserError implements Action {
   readonly type = UserActionTypes.UPDATE_USER_ERROR;
   //PayLoad = mensaje de error
@@ -87,6 +98,7 @@ export class UpdateUserError implements Action {
 }
 
 //Acciones relacionadas con la formación académica
+//-------------------------------------------------
 /** Establece la formación sobre el que se va a trabajar */
 export class SetCurrentStudy implements Action {
   readonly type = UserActionTypes.SET_CURRENT_STUDY;
@@ -139,21 +151,6 @@ export class DeleteStudySuccess implements Action {
 export class DeleteStudyError implements Action {
   readonly type = UserActionTypes.DELETE_STUDY_ERROR;
   //PayLoad = mensaje de error
-  constructor(public message: string) {}
-}
-
-//ESto no va a hacer valta
-export class LoadStudy implements Action {
-  readonly type = UserActionTypes.LOAD_STUDY;
-  constructor(public id: number) {}
-}
-
-export class LoadStudySuccess implements Action {
-  readonly type = UserActionTypes.LOAD_STUDY_SUCCESS;
-  constructor(public payload: Study) {}
-}
-export class LoadStudyFailed implements Action {
-  readonly type = UserActionTypes.LOAD_STUDY_FAILED;
   constructor(public message: string) {}
 }
 
@@ -212,14 +209,72 @@ export class DeleteExperienceError implements Action {
   constructor(public message: string) {}
 }
 
+//Acciones relacionadas con los idiomas
+//-------------------------------------------------
+
+export class SetCurrentLanguage implements Action {
+  readonly type = UserActionTypes.SET_CURRENT_LANGUAGE;
+  //Si no recibe ningún parametro se tratará de un alta
+  constructor(public payload?: Language) {}
+}
+
+export class CreateLanguage implements Action {
+  readonly type = UserActionTypes.CREATE_LANGUAGE;
+  constructor(public user: User, public newLanguage: Language) {}
+}
+
+export class CreateLanguageSuccess implements Action {
+  readonly type = UserActionTypes.CREATE_LANGUAGE_SUCCESS;
+  //Payload = usuario actualizado con el nuevo idioma
+  constructor(public payload: User) {}
+}
+export class CreateLanguageError implements Action {
+  readonly type = UserActionTypes.CREATE_LANGUAGE_ERROR;
+  //PayLoad = mensaje de error
+  constructor(public message: string) {}
+}
+
+export class UpdateLanguage implements Action {
+  readonly type = UserActionTypes.UPDATE_LANGUAGE;
+  constructor(public user: User, public language: Language) {}
+}
+
+export class UpdateLanguageSuccess implements Action {
+  readonly type = UserActionTypes.UPDATE_LANGUAGE_SUCCESS;
+  //Payload = usuario con el idioma actualizado
+  constructor(public payload: User) {}
+}
+export class UpdateLanguageError implements Action {
+  readonly type = UserActionTypes.UPDATE_LANGUAGE_ERROR;
+  //PayLoad = mensaje de error
+  constructor(public message: string) {}
+}
+
+export class DeleteLanguage implements Action {
+  readonly type = UserActionTypes.DELETE_LANGUAGE;
+  constructor(public user: User, public language: Language) {}
+}
+
+export class DeleteLanguageSuccess implements Action {
+  readonly type = UserActionTypes.DELETE_LANGUAGE_SUCCESS;
+  //Payload = usuario con la usuario actualizado
+  constructor(public payload: User) {}
+}
+export class DeleteLanguageError implements Action {
+  readonly type = UserActionTypes.DELETE_LANGUAGE_ERROR;
+  //PayLoad = mensaje de error
+  constructor(public message: string) {}
+}
+
 //Exportamos las clases de acciones que hemos construido
 export type UsersActions =
-  //| LoadUsers
   | LoadUsersSuccess
+  //Pefil de usuario
   | SetCurrentUser
   | UpdateUser
   | UpdateUserSuccess
   | UpdateUserError
+  //Formación académica
   | SetCurrentStudy
   | CreateStudy
   | CreateStudySuccess
@@ -230,9 +285,6 @@ export type UsersActions =
   | DeleteStudy
   | DeleteStudySuccess
   | DeleteStudyError
-  | LoadStudy
-  | LoadStudySuccess
-  | LoadStudyFailed
   //Acciones relacionadas con la experiencia laboral
   | SetCurrentExperience
   | CreateExperience
@@ -243,4 +295,15 @@ export type UsersActions =
   | UpdateExperienceError
   | DeleteExperience
   | DeleteExperienceSuccess
-  | DeleteExperienceError;
+  | DeleteExperienceError
+  //Acciones relacionadas con la getión de idiomas de usuario
+  | SetCurrentLanguage
+  | CreateLanguage
+  | CreateLanguageSuccess
+  | CreateLanguageError
+  | UpdateLanguage
+  | UpdateLanguageSuccess
+  | UpdateLanguageError
+  | DeleteLanguage
+  | DeleteLanguageSuccess
+  | DeleteLanguageError;

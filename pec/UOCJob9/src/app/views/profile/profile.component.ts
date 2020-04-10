@@ -9,6 +9,7 @@ import { Observable } from "rxjs";
 import * as UserSelectors from "../../shared/state/user/selectors/user.selector";
 import * as UserActions from "../../shared/state/user/actions/user.actions";
 import { Experience } from "src/app/shared/models/experience.model";
+import { Language } from "src/app/shared/models/language.model";
 
 @Component({
   selector: "app-profile",
@@ -16,6 +17,9 @@ import { Experience } from "src/app/shared/models/experience.model";
   styleUrls: ["./profile.component.scss"],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
+
+//Nota PEC2. Este componente se ha simplificado enormemente, solo se encarga de 'despachar' acciones
+//y estar 'pendiente' de los cambios del usuario
 export class ProfileComponent implements OnInit {
   public user: User;
 
@@ -46,10 +50,10 @@ export class ProfileComponent implements OnInit {
     this.store$.dispatch(new UserActions.SetCurrentStudy());
   }
 
+  /** Accede al form de edición y precarga la formación que se le pasa como parámetro */
   public editStudy(st: Study) {
-    //console.log("editstudy");
-    console.log(st);
-    //TODO: comentar
+    //Análogo a newStudy, pero estableciendo una formación para precargar
+    //En este caso, el store tendra editMode=true
     this.store$.dispatch(new UserActions.SetCurrentStudy(st));
   }
 
@@ -72,12 +76,16 @@ export class ProfileComponent implements OnInit {
     this.store$.dispatch(new UserActions.DeleteExperience(this.user, ex));
   }
 
-  /** Borra el lenguaje del usuario cuyo id se pasa como parametro */
-  deleteLanguaje(id) {
-    console.log("Se va a borrar el lenguaje del usuario con id: " + id);
-    this.userService.deleteLanguaje(id).subscribe((data) => {
-      console.log("Usuario actualizado tras borrar el lenguaje");
-      this.user = data;
-    });
+  public newLanguage() {
+    this.store$.dispatch(new UserActions.SetCurrentLanguage());
+  }
+
+  public editLanguage(lang: Language) {
+    this.store$.dispatch(new UserActions.SetCurrentLanguage(lang));
+  }
+
+  deleteLanguaje(lang: Language) {
+    console.log("Se va a borrar el lenguaje del usuario con id: " + lang.uid);
+    this.store$.dispatch(new UserActions.DeleteLanguage(this.user, lang));
   }
 }

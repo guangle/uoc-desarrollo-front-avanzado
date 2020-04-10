@@ -2,7 +2,7 @@ import { createFeatureSelector, createSelector } from "@ngrx/store";
 
 import { UserState } from "../store.user";
 
-//Por ahora los selectores no se muy bien donde se utilizan..
+/** Creamos diferentes selectores que nos permitan observar partes concretas del store de usuario */
 
 export const selectUserState = createFeatureSelector<UserState>("users");
 
@@ -22,5 +22,12 @@ export const currentExperienceSelector = createSelector(
   selectUserState,
   (state) => {
     return state.currentExperience;
+  }
+);
+
+export const currentLanguageSelector = createSelector(
+  selectUserState,
+  (state) => {
+    return state.currentLanguage;
   }
 );

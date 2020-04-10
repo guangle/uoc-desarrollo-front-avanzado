@@ -27,7 +27,6 @@ import { UserService } from "../../../services/user.service";
 export class DemoEffects {
   constructor(private actions$: Actions, private userService: UserService) {
     // podría inyectarle N servicios de negocio, p.ej: , private userService: UserService) {
-    console.log("EStoy en el constructor de DemoEffects.");
   }
 
   @Effect()
@@ -38,8 +37,8 @@ export class DemoEffects {
 
     switchMap(() =>
       this.getNumbers().pipe(
-        map(x => new DemoActions.Accion1OK(x)),
-        catchError(error => of(new DemoActions.Accion1OK(error)))
+        map((x) => new DemoActions.Accion1OK(x)),
+        catchError((error) => of(new DemoActions.Accion1OK(error)))
       )
     )
   );
@@ -54,8 +53,8 @@ export class DemoEffects {
 
     switchMap(() =>
       this.getDates().pipe(
-        map(x => new DemoActions.Accion2OK(x)),
-        catchError(error => of(new DemoActions.Accion2OK(error)))
+        map((x) => new DemoActions.Accion2OK(x)),
+        catchError((error) => of(new DemoActions.Accion2OK(error)))
       )
     )
   );
@@ -65,8 +64,8 @@ export class DemoEffects {
     ofType(DemoActions.DemoActionTypes.ACCION3),
     switchMap(() =>
       this.userService.getAll().pipe(
-        map(users => new DemoActions.Accion3OK(users)),
-        catchError(error => of(new DemoActions.Accion3OK(error)))
+        map((users) => new DemoActions.Accion3OK(users)),
+        catchError((error) => of(new DemoActions.Accion3OK(error)))
       )
     )
   );

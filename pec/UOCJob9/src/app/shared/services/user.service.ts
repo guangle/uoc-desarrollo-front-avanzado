@@ -16,7 +16,17 @@ import {
 import { Experience } from "../models/experience.model";
 import { Study, CollegeStudy, VocationalStudy } from "../models/study.model";
 
-//import { _ } from "lodash";
+//Usamos una librería para copiar los objetos
+//He tenido algunos problemas manipulando los parámetros en algunos métodos del servicio,
+//(por ejemplo, añadiendo una experiencia al usuario que se pasa como parámetro)
+//No sé exactamente si es porque el usuario es un parámetro y no se puede extender o porque
+//procede de un selector ngrx y este obtiene una copia de solo lectura del store.
+//En cualquier caso, en ocasiones, para setear atributos y mandarlo al backend modificado hago una copia del
+//objeto. No he utilizado el operador spread ... porque no hace una copia 'profunda' del objeto.
+//Otra aproximación fue el 'truco' de convertirlo a json y despues devolverlo a objeto :
+// let userToUpdate = JSON.parse(JSON.stringify(us)); pero leí que podía dar problemas con algún tipo determinado de atributos,
+// como fechas. Finalmente use la librería lodash que provee el método cloneDeep con el que podemos hacer una copia exacta de
+//un objeto y todos sus atributos.
 import { cloneDeep } from "lodash";
 
 @Injectable({
@@ -34,6 +44,7 @@ export class UserService {
 
   /** Realiza el login contra el fake-backend */
   //TODO: ESTO YA NO SE UTILIZA, SE PODRÁ ELIMINAR EN EL REFACT FINAL
+  /*
   login(email: string, password: string): Observable<User[]> {
     //obtiene un observable con todos los usuarios y posteriormente filtra por usuario/password
     return this.dataservice
@@ -44,6 +55,7 @@ export class UserService {
         )
       );
   }
+  */
 
   /** Realiza el login contra el fake-backend */
   loginUser(email: string, password: string): Observable<User> {
@@ -53,8 +65,6 @@ export class UserService {
         let usus = usuarios.filter(
           (u) => u.email == email && u.password == password
         );
-        console.log("usus");
-        console.log(usus);
         if (usus && usus.length == 1) {
           return usus;
         } else {
@@ -73,38 +83,39 @@ export class UserService {
     return this.dataservice.updateUser(this.user);
   }
 
-  addLanguage(lang: Language): Observable<User> {
-    this.user.languages.push(lang);
-    return this.dataservice.updateUser(this.user);
+  addLanguage(us: User, lang: Language): Observable<User> {
+    const userToUpdate = cloneDeep(us);
+    userToUpdate.languages.push(lang);
+    return this.dataservice.updateUser(userToUpdate);
   }
 
-  editLanguage(lang: Language): Observable<User> {
+  editLanguage(us: User, lang: Language): Observable<User> {
+    const userToUpdate = cloneDeep(us);
     //TODO: implementacion rapida y poco optima..
     //..pero no estamos usando un backend de verdad
-    this.user.languages = this.user.languages.filter((l) => l.uid != lang.uid);
-    return this.addLanguage(lang);
+    userToUpdate.languages = userToUpdate.languages.filter(
+      (l) => l.uid != lang.uid
+    );
+    return this.addLanguage(userToUpdate, lang);
   }
 
-  /** Elimina el lenguaje del usuario cuyo identificador se pasa como parametro.
-   * Devuelve un observable para el usuario actualizado
-   */
-  deleteLanguaje(id: number): Observable<User> {
-    this.user.languages = this.user.languages.filter((l) => l.uid != id);
-    return this.dataservice.updateUser(this.user);
+  /** Elimina el lenguaje 'lang' del usuario 'us' */
+  deleteLanguaje(us: User, lang: Language): Observable<User> {
+    const userToUpdate = cloneDeep(us);
+    userToUpdate.languages = userToUpdate.languages.filter(
+      (l) => l.uid != lang.uid
+    );
+    return this.dataservice.updateUser(userToUpdate);
   }
 
   addExperience(us: User, exp: Experience): Observable<User> {
-    //let userToUpdate = JSON.parse(JSON.stringify(us));
-    //const userToUpdate = rfdc(us);
     const userToUpdate = cloneDeep(us);
     userToUpdate.experiencies.push(exp);
     return this.dataservice.updateUser(userToUpdate);
   }
 
   editExperience(us: User, exp: Experience): Observable<User> {
-    //let userToUpdate = JSON.parse(JSON.stringify(us));
-    //const userToUpdate = rfdc(us);
-    const userToUpdate = _.cloneDeep(us);
+    const userToUpdate = cloneDeep(us);
     //TODO: implementacion rapida y poco optima..
     //..pero no estamos usando un backend de verdad
     userToUpdate.experiencies = userToUpdate.experiencies.filter(
@@ -150,11 +161,6 @@ export class UserService {
     let userToUpdate = JSON.parse(JSON.stringify(us));
     userToUpdate.studies = userToUpdate.studies.filter((l) => l.uid != st.uid);
     return this.dataservice.updateUser(userToUpdate);
-  }
-
-  deleteStudiesOld(id: number): Observable<User> {
-    this.user.studies = this.user.studies.filter((l) => l.uid != id);
-    return this.dataservice.updateUser(this.user);
   }
 
   /** Realiza el logout de la aplicacion, borrando los atributos y el localStorage */

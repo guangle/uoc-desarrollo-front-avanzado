@@ -39,13 +39,9 @@ export class SigninComponent implements OnInit {
   ) {
     this.createForm();
 
-    console.log("prueba de concepto, iniciado todo el store y el selector");
-    console.log("-------");
-
     this.authInfo$.subscribe((login_state) => {
-      console.log("Algo ha cambiado en el login");
-      console.log("Estado actual del login:");
-      console.log(login_state);
+      console.log("Algo ha cambiado en el estado del login");
+      console.log("login_state", login_state);
       if (login_state.logged) {
         if ("user" === login_state.type) {
           //Se ha logado un usuario, vamos al dashboard principal
