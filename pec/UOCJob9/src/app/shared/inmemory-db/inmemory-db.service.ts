@@ -21,10 +21,11 @@ export class FakeBackendService implements InMemoryDbService {
         license: "B1",
         aboutMe: "LOREM IPSUM LOREM IPSUMLOREM IPSUM",
         otherCompetences: "LOREM IPSUM LOREM IPSUMLOREM IPSUM",
+        recover_request_pending: false,
         address: {
           street: "Urbanización las Areanas - 45",
           province: { uid: 4, name: "Cádiz" },
-          municipe: { uid: 6, name: "Chiclana de la Frontera" }
+          municipe: { uid: 6, name: "Chiclana de la Frontera" },
         },
         avatar_hash: "assets/img/perfil.png",
         studies: [
@@ -34,39 +35,39 @@ export class FakeBackendService implements InMemoryDbService {
             category: { uid: 2, name: "Informática y comunicaciones" },
             institution: {
               uid: 2,
-              name: "IES Politécnico Jesús Marin"
+              name: "IES Politécnico Jesús Marin",
             },
             title: {
               uid: 2,
-              name: "Administracion de sistemas informaticos y redes"
+              name: "Administracion de sistemas informaticos y redes",
             },
             grade: {
               uid: 3,
-              name: "Ciclo Formativo de Grado Superior"
+              name: "Ciclo Formativo de Grado Superior",
             },
             date: "30/06/2005",
             dual: false,
             bilingue: true,
-            certificate: true
+            certificate: true,
           },
           {
             uid: 2,
             institution: {
               uid: 2,
-              name: "IES Politécnico Jesús Marin"
+              name: "IES Politécnico Jesús Marin",
             },
             category: { uid: 2, name: "Informática y comunicaciones" },
             level: { uid: 1, name: "Ciclo Formativo" },
             title: {
               uid: 1,
-              name: "Técnico Superior en Desarrollo de Aplicaciones Web"
+              name: "Técnico Superior en Desarrollo de Aplicaciones Web",
             },
             grade: { uid: 3, name: "Ciclo Formativo de Grado Superior" },
             date: "30/06/2007",
             dual: true,
             bilingue: false,
-            certificate: false
-          }
+            certificate: false,
+          },
         ],
         experiencies: [],
         languages: [
@@ -74,16 +75,16 @@ export class FakeBackendService implements InMemoryDbService {
             uid: 1,
             level: { uid: 5, name: "C1" },
             name: { uid: 1, name: "Inglés" },
-            date: "30/06/2005"
+            date: "30/06/2005",
           },
           {
             uid: 2,
             level: { uid: 4, name: "B2" },
             name: { uid: 2, name: "Francés" },
-            date: "30/06/1998"
-          }
+            date: "30/06/1998",
+          },
         ],
-        offers: []
+        offers: [],
       },
       {
         id: 2,
@@ -102,10 +103,11 @@ export class FakeBackendService implements InMemoryDbService {
         aboutMe:
           "licenciado en ing informática, me apasiona todo lo relacionado con el software en general y la IA en particular",
         otherCompetences: "baloncesto, billar y sobre todo javascript :P",
+        recover_request_pending: false,
         address: {
           street: "Gerión - 45",
           province: { uid: 4, name: "Cádiz" },
-          municipe: { uid: 6, name: "Chiclana de la Frontera" }
+          municipe: { uid: 6, name: "Chiclana de la Frontera" },
         },
         avatar_hash: "assets/img/perfil.png",
         studies: [
@@ -115,39 +117,39 @@ export class FakeBackendService implements InMemoryDbService {
             category: { uid: 2, name: "Informática y comunicaciones" },
             institution: {
               uid: 2,
-              name: "IES Politécnico Jesús Marin"
+              name: "IES Politécnico Jesús Marin",
             },
             title: {
               uid: 2,
-              name: "Administracion de sistemas informaticos y redes"
+              name: "Administracion de sistemas informaticos y redes",
             },
             grade: {
               uid: 3,
-              name: "Ciclo Formativo de Grado Superior"
+              name: "Ciclo Formativo de Grado Superior",
             },
             date: "30/06/2005",
             dual: false,
             bilingue: true,
-            certificate: true
+            certificate: true,
           },
           {
             uid: 2,
             institution: {
               uid: 2,
-              name: "IES Politécnico Jesús Marin"
+              name: "IES Politécnico Jesús Marin",
             },
             category: { uid: 2, name: "Informática y comunicaciones" },
             level: { uid: 1, name: "Ciclo Formativo" },
             title: {
               uid: 1,
-              name: "Técnico Superior en Desarrollo de Aplicaciones Web"
+              name: "Técnico Superior en Desarrollo de Aplicaciones Web",
             },
             grade: { uid: 3, name: "Ciclo Formativo de Grado Superior" },
             date: "30/06/2007",
             dual: true,
             bilingue: false,
-            certificate: false
-          }
+            certificate: false,
+          },
         ],
         experiencies: [],
         languages: [
@@ -155,17 +157,17 @@ export class FakeBackendService implements InMemoryDbService {
             uid: 1,
             level: { uid: 5, name: "C1" },
             name: { uid: 1, name: "Inglés" },
-            date: "30/06/2005"
+            date: "30/06/2005",
           },
           {
             uid: 2,
             level: { uid: 4, name: "B2" },
             name: { uid: 2, name: "Francés" },
-            date: "30/06/1998"
-          }
+            date: "30/06/1998",
+          },
         ],
-        offers: []
-      }
+        offers: [],
+      },
     ];
 
     const offers: any[] = [
@@ -173,11 +175,11 @@ export class FakeBackendService implements InMemoryDbService {
         id: 1,
         company: {
           uid: 33,
-          name: "Coritel"
+          name: "Coritel",
         },
         job: {
           name: "Programador Jr Java",
-          description: "Programación y prueba unitaria en Java"
+          description: "Programación y prueba unitaria en Java",
         },
         province: { uid: 1, name: "Málaga" },
         municipe: { uid: 7, name: "Estepona" },
@@ -187,36 +189,36 @@ export class FakeBackendService implements InMemoryDbService {
           { uid: 1, name: "Desarrollo Aplicaciones Web" },
           { uid: 4, name: "Desarrollo Aplicaciones Multiplataforma" },
           //metemos alguno de los titulos de los usuarios de prueba para que puedan apuntarse
-          { uid: 2, name: "Administracion de sistemas informaticos y redes" }
-        ]
+          { uid: 2, name: "Administracion de sistemas informaticos y redes" },
+        ],
       },
       {
         id: 2,
         company: {
           uid: 33,
-          name: "Coritel"
+          name: "Coritel",
         },
         job: {
           name: "Comercial",
           description:
-            "Relaciones con los clientes y atención a las redes sociales."
+            "Relaciones con los clientes y atención a las redes sociales.",
         },
         province: { uid: 1, name: "Málaga" },
         municipe: { uid: 8, name: "Campanillas (PTA)" },
         date: "21/09/2016",
         category: { uid: 4, name: "Comercio y Marketing" },
-        title: [{ uid: 5, name: "Gestión Comercial y Empresarial" }]
+        title: [{ uid: 5, name: "Gestión Comercial y Empresarial" }],
       },
       {
         id: 3,
         company: {
           uid: 33,
-          name: "Coritel"
+          name: "Coritel",
         },
         job: {
           name: "Analista Programador Java",
           description:
-            "Análisis funcional y diseño técnico/detallado de componentes"
+            "Análisis funcional y diseño técnico/detallado de componentes",
         },
         province: { uid: 5, name: "Granada" },
         municipe: { uid: 9, name: "Motril" },
@@ -225,25 +227,25 @@ export class FakeBackendService implements InMemoryDbService {
         title: [
           { uid: 4, name: "Desarrollo Aplicaciones Multiplataforma" },
           //metemos alguno de los titulos de los usuarios de prueba para que puedan apuntarse
-          { uid: 2, name: "Administracion de sistemas informaticos y redes" }
-        ]
+          { uid: 2, name: "Administracion de sistemas informaticos y redes" },
+        ],
       },
       {
         id: 4,
         company: {
           uid: 35,
-          name: "Indra"
+          name: "Indra",
         },
         job: {
           name: "Administrativo",
-          description: "Gestión de cartera de clientes."
+          description: "Gestión de cartera de clientes.",
         },
         province: { uid: 2, name: "Sevilla" },
         municipe: { uid: 10, name: "Osuna" },
         date: "01/12/2015",
         category: { uid: 5, name: "Administración y Gestión" },
-        title: [{ uid: 6, name: "Empresariales" }]
-      }
+        title: [{ uid: 6, name: "Empresariales" }],
+      },
     ];
 
     const companies: any[] = [
@@ -259,16 +261,16 @@ export class FakeBackendService implements InMemoryDbService {
         direccion: {
           street: "Isla de la Cartuja",
           province: { uid: 2, name: "Sevilla" },
-          municipe: { uid: 2, name: "Sevilla" }
+          municipe: { uid: 2, name: "Sevilla" },
         },
         url: "http://fujitu.es",
         contacto: {
           contacto_nombre: "Eva Gonzalez Alonso",
           contacto_telefono: 658770044,
-          contacto_mail: "rrhh@fujitsu.es"
+          contacto_mail: "rrhh@fujitsu.es",
         },
 
-        idioma_app: { uid: 6, name: "Castellano" }
+        idioma_app: { uid: 6, name: "Castellano" },
       },
       {
         password: "1234",
@@ -282,17 +284,17 @@ export class FakeBackendService implements InMemoryDbService {
         direccion: {
           street: "Isla de la Cartuja",
           province: { uid: 2, name: "Sevilla" },
-          municipe: { uid: 2, name: "Sevilla" }
+          municipe: { uid: 2, name: "Sevilla" },
         },
         url: "http://everis.es",
         contacto: {
           contacto_nombre: "Cristina Nuñez Garrido",
           contacto_telefono: 611447702,
-          contacto_mail: "rrhh@everis.es"
+          contacto_mail: "rrhh@everis.es",
         },
 
-        idioma_app: { uid: 6, name: "Castellano" }
-      }
+        idioma_app: { uid: 6, name: "Castellano" },
+      },
     ];
 
     return { users, offers, companies };

@@ -14,33 +14,39 @@
   <div class="row-datos">
     <div id="foto">
       <img src="assets/user.png" alt="User" height="150px" width="150px" />
-      <span id="profile_name"> {{ user.name }} {{ user.surname }} </span>
+      <span id="profile_name">
+        {{ (currentUser$ | async)?.name }} {{ (currentUser$ | async)?.surname }}
+      </span>
     </div>
     <div id="datos-basicos">
       <div>
-        Email: <span>{{ user.email }}</span>
+        Email: <span>{{ (currentUser$ | async)?.email }}</span>
       </div>
       <div>
-        Fecha de nacimiento: <span>{{ user.birthdate }} </span>
+        Fecha de nacimiento:
+        <span>{{ (currentUser$ | async)?.birthdate }} </span>
       </div>
       <div>
-        Teléfono: <span>{{ user.phone }} </span>
+        Teléfono: <span>{{ (currentUser$ | async)?.phone }} </span>
       </div>
       <div>
-        {{ user.documentType.name }}: <span>{{ user.documentNumber }}</span>
+        {{ (currentUser$ | async)?.documentType.name }}:
+        <span>{{ (currentUser$ | async)?.documentNumber }}</span>
       </div>
       <div>
-        Permisos de conducir: <span>{{ user.license }}</span>
+        Permisos de conducir: <span>{{ (currentUser$ | async)?.license }}</span>
       </div>
     </div>
     <div class="acerca-de acerca-de-1">
       <span>Acerca de mi: </span
-      ><textarea rows="6" cols="35" readonly> {{ user.aboutMe }}</textarea>
+      ><textarea rows="6" cols="35" readonly>
+ {{ (currentUser$ | async)?.aboutMe }}</textarea
+      >
     </div>
     <div class="acerca-de acerca-de-2">
       <span>Otras competencias:</span
       ><textarea rows="6" cols="35" readonly>
- {{ user.otherCompetences }}</textarea
+ {{ (currentUser$ | async)?.otherCompetences }}</textarea
       >
     </div>
   </div>
@@ -80,9 +86,13 @@
           <td><small>(pdte pec de manejo de ficheros)</small></td>
           <td>
             <a [routerLink]="" (click)="editStudy(formacion)">
-              Editar new ngrx
+              Editar
             </a>
-            <a [routerLink]="" (click)="deleteStudies(formacion)">
+            <a
+              *ngIf="currentUser$ | async as user"
+              [routerLink]=""
+              (click)="deleteStudies(user, formacion)"
+            >
               Eliminar
             </a>
           </td>
@@ -122,7 +132,11 @@
             <a [routerLink]="" (click)="editExperience(experiencia)">
               Editar
             </a>
-            <a [routerLink]="" (click)="deleteExperience(experiencia)">
+            <a
+              *ngIf="currentUser$ | async as user"
+              [routerLink]=""
+              (click)="deleteExperience(user, experiencia)"
+            >
               Eliminar
             </a>
           </td>
@@ -162,7 +176,11 @@
             <a [routerLink]="" (click)="editLanguage(l)">
               Editar
             </a>
-            <a [routerLink]="" (click)="deleteLanguaje(l)">
+            <a
+              *ngIf="currentUser$ | async as user"
+              [routerLink]=""
+              (click)="deleteLanguaje(user, l)"
+            >
               Eliminar
             </a>
           </td>

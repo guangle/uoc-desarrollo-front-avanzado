@@ -7,33 +7,33 @@ export const rootRouterConfig: Routes = [
   {
     path: "",
     redirectTo: "signin",
-    pathMatch: "full"
+    pathMatch: "full",
   },
   {
     path: "signin",
     loadChildren: () =>
-      import("./views/signin/signin.module").then(m => m.SigninModule),
-    data: { title: "Signin" }
+      import("./views/signin/signin.module").then((m) => m.SigninModule),
+    data: { title: "Signin" },
   },
   {
     path: "forgot-password",
     loadChildren: () =>
       import("./views/forgot-password/forgot-password.module").then(
-        m => m.ForgotPasswordModule
+        (m) => m.ForgotPasswordModule
       ),
-    data: { title: "Forgot Password" }
+    data: { title: "Forgot Password" },
   },
   {
     path: "signup",
     loadChildren: () =>
-      import("./views/signup/signup.module").then(m => m.SignupModule),
-    data: { title: "Signup" }
+      import("./views/signup/signup.module").then((m) => m.SignupModule),
+    data: { title: "Signup" },
   },
   {
     path: "notes",
     loadChildren: () =>
-      import("./views/notes/notes.module").then(m => m.NotesModule),
-    data: { title: "Notas de la implementación" }
+      import("./views/notes/notes.module").then((m) => m.NotesModule),
+    data: { title: "Notas de la implementación" },
   },
   {
     path: "admin",
@@ -44,66 +44,66 @@ export const rootRouterConfig: Routes = [
         path: "dashboard",
         loadChildren: () =>
           import("./views/dashboard/dashboard.module").then(
-            m => m.DashboardModule
+            (m) => m.DashboardModule
           ),
 
-        data: { title: "Dashboard", breadcrumb: "DASHBOARD" }
+        data: { title: "Dashboard", breadcrumb: "DASHBOARD" },
       },
       {
         path: "favorites",
         loadChildren: () =>
           import("./views/favorites/favorites.module").then(
-            m => m.FavoritesModule
+            (m) => m.FavoritesModule
           ),
 
-        data: { title: "Favorites", breadcrumb: "FAVORITES" }
+        data: { title: "Favorites", breadcrumb: "FAVORITES" },
       },
       {
         path: "profile",
         loadChildren: () =>
-          import("./views/profile/profile.module").then(m => m.ProfileModule),
-        data: { title: "Material", breadcrumb: "MATERIAL" }
+          import("./views/profile/profile.module").then((m) => m.ProfileModule),
+        data: { title: "Material", breadcrumb: "MATERIAL" },
       },
       //creamos nuevas rutas relacionadas con la edición del perfil
       {
         path: "edit-profile",
         loadChildren: () =>
           import("./views/edit-profile/edit-profile.module").then(
-            m => m.EditProfileModule
+            (m) => m.EditProfileModule
           ),
-        data: { title: "Material", breadcrumb: "MATERIAL" }
+        data: { title: "Material", breadcrumb: "MATERIAL" },
       },
       {
         path: "edit-experience",
         loadChildren: () =>
           import("./views/edit-experience/edit-experience.module").then(
-            m => m.EditExperienceModule
+            (m) => m.EditExperienceModule
           ),
-        data: { title: "Material", breadcrumb: "MATERIAL" }
+        data: { title: "Material", breadcrumb: "MATERIAL" },
       },
       {
         path: "edit-studies",
         loadChildren: () =>
           import("./views/edit-studies/edit-studies.module").then(
-            m => m.EditStudiesModule
+            (m) => m.EditStudiesModule
           ),
-        data: { title: "Material", breadcrumb: "MATERIAL" }
+        data: { title: "Material", breadcrumb: "MATERIAL" },
       },
       {
         path: "edit-languages",
         loadChildren: () =>
           import("./views/edit-languages/edit-languages.module").then(
-            m => m.EditLanguagesModule
+            (m) => m.EditLanguagesModule
           ),
-        data: { title: "Material", breadcrumb: "MATERIAL" }
+        data: { title: "Material", breadcrumb: "MATERIAL" },
       },
       {
         path: "offers",
         loadChildren: () =>
-          import("./views/offers/offers.module").then(m => m.OffersModule),
-        data: { title: "Offers", breadcrumb: "Offers" }
-      }
-    ]
+          import("./views/offers/offers.module").then((m) => m.OffersModule),
+        data: { title: "Offers", breadcrumb: "Offers" },
+      },
+    ],
   },
   {
     path: "companies",
@@ -112,39 +112,30 @@ export const rootRouterConfig: Routes = [
         path: "dashboard-company",
         loadChildren: () =>
           import("./views/dashboard-company/dashboard-company.module").then(
-            m => m.DashboardCompanyModule
+            (m) => m.DashboardCompanyModule
           ),
-        data: { title: "Dashboard", breadcrumb: "DASHBOARD" }
+        data: { title: "Dashboard", breadcrumb: "DASHBOARD" },
       },
       {
         path: "edit-profile",
         loadChildren: () =>
           import(
             "./views/edit-profile-company/edit-profile-company.module"
-          ).then(m => m.EditProfileCompanyModule),
-        data: { title: "Material", breadcrumb: "MATERIAL" }
+          ).then((m) => m.EditProfileCompanyModule),
+        data: { title: "Material", breadcrumb: "MATERIAL" },
       },
-      //Imposible llegar!
-      /*
-      {
-        path: "offers",
-        loadChildren: () =>
-          import("./views/offers/offers.module").then(m => m.OffersModule),
-        data: { title: "Offers", breadcrumb: "Offers" }
-      }
-      */
       {
         path: "configuration",
         loadChildren: () =>
           import(
             "./views/company-configuration/company-configuration.module"
-          ).then(m => m.CompanyConfigurationComponentModule),
-        data: { title: "Material", breadcrumb: "MATERIAL" }
-      }
-    ]
+          ).then((m) => m.CompanyConfigurationComponentModule),
+        data: { title: "Material", breadcrumb: "MATERIAL" },
+      },
+    ],
   },
   {
     path: "**",
-    redirectTo: "sessions/404"
-  }
+    redirectTo: "sessions/404",
+  },
 ];

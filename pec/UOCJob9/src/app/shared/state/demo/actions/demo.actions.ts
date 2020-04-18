@@ -14,7 +14,7 @@ export enum DemoActionTypes {
   ACCION2_OK = "[DEMO] Accion2 OK",
   //pruebas con usuarios
   ACCION3 = "[DEMO] Accion3",
-  ACCION3_OK = "[DEMO] Accion3 OK"
+  ACCION3_OK = "[DEMO] Accion3 OK",
 }
 
 //Hay que implementar una clase (que extienda a Action) por cada acción definida
@@ -50,7 +50,7 @@ export class Accion3OK implements Action {
   constructor(public payload: Array<User>) {}
 }
 
-//Opcional. El constructor de la acción puede tener un 'payload'. Un payload parece ser un objeto que voy a tener
+//Opcional. El constructor de la acción puede tener un 'payload'. (o varios) Un payload parece ser un objeto que voy a tener
 //si la acción necesita para ejecutarse(la recibe en el constructor). Por ejemplo, un Action de Load users va a tener un payload de tipo
 //array de usuarios.
 

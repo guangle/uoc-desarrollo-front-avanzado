@@ -1,69 +1,50 @@
-import { Component, OnInit } from "@angular/core";
-import { Router } from "@angular/router";
-import { DataService } from "../../shared/services/data.service";
-import { UserService } from "../../shared/services/user.service";
+import { Component, OnInit, ChangeDetectionStrategy } from "@angular/core";
 import { User } from "../../shared/models/user.model";
-import { ActivatedRoute } from "@angular/router";
 import { Offer } from "src/app/shared/models/offer.model";
+import { Store } from "@ngrx/store";
+import { AppStore } from "../../shared/state/store.interface";
+
+import * as OfferSelectors from "../../shared/state/offer/selectors/offer.selector";
+import * as OfferActions from "../../shared/state/offer/actions/offer.actions";
+import * as UserSelectors from "../../shared/state/user/selectors/user.selector";
+
+import { Observable } from "rxjs";
 
 @Component({
   selector: "app-offer-detail",
   templateUrl: "./offer-detail.component.html",
-  styleUrls: ["./offer-detail.component.scss"]
+  styleUrls: ["./offer-detail.component.scss"],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class OfferDetailComponent implements OnInit {
-  public user: User;
-  public offer: Offer;
-  //identificador de la oferta para el cual se está mostrando el detalle
-  public id;
+  //Partes del Store que nos interesa 'Observar' para mostrar el detalle de la oferta:
+  //usuario actual, oferta para visualizar y si está inscrito o no
 
-  /*boolean para indicar si el usuario esta inscrito a a oferta que se esta visualizando */
-  public inscrito: boolean = false;
+  public currentUser$: Observable<any> = this.store$.select(
+    UserSelectors.currentUserSelector
+  );
 
-  //NOTA: los datos de la oferta no los vamos a tener inmediatamente (porque llamamos a un backend asincrono)
-  //por lo que en consola se mostrará algún error al renderizar mientras el dato no está disponible.
-  //Esto se soluciona con un RouteGuard que nos precarga el elemento antes de llegar a offer-detail, pero he leido
-  //en los foros que en esta practica no se van a implementar guardas todavía
+  public currentOffer$: Observable<any> = this.store$.select(
+    OfferSelectors.currentOfferSelector
+  );
 
-  constructor(
-    private router: Router,
-    private dataservice: DataService,
-    private route: ActivatedRoute,
-    private userService: UserService
-  ) {
-    this.user = this.userService.user;
-    this.id = this.route.snapshot.queryParams["id"];
-    console.log("Accediendo al detalle de la oferta con ID: " + this.id);
+  public inscrito$: Observable<any> = this.store$.select(
+    OfferSelectors.inscritoSelector
+  );
 
-    //obtenemos la oferta llamando al bakend
-    this.dataservice.getOffer(this.id).subscribe(o => {
-      console.log("Oferta obtenida del backend..");
-      this.offer = o;
-      this.inscrito = this.user.offers.some(o => o.id == this.id);
-    });
-  }
+  constructor(private store$: Store<AppStore>) {}
 
-  ngOnInit(): void {
-    console.log("Oferta detail, on init..");
-  }
+  ngOnInit(): void {}
 
   /** Inscribe al usuario a la oferta que se está visualizando */
-  inscribirOferta() {
-    console.log("Se va a inscribir al usuario a la oferta con id " + this.id);
-    this.user.offers.push(this.offer);
-    this.userService.updateUser(this.user).subscribe(u => {
-      console.log("Usuario inscrito a la oferta correctamente");
-      this.router.navigate(["/admin/dashboard"]);
-    });
+  inscribirOferta(user: User, offer: Offer) {
+    console.log("Se va a inscribir al usuario en la oferta: ", offer);
+    this.store$.dispatch(new OfferActions.ApplyOffer(user, offer));
   }
 
   /*Des-inscribe al usuario de la oferta que se está visualizando */
-  borrarseOferta() {
-    console.log("Se va a borrar al usuario de la oferta con id " + this.id);
-    this.user.offers = this.user.offers.filter(o => o.id != this.id);
-    this.userService.updateUser(this.user).subscribe(u => {
-      console.log("Usuario borrado de la oferta correctamente");
-      this.router.navigate(["/admin/dashboard"]);
-    });
+  borrarseOferta(user: User, offer: Offer) {
+    console.log("Se va a borrar al usuario de la oferta: ", offer);
+    this.store$.dispatch(new OfferActions.CancelApplyOffer(user, offer));
   }
 }

@@ -3,8 +3,8 @@
     <div class="elemento-centrado" id="header-dashboard">
       <h1>DashBoard (Empresas)</h1>
       <p>
-        Hola, {{ company.nombre_comercial }}
-        <button style="display:inline;" (click)="logout()">Salir</button>
+        Hola, {{ (currentCompany$ | async)?.nombre_comercial }}
+        <button style="display: inline;" (click)="logout()">Salir</button>
       </p>
     </div>
 
@@ -13,13 +13,6 @@
         Perfil
       </a>
     </div>
-    <!--
-      <div class="elemento-centrado">
-        <a [routerLink]="['/companies/offers/list']">
-          Ofertas ( pdte, sin tiempo )
-        </a>
-      </div>
-      -->
     <div class="elemento-centrado">
       <a [routerLink]="['/companies/configuration']">
         Configuración

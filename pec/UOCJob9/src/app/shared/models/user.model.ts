@@ -1,8 +1,8 @@
-import { AppSettings } from '../app.settings';
-import { Study, VocationalStudy, CollegeStudy } from './study.model';
-import { Language } from './language.model';
-import { Offer } from './offer.model';
-import { Experience } from './experience.model';
+import { AppSettings } from "../app.settings";
+import { Study, VocationalStudy, CollegeStudy } from "./study.model";
+import { Language } from "./language.model";
+import { Offer } from "./offer.model";
+import { Experience } from "./experience.model";
 export interface Users {
   [id: number]: User;
 }
@@ -47,20 +47,21 @@ export interface User {
   experiencies: Experience[];
   languages: Language[];
   offers: Offer[];
+  recover_request_pending: boolean; //Indica si tiene un email de recuperación de contraseña pendiente
 }
 
 export function createNewUser(user?: User): User {
   return {
     ...user,
-    name: '',
-    surname: '',
+    name: "",
+    surname: "",
     id: -1,
-    email: '',
-    roles: [''],
+    email: "",
+    roles: [""],
     /*  avatar_hash: this.avatar_hash || null, */
     experiencies: [],
     studies: [],
     languages: [],
-    offers: []
+    offers: [],
   };
 }

@@ -1,6 +1,4 @@
 import { Component, OnInit, ChangeDetectionStrategy } from "@angular/core";
-import { UserService } from "../../shared/services/user.service";
-import { Router } from "@angular/router";
 import { User } from "../../shared/models/user.model";
 import { Study } from "../../shared/models/study.model";
 import { Store } from "@ngrx/store";
@@ -21,24 +19,12 @@ import { Language } from "src/app/shared/models/language.model";
 //Nota PEC2. Este componente se ha simplificado enormemente, solo se encarga de 'despachar' acciones
 //y estar 'pendiente' de los cambios del usuario
 export class ProfileComponent implements OnInit {
-  public user: User;
-
   //Observamos el usuario actual del store, que es sobre el que vamos a trabajar
   public currentUser$: Observable<any> = this.store$.select(
     UserSelectors.currentUserSelector
   );
 
-  constructor(
-    private userService: UserService,
-    //TODO: pendiene, hay que quitar el servicio de aqui
-    private store$: Store<AppStore>,
-    private router: Router
-  ) {
-    //Llegados a este punto, tenemos un usuario en el store
-    this.currentUser$.subscribe((u) => {
-      this.user = u;
-    });
-  }
+  constructor(private store$: Store<AppStore>) {}
 
   ngOnInit() {}
 
@@ -57,13 +43,17 @@ export class ProfileComponent implements OnInit {
     this.store$.dispatch(new UserActions.SetCurrentStudy(st));
   }
 
-  /** Elimina el estudio del usuario cuyo id se pasa como parametro  */
-  deleteStudies(st: Study) {
+  /** Elimina el la formación 'st' del usuario 'us' */
+  deleteStudies(us: User, st: Study) {
     console.log("Se va a borrar la formacion del usuario con id: " + st.uid);
-    this.store$.dispatch(new UserActions.DeleteStudy(this.user, st));
+    this.store$.dispatch(new UserActions.DeleteStudy(us, st));
   }
 
+  /** Accede a al formulario de Experiencia Laboral con editMode=false */
   public newExperience() {
+    //Cuando se establezca la currentExperience (en este caso a null)
+    //se ejecutará un efecto que dirija la aplicación a la pantalla
+    //que contiene el fomulario de experiencia Laboral
     this.store$.dispatch(new UserActions.SetCurrentExperience());
   }
 
@@ -71,9 +61,10 @@ export class ProfileComponent implements OnInit {
     this.store$.dispatch(new UserActions.SetCurrentExperience(ex));
   }
 
-  deleteExperience(ex: Experience) {
+  /** Elimina la experiencia 'ex' del usuario 'us' */
+  deleteExperience(us: User, ex: Experience) {
     console.log("Se va a borrar la experiencia del usuario con id: " + ex.uid);
-    this.store$.dispatch(new UserActions.DeleteExperience(this.user, ex));
+    this.store$.dispatch(new UserActions.DeleteExperience(us, ex));
   }
 
   public newLanguage() {
@@ -84,8 +75,8 @@ export class ProfileComponent implements OnInit {
     this.store$.dispatch(new UserActions.SetCurrentLanguage(lang));
   }
 
-  deleteLanguaje(lang: Language) {
+  deleteLanguaje(us: User, lang: Language) {
     console.log("Se va a borrar el lenguaje del usuario con id: " + lang.uid);
-    this.store$.dispatch(new UserActions.DeleteLanguage(this.user, lang));
+    this.store$.dispatch(new UserActions.DeleteLanguage(us, lang));
   }
 }

@@ -32,16 +32,14 @@ export class SigninComponent implements OnInit {
     //pec2, inyectamos el store al componente
     private store$: Store<AppStore>,
     private fb: FormBuilder,
-    private router: Router,
-    private dataservice: DataService,
-    private userService: UserService,
-    private companyService: CompanyService
+    private router: Router
   ) {
     this.createForm();
 
     this.authInfo$.subscribe((login_state) => {
       console.log("Algo ha cambiado en el estado del login");
       console.log("login_state", login_state);
+
       if (login_state.logged) {
         if ("user" === login_state.type) {
           //Se ha logado un usuario, vamos al dashboard principal
@@ -52,12 +50,6 @@ export class SigninComponent implements OnInit {
         }
       }
     });
-
-    /*
-    this.store$.dispatch(
-      new AuthActions.LoginUser("guangle@gmail.com", "1234")
-    );
-    */
   }
 
   /** Inicia el formulario de login haciendo uso del formBuilder */
@@ -93,28 +85,6 @@ export class SigninComponent implements OnInit {
       console.log("El formulario no es válido, no realizamos el login");
       this.mensaje = "El formulario no es válido, no realizamos el login";
     }
-  }
-
-  /*  Método que se ejecuta tas el login fallido contra la BBDD de usuario. Intenta realizar un login
-  contra el conjunto de empresas. De esta forma, reaprovechamos la pantalla de login para autenticar
-  a estudiantes y compañias */
-  tryLoginCompany(mail: string, password: string) {
-    this.companyService.login(mail, password).subscribe((data) => {
-      console.log(
-        "Se ha realizado el login contra el backend para intentar identificar a una empresa"
-      );
-      console.log(data);
-      if (data != null && data.length == 1) {
-        this.companyService.company = data[0];
-        this.companyService.companyName = data[0].nombre_comercial;
-        //El backend debería devolvernos un token, por ahora lo inventamos
-        this.userService.token = this.randomStr(20);
-
-        this.router.navigate(["/companies/dashboard-company"]);
-      } else {
-        this.mensaje = "No se ha podido realizar el login en la aplicación";
-      }
-    });
   }
 
   //Getters para acceder a los diferentes campos en la vista más comodamente

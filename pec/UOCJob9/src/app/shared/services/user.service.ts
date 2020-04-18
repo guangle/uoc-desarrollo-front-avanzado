@@ -15,6 +15,7 @@ import {
 } from "rxjs/operators";
 import { Experience } from "../models/experience.model";
 import { Study, CollegeStudy, VocationalStudy } from "../models/study.model";
+import { Offer } from "../models/offer.model";
 
 //Usamos una librería para copiar los objetos
 //He tenido algunos problemas manipulando los parámetros en algunos métodos del servicio,
@@ -34,28 +35,15 @@ import { cloneDeep } from "lodash";
 })
 /* Servicio de negocio encargado de la gestion de usuarios */
 export class UserService {
+  /*
   //El servicio almacena una copia del usuario autenticado en la aplicación
   private _user: User;
   private _token: string = null;
   private _userName: string = null;
+  */
 
   //Inyectamos el servicio de negocio necesario para invocar al fake-backend
   constructor(private dataservice: DataService) {}
-
-  /** Realiza el login contra el fake-backend */
-  //TODO: ESTO YA NO SE UTILIZA, SE PODRÁ ELIMINAR EN EL REFACT FINAL
-  /*
-  login(email: string, password: string): Observable<User[]> {
-    //obtiene un observable con todos los usuarios y posteriormente filtra por usuario/password
-    return this.dataservice
-      .getUsers()
-      .pipe(
-        map((usuarios) =>
-          usuarios.filter((u) => u.email == email && u.password == password)
-        )
-      );
-  }
-  */
 
   /** Realiza el login contra el fake-backend */
   loginUser(email: string, password: string): Observable<User> {
@@ -75,12 +63,37 @@ export class UserService {
     );
   }
 
+  findByEmail(email: string): Observable<User> {
+    return this.dataservice.getUsers().pipe(
+      flatMap((usuarios) => {
+        let usus = usuarios.filter((u) => u.email == email);
+        if (usus && usus.length == 1) {
+          console.log("antes del return;");
+          console.log(usus);
+          return usus;
+        } else {
+          //no hay ningun usuario que coincida, devolvemos un error
+          return throwError("Email o contraseña no válidos");
+        }
+      })
+    );
+  }
+
+  sendRememberPasswordMail(user: User): Observable<User> {
+    const userToUpdate = cloneDeep(user);
+    userToUpdate.recover_request_pending = true;
+    console.log("**************************************");
+    console.log("Envio de un fake mail de recuperacion");
+    console.log("**************************************");
+    //llamamos al backend para persistir en BBDD
+    return this.dataservice.updateUser(userToUpdate);
+  }
+
   /** Actualiza el usuario con los nuevos datos tras la edicion del perfil*/
   updateUser(user: User): Observable<User> {
-    //actualizamos el usuario
-    this._user = user;
+    const userToUpdate = cloneDeep(user);
     //llamamos al backend para persistir en BBDD
-    return this.dataservice.updateUser(this.user);
+    return this.dataservice.updateUser(userToUpdate);
   }
 
   addLanguage(us: User, lang: Language): Observable<User> {
@@ -137,8 +150,7 @@ export class UserService {
   //Estudios
 
   addStudy(us: User, st: Study): Observable<User> {
-    //Creamos una copia del objeto para extenderla
-    let userToUpdate = JSON.parse(JSON.stringify(us));
+    const userToUpdate = cloneDeep(us);
     userToUpdate.studies.push(st);
     return this.dataservice.updateUser(userToUpdate);
   }
@@ -148,7 +160,7 @@ export class UserService {
     //TODO: implementacion rapida y poco optima..
     //..pero no estamos usando un backend de verdad
 
-    let userToUpdate = JSON.parse(JSON.stringify(us));
+    const userToUpdate = cloneDeep(us);
     userToUpdate.studies = userToUpdate.studies.filter((l) => l.uid != st.uid);
     return this.addStudy(userToUpdate, st);
   }
@@ -158,12 +170,26 @@ export class UserService {
    */
   //TODO: VOLVER A COMENTAR
   deleteStudies(us: User, st: Study): Observable<User> {
-    let userToUpdate = JSON.parse(JSON.stringify(us));
+    const userToUpdate = cloneDeep(us);
     userToUpdate.studies = userToUpdate.studies.filter((l) => l.uid != st.uid);
     return this.dataservice.updateUser(userToUpdate);
   }
 
+  applyOffer(us: User, offer: Offer): Observable<User> {
+    const userToUpdate = cloneDeep(us);
+    userToUpdate.offers.push(offer);
+    return this.updateUser(userToUpdate);
+  }
+
+  cancelApplyOffer(us: User, offer: Offer): Observable<User> {
+    const userToUpdate = cloneDeep(us);
+    userToUpdate.offers = userToUpdate.offers.filter((o) => o.id != offer.id);
+    return this.updateUser(userToUpdate);
+  }
+
   /** Realiza el logout de la aplicacion, borrando los atributos y el localStorage */
+  /*
+
   clear() {
     this._token = null;
     window.localStorage.removeItem("token");
@@ -172,8 +198,10 @@ export class UserService {
     this._user = null;
     window.localStorage.removeItem("user");
   }
+  */
 
   /** true si tenemos un usuario logado y false en caso contrario */
+  /*
   isLoggedIn() {
     if (window.localStorage.getItem("token") != null) {
       this.token = window.localStorage.getItem("token");
@@ -181,8 +209,9 @@ export class UserService {
     }
     return this.token != null;
   }
-
+*/
   //Getters y setters
+  /*
   set token(token: string) {
     this._token = token;
     //Adicionalmente, almacenamos en el localStorage
@@ -214,14 +243,10 @@ export class UserService {
     }
     return this._user;
   }
+  */
 
   getAll(): Observable<User[]> {
     //obtiene un observable con todos los usuarios y posteriormente filtra por usuario/password
     return this.dataservice.getUsers();
   }
-
-  //Todo este códig es ya obsoleto y creo que se puede eliminar
-  /*
-    
-    */
 }

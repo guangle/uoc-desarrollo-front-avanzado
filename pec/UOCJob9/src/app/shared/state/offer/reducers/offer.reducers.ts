@@ -7,6 +7,7 @@ export function userInitialState(): OfferState {
     userOffers: [],
     currentOffer: null,
     inscrito: false,
+    message: "",
   };
 }
 
@@ -24,6 +25,26 @@ export function offerReducer(
       return {
         ...state,
         currentOffer: action.payload,
+        inscrito: state.userOffers
+          .map((o) => o.id)
+          .some((id) => id == action.payload.id),
+      };
+    case OfferActionTypes.LOAD_USER_OFFERS_SUCCESS:
+      return {
+        ...state,
+        userOffers: action.payload,
+      };
+    case OfferActionTypes.APPLY_OFFER_SUCCESS:
+      return {
+        ...state,
+        userOffers: action.offers,
+        message: "Te has inscrito a la oferta",
+      };
+    case OfferActionTypes.CANCEL_APPLY_OFFER_SUCCESS:
+      return {
+        ...state,
+        userOffers: action.offers,
+        message: "Te has borrado de la oferta",
       };
     default:
       return state;

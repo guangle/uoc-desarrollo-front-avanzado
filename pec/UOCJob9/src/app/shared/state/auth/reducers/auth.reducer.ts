@@ -1,6 +1,4 @@
-//TODO: COMENTAR JJGR
-
-import { AuthState } from "../auth.demo";
+import { AuthState } from "../store.auth";
 import { AuthActionTypes, AuthActions } from "../actions/auth.actions";
 
 //En todos los reducers se debe especificar un estado inicial
@@ -12,6 +10,7 @@ export function authInitialState(): AuthState {
     token: "",
     type: "",
     message: "",
+    remember_status: "",
   };
 }
 
@@ -59,6 +58,55 @@ export function authReducer(
         ...state,
         logged: false,
         message: "Error durante el proceso de login",
+      };
+
+    case AuthActionTypes.LOGOUT_SUCCESS:
+      return {
+        ...state,
+        logged: false,
+        last_login: null,
+        name: null,
+        token: null, // inventado
+        type: "",
+        message: "Logout realizado correctamente",
+      };
+    case AuthActionTypes.LOGOUT_ERROR:
+      return {
+        ...state,
+        message: "Error durante el proceso de logout",
+      };
+
+    //Recuperación de contraseñas
+    case AuthActionTypes.REMEMBER_PASSWORD:
+      return {
+        ...state,
+        remember_status: null,
+        message: null,
+      };
+
+    case AuthActionTypes.REMEMBER_PASSWORD_SEND_SUCCESS:
+      return {
+        ...state,
+        remember_status: "sent",
+        message: "Se ha enviado un email para restablecer contraeña",
+      };
+    case AuthActionTypes.REMEMBER_PASSWORD_ALREADY_SENT:
+      return {
+        ...state,
+        remember_status: "already_sent",
+        message:
+          "El usuario ya tiene pendiente un mail de restablecimiento de contraseña",
+      };
+    case AuthActionTypes.REMEMBER_PASSWORD_ERROR:
+      return {
+        ...state,
+        message: "Error al enviar el email de recuperacion",
+      };
+    case AuthActionTypes.REMEMBER_PASSWORD_CLEAR:
+      return {
+        ...state,
+        remember_status: null,
+        message: null,
       };
 
     //Si no es ninguno de las acciones que yo contemplo, devuelvo el estado

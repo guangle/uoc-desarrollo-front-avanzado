@@ -6,6 +6,7 @@ import { Store } from "@ngrx/store";
 import { AppStore } from "../../shared/state/store.interface";
 import { Observable } from "rxjs";
 import * as UserSelectors from "../../shared/state/user/selectors/user.selector";
+import * as AuthActions from "../../shared/state/auth/actions/auth.actions";
 
 @Component({
   selector: "app-dashboard",
@@ -23,8 +24,6 @@ export class DashboardComponent implements OnInit {
   ngOnInit() {}
 
   logout() {
-    alert("PENDIENTE");
-    //this.userService.clear();
-    //this.router.navigate(["/signin"]);
+    this.store$.dispatch(new AuthActions.Logout());
   }
 }

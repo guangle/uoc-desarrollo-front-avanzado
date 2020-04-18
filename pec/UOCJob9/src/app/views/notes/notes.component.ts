@@ -2,7 +2,6 @@ import { Component, OnInit, ChangeDetectionStrategy } from "@angular/core";
 import { Observable } from "rxjs";
 import { Store } from "@ngrx/store";
 import { AppStore } from "../../shared/state/store.interface";
-import * as UsersSelectors from "../../shared/state/user/selectors/user.selector";
 
 import * as DemoSelectors from "../../shared/state/demo/selectors/demo.selector";
 import * as DemoActions from "../../shared/state/demo/actions/demo.actions";
@@ -16,7 +15,8 @@ import * as DemoActions from "../../shared/state/demo/actions/demo.actions";
 export class NotesComponent implements OnInit {
   //En notas voy a hacer las primeras pruebas del acceso al store
 
-  //Los selectores son observables de la parte de una parte concreta del store
+  //Con los selectores definidos en la demo, puedo observar las partes concretas de ese store para
+  //estar atento a sus cambios
   public numeros$: Observable<any> = this.store$.select(
     DemoSelectors.selectNumeros
   );
@@ -36,7 +36,7 @@ export class NotesComponent implements OnInit {
 
     //this.store$.dispatch(new UsersActions.LoadUsers());
 
-    //Venga, cuando cargo el componente invoco manualmente a mis dos acciones de Demo
+    //Acciones de prueba
     this.store$.dispatch(new DemoActions.Accion1());
     this.store$.dispatch(new DemoActions.Accion2());
 
@@ -46,13 +46,6 @@ export class NotesComponent implements OnInit {
       console.log("hemos recibido algo en el sector de numeros");
       console.log(x);
     });
-
-    /*
-    this.users$.subscribe(x => {
-      console.log("se ha notificado un cambio en el observable del estado!");
-      console.log(x);
-    });
-    */
   }
 
   ngOnInit(): void {}

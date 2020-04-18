@@ -9,7 +9,9 @@
 //Algo así como que cada módulo tiene su tabla donde guardar (salvando las distancias claro)
 
 //En mi ejemplo, mi store de la parte 'Demo' de la aplicación va a tener 3 atributos, uno con un array de números, otro
-//con un array de fechas y otro con los usuarios de la aplicacion
+//con un array de fechas y otro con los usuarios de la aplicacion.
+
+//Todo esto está en la memoria RAM del cliente
 
 import { User } from "../../models/user.model";
 

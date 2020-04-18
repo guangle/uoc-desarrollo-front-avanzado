@@ -12,6 +12,8 @@
 //En la practica, los efectos llaman a los servicios de negocio. Toda la lógica de dispatch, observar, etc de acciones
 //es muy dummy y donde está la invocación al (o a los N) servicios de negocio es en los effectos
 
+//Un efecto, a su vez, suele provocar el disparo de otras acciones, aunque no necesariamente tiene que ser así
+
 import { Actions, Effect, ofType } from "@ngrx/effects";
 import { Observable, of } from "rxjs";
 import { catchError, map, switchMap, tap } from "rxjs/operators";
@@ -27,6 +29,7 @@ import { UserService } from "../../../services/user.service";
 export class DemoEffects {
   constructor(private actions$: Actions, private userService: UserService) {
     // podría inyectarle N servicios de negocio, p.ej: , private userService: UserService) {
+    //O el objeto router
   }
 
   @Effect()

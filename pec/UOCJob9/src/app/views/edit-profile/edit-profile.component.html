@@ -17,7 +17,9 @@
         width="150px"
         onclick="alert('Subir documento - pendiente');"
       />
-      <span id="profile_name"> {{ user.name }} {{ user.surname }} </span>
+      <span id="profile_name">
+        {{ (currentUser$ | async)?.name }} {{ (currentUser$ | async)?.surname }}
+      </span>
     </div>
 
     <div id="colDatos">

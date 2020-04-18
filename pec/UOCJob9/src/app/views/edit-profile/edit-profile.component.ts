@@ -1,7 +1,5 @@
 import { Component, OnInit, ChangeDetectionStrategy } from "@angular/core";
-import { UserService } from "../../shared/services/user.service";
 import { User } from "../../shared/models/user.model";
-import { Router } from "@angular/router";
 import { FormControl, FormGroup } from "@angular/forms";
 import { Validators, FormBuilder } from "@angular/forms";
 import { formatDate } from "@angular/common";
@@ -13,6 +11,7 @@ import { AppStore } from "../../shared/state/store.interface";
 import { Observable } from "rxjs";
 import * as UserSelectors from "../../shared/state/user/selectors/user.selector";
 import * as UserActions from "../../shared/state/user/actions/user.actions";
+import { cloneDeep } from "lodash";
 
 @Component({
   selector: "app-edit-profile",
@@ -68,25 +67,14 @@ export class EditProfileComponent implements OnInit {
     UserSelectors.currentUserSelector
   );
 
-  constructor(
-    private userService: UserService,
-    //TODO: pendiene, hay que quitar el servicio de aqui
-    private store$: Store<AppStore>,
-    private router: Router,
-    private fb: FormBuilder
-  ) {
+  constructor(private store$: Store<AppStore>, private fb: FormBuilder) {
     //Llegados a este punto, tenemos un usuario en el store
     this.currentUser$.subscribe((u) => {
       console.log("currentUser", u);
       this.user = u;
+      //Creamos el formulario, precargando con los datos del store
       this.createForm();
     });
-    /*
-    //Llegados a este punto, tenemos un usuario logado en la aplicacion que custodia usuarioService
-    this.user = this.userService.user;
-    //Creamos - inicializamos el formulairo reacivo
-    this.createForm();
-    */
   }
 
   ngOnInit(): void {}
@@ -95,17 +83,7 @@ export class EditProfileComponent implements OnInit {
   editProfile() {
     console.log("Edit profile: submit");
     if (this.editProfileForm.valid) {
-      /*
-      let userSubmited = {
-        ...this.user,
-      };
-
-      console.log(userSubmited);
-      userSubmited = Object.create(this.user);
-      */
-      //let userSubmited = Object.assign({}, this.user);
-      //COMENTAR, LO HAGO ASI PORQUE EL SPREAD OPERATOR NO ES DEEP
-      let userSubmited = JSON.parse(JSON.stringify(this.user));
+      let userSubmited = cloneDeep(this.user);
 
       //1. Actualizamos los datos del usuario con lo procedente del form
       userSubmited.name = this.editProfileForm.get("name").value;
@@ -138,18 +116,6 @@ export class EditProfileComponent implements OnInit {
       );
       //Nuevo PEC2: invoca a la acción para actualizar el usuario
       this.store$.dispatch(new UserActions.UpdateUser(userSubmited));
-
-      /*
-
-      //2. Realizo una llamada al servicio de negocio para actualizar el usuario en el back
-      this.userService.updateUser(this.user).subscribe((newUser) => {
-        this.user = newUser;
-        console.log("Usuario actualizado correctamente");
-        //volvemos a la pantalla de perfil
-        this.router.navigate(["/admin/profile"]);
-      });
-
-      */
     } else {
       console.error(
         "El formulario no es valido, no nos cmunicamos con el backend"

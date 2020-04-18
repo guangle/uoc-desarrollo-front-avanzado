@@ -11,28 +11,30 @@
     <div class="div-detalle">
       <h2>Oferta</h2>
       <div class="campo-detalle">
-        <label>Empresa: </label> {{ offer.company?.name }}
+        <label>Empresa: </label> {{ (currentOffer$ | async).company?.name }}
       </div>
       <div class="campo-detalle">
-        <label>Puesto </label> {{ offer.job?.name }}
+        <label>Puesto </label> {{ (currentOffer$ | async).job?.name }}
       </div>
       <div class="campo-detalle">
-        <label>Descripción </label> {{ offer.job?.description }}
+        <label>Descripción </label>
+        {{ (currentOffer$ | async).job?.description }}
       </div>
     </div>
     <div class="div-detalle">
       <h2>Localización</h2>
       <div class="campo-detalle">
-        <label>Provincia </label> {{ offer.province?.name }}
+        <label>Provincia </label> {{ (currentOffer$ | async).province?.name }}
       </div>
       <div class="campo-detalle">
-        <label>Municipio </label> {{ offer.municipe?.name }}
+        <label>Municipio </label> {{ (currentOffer$ | async).municipe?.name }}
       </div>
     </div>
     <div class="div-detalle">
       <h2>Destinado a persona de:</h2>
       <div class="campo-detalle">
-        <label>Familia profesional </label> {{ offer.category?.name }}
+        <label>Familia profesional </label>
+        {{ (currentOffer$ | async).category?.name }}
       </div>
     </div>
     <div class="div-detalle">
@@ -45,7 +47,7 @@
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let t of offer.title">
+          <tr *ngFor="let t of (currentOffer$ | async).title">
             <td>
               {{ t.uid }}
             </td>
@@ -56,12 +58,30 @@
         </tbody>
       </table>
     </div>
-
-    <div class="contenedor-botones">
-      <button *ngIf="!inscrito" (click)="inscribirOferta()">
+  </div>
+  <div class="row-datos">
+    <!-- 
+    'esperamos' a los observables que nos hacen falta para mostrar el botón con esta notación 
+    que he visto en: https://medium.com/@ofirrifo/extract-multiple-observables-with-the-async-pipe-in-angular-b119d22f8e05
+  -->
+    <div
+      *ngIf="{
+        currentUser: currentUser$ | async,
+        currentOffer: currentOffer$ | async,
+        inscrito: inscrito$ | async
+      } as data"
+      class="contenedor-botones"
+    >
+      <button
+        *ngIf="!data.inscrito"
+        (click)="inscribirOferta(data.currentUser, data.currentOffer)"
+      >
         Inscribirse a la oferta
       </button>
-      <button *ngIf="inscrito" (click)="borrarseOferta()">
+      <button
+        *ngIf="data.inscrito"
+        (click)="borrarseOferta(data.currentUser, data.currentOffer)"
+      >
         Borrarse de la oferta
       </button>
     </div>

@@ -8,6 +8,7 @@ export function userInitialState(): UserState {
     currentExperience: null,
     currentLanguage: null,
     editMode: false,
+    message: "",
   };
 }
 
@@ -26,6 +27,7 @@ export function userReducer(
       return {
         ...state,
         currentUser: action.payload,
+        message: "Usuario actualizado correctamente",
       };
     //Formación académica
     case UserActionTypes.SET_CURRENT_STUDY:
@@ -40,6 +42,7 @@ export function userReducer(
         currentUser: action.payload,
         currentStudy: null,
         editMode: false,
+        message: "Formación creada",
       };
     case UserActionTypes.UPDATE_STUDY_SUCCESS:
       return {
@@ -47,11 +50,13 @@ export function userReducer(
         currentUser: action.payload,
         currentStudy: null,
         editMode: false,
+        message: "Formación actualizada",
       };
     case UserActionTypes.DELETE_STUDY_SUCCESS:
       return {
         ...state,
         currentUser: action.payload,
+        message: "Formación eliminada",
       };
     //Experiencia laboral
     case UserActionTypes.SET_CURRENT_EXPERIENCE:
@@ -75,6 +80,7 @@ export function userReducer(
         currentUser: action.payload,
         currentExperience: null,
         editMode: false,
+        message: "Experiencia creada",
       };
     case UserActionTypes.UPDATE_EXPERIENCE_SUCCESS:
       return {
@@ -82,11 +88,13 @@ export function userReducer(
         currentUser: action.payload,
         currentExperience: null,
         editMode: false,
+        message: "Experiencia actualizada",
       };
     case UserActionTypes.DELETE_EXPERIENCE_SUCCESS:
       return {
         ...state,
         currentUser: action.payload,
+        message: "Experiencia eliminada",
       };
     //Idiomas
     case UserActionTypes.SET_CURRENT_LANGUAGE:
@@ -101,6 +109,7 @@ export function userReducer(
         currentUser: action.payload,
         currentLanguage: null,
         editMode: false,
+        message: "Idioma creado",
       };
     case UserActionTypes.UPDATE_LANGUAGE_SUCCESS:
       return {
@@ -108,12 +117,27 @@ export function userReducer(
         currentUser: action.payload,
         currentLanguage: null,
         editMode: false,
+        message: "Idioma actualizado",
       };
     case UserActionTypes.DELETE_LANGUAGE_SUCCESS:
       return {
         ...state,
         currentUser: action.payload,
+        message: "Idioma eliminado",
       };
+    //Tratamiento de errores
+    case UserActionTypes.UPDATE_USER_ERROR:
+    case UserActionTypes.CREATE_STUDY_ERROR:
+    case UserActionTypes.UPDATE_STUDY_ERROR:
+    case UserActionTypes.CREATE_EXPERIENCE_ERROR:
+    case UserActionTypes.UPDATE_EXPERIENCE_ERROR:
+    case UserActionTypes.CREATE_LANGUAGE_ERROR:
+    case UserActionTypes.UPDATE_LANGUAGE_ERROR:
+      return {
+        ...state,
+        message: "Se ha producido un error " + action.message,
+      };
+
     default:
       return state;
   }

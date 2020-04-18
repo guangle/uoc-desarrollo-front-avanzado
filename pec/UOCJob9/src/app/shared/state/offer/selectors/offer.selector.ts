@@ -16,3 +16,18 @@ export const currentOfferSelector = createSelector(
     return state.currentOffer;
   }
 );
+
+export const inscritoSelector = createSelector(selectOffersState, (state) => {
+  return state.inscrito;
+});
+
+export const userOffersSelector = createSelector(selectOffersState, (state) => {
+  return state.userOffers;
+});
+
+export const offerMessageSelector = createSelector(
+  selectOffersState,
+  (state) => {
+    return state.message;
+  }
+);

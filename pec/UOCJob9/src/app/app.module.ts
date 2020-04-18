@@ -17,6 +17,10 @@ import { UserEffects } from "../app/shared/state/user/effects/user.effects";
 import { DemoEffects } from "../app/shared/state/demo/effects/demo.effects";
 import { AuthEffects } from "../app/shared/state/auth/effects/auth.effects";
 import { OfferEffects } from "../app/shared/state/offer/effects/offer.effects";
+import { CompanyEffects } from "../app/shared/state/company/effects/company.effects";
+
+import { MatSnackBarModule } from "@angular/material/snack-bar";
+import { MessagesModule } from "./views/messages/messages.module";
 
 @NgModule({
   imports: [
@@ -25,6 +29,8 @@ import { OfferEffects } from "../app/shared/state/offer/effects/offer.effects";
     //importamos el servicio que nos permitira trabajar con formularios reactivos
     ReactiveFormsModule,
     CoreModule,
+    MatSnackBarModule,
+    MessagesModule,
     RouterModule.forRoot(rootRouterConfig, { useHash: false }),
     StoreModule.forRoot(reducers, {
       metaReducers,
@@ -38,6 +44,7 @@ import { OfferEffects } from "../app/shared/state/offer/effects/offer.effects";
       UserEffects,
       DemoEffects,
       OfferEffects,
+      CompanyEffects,
     ]),
     !environment.production ? StoreDevtoolsModule.instrument() : [],
     //mete las rutas en el store para poder debuguear por las rutas ejecutadas

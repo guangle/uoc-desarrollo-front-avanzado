@@ -6,13 +6,13 @@
     </a>
   </div>
 
-  <div class="row-datos" *ngIf="offers.length == 0">
+  <div class="row-datos" *ngIf="(userOffers$ | async).length == 0">
     Aún no te has inscrito en ninguna oferta. Pasate por la sección de
     <a [routerLink]="['/admin/offers/list']"> Ofertas </a> para encontrar alguna
     que encaje con tu perfil
   </div>
 
-  <div class="row-datos" *ngIf="offers.length > 0">
+  <div class="row-datos" *ngIf="(userOffers$ | async).length > 0">
     <table>
       <thead>
         <tr>
@@ -27,7 +27,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let offer of offers">
+        <tr *ngFor="let offer of userOffers$ | async">
           <td>
             {{ offer.job?.name }}
           </td>
@@ -43,10 +43,7 @@
           <td>{{ offer.province?.name }} / {{ offer.municipe?.name }}</td>
           <td>Pendiente</td>
           <td>
-            <a
-              [routerLink]="['/admin/offers/detail']"
-              [queryParams]="{ id: offer.id }"
-            >
+            <a [routerLink]="" (click)="offerDetail(offer)">
               Ver
             </a>
           </td>

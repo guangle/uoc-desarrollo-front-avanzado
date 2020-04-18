@@ -9,4 +9,5 @@ export interface UserState {
   currentExperience: Experience;
   currentLanguage: Language;
   editMode: boolean;
+  message: string;
 }

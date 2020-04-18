@@ -31,3 +31,7 @@ export const currentLanguageSelector = createSelector(
     return state.currentLanguage;
   }
 );
+
+export const userMessageSelector = createSelector(selectUserState, (state) => {
+  return state.message;
+});

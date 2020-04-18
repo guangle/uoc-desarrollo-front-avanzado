@@ -1,18 +1,25 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, ChangeDetectionStrategy } from "@angular/core";
 import { CompanyService } from "src/app/shared/services/company.service";
 import { Router } from "@angular/router";
 import { Company } from "../../shared/models/company.model";
-import { FormControl, FormGroup } from "@angular/forms";
+import { FormGroup } from "@angular/forms";
 import { Validators, FormBuilder } from "@angular/forms";
 import { Language, LanguageName } from "src/app/shared/models/language.model";
+import { Store } from "@ngrx/store";
+import { AppStore } from "../../shared/state/store.interface";
+import { Observable } from "rxjs";
+import * as CompanyActions from "../../shared/state/company/actions/company.actions";
+import { cloneDeep } from "lodash";
+import * as CompanySelectors from "../../shared/state/company/selectors/company.selector";
 
 @Component({
   selector: "app-company-configuration",
   templateUrl: "./company-configuration.component.html",
-  styleUrls: ["./company-configuration.component.scss"]
+  styleUrls: ["./company-configuration.component.scss"],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CompanyConfigurationComponent implements OnInit {
-  //NOTA: el enunciado es confuso...
+  //NOTA (pec1): el enunciado es confuso...
   //en el título de la sección pone literalmente "Pantalla CONFIGURACIÓN (Empresa)"
   //pero después pide que se implemente una lista de checks con las provincias para
   //"recibir notificaciones de nuevas ofertas a su correo electrónico"
@@ -21,6 +28,9 @@ export class CompanyConfigurationComponent implements OnInit {
   //De momento, únicamente permito configurar el idioma
 
   public company: Company;
+  public currentCompany$: Observable<any> = this.store$.select(
+    CompanySelectors.currentCompanySelector
+  );
 
   public configurationForm: FormGroup;
   isSubmitted: boolean = false;
@@ -30,16 +40,17 @@ export class CompanyConfigurationComponent implements OnInit {
     { uid: 2, name: "Francés" },
     { uid: 3, name: "Italiano" },
     { uid: 4, name: "Chino" },
-    { uid: 6, name: "Castellano" }
+    { uid: 6, name: "Castellano" },
   ];
 
-  constructor(
-    private companyService: CompanyService,
-    private router: Router,
-    private fb: FormBuilder
-  ) {
-    this.company = this.companyService.company;
-    this.createForm();
+  constructor(private store$: Store<AppStore>, private fb: FormBuilder) {
+    //Llegados a este punto, tenemos una empresa en el store
+    this.currentCompany$.subscribe((c) => {
+      console.log("currentCompany", c);
+      this.company = c;
+      //Creamos el formulario, precargando con los datos del store
+      this.createForm();
+    });
   }
 
   ngOnInit(): void {}
@@ -49,11 +60,8 @@ export class CompanyConfigurationComponent implements OnInit {
       "Creando el formulario de edición de configuración de la empresa"
     );
 
-    console.log("..");
-    console.log(this.company.idioma_app.uid);
-
     this.configurationForm = this.fb.group({
-      language: [this.company.idioma_app.uid, [Validators.required]]
+      language: [this.company.idioma_app.uid, [Validators.required]],
     });
   }
 
@@ -61,13 +69,11 @@ export class CompanyConfigurationComponent implements OnInit {
     console.log("Se submite la configuración de la empresa");
     this.isSubmitted = true;
     if (this.configurationForm.valid) {
-      this.company.idioma_app = this.idiomas.find(
-        i => i.uid == this.configurationForm.get("language").value
+      let companySubmited = cloneDeep(this.company);
+      companySubmited.idioma_app = this.idiomas.find(
+        (i) => i.uid == this.configurationForm.get("language").value
       );
-      this.companyService.updateCompany(this.company).subscribe(c => {
-        console.log("Configuración actualizada correctamente..");
-        this.router.navigate(["/companies/dashboard-company"]);
-      });
+      this.store$.dispatch(new CompanyActions.UpdateCompany(companySubmited));
     } else {
       console.log("El formulario no es válido, no se puede almacenar");
     }

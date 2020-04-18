@@ -17,7 +17,9 @@
         width="150px"
         onclick="alert('Subir documento - pendiente');"
       />
-      <span id="profile_name"> {{ company.nombre_comercial }}</span>
+      <span id="profile_name">
+        {{ (currentCompany$ | async)?.nombre_comercial }}</span
+      >
     </div>
 
     <div id="colDatos">
