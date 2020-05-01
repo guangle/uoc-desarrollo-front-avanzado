@@ -33,10 +33,49 @@
                       <input
                         matInput
                         type="text"
-                        placeholder="Email"
-                        value="{{ (currentUser$ | async)?.email }}"
-                        readonly="readonly"
+                        placeholder="Nombre"
+                        formControlName="name"
                       />
+                      <mat-error
+                        *ngIf="
+                          name.invalid &&
+                          name.errors != null &&
+                          name.errors.required
+                        "
+                      >
+                        El nombre es obligatorio
+                      </mat-error>
+
+                      <mat-error
+                        *ngIf="
+                          name.invalid &&
+                          name.errors != null &&
+                          name.errors.minlength
+                        "
+                      >
+                        El nombre debe tener al menos 3 caracteres
+                      </mat-error>
+
+                      <mat-error
+                        *ngIf="
+                          name.invalid &&
+                          name.errors != null &&
+                          name.errors.maxlength
+                        "
+                      >
+                        El nombre no puede tener mas de 55 caracteres
+                      </mat-error>
+
+                      <mat-error
+                        *ngIf="
+                          name.invalid &&
+                          name.errors != null &&
+                          name.errors.espacio
+                        "
+                      >
+                        El nombre no puede empezar o terminar con un espacio en
+                        blanco
+                      </mat-error>
                     </mat-form-field>
                   </div>
                   <div class="col-md-6">
@@ -44,10 +83,50 @@
                       <input
                         matInput
                         type="text"
-                        placeholder="Fecha de nacimiento"
-                        value="{{ (currentUser$ | async)?.birthdate }} "
-                        readonly="readonly"
+                        placeholder="Apellidos"
+                        formControlName="surname"
                       />
+
+                      <mat-error
+                        *ngIf="
+                          surname.invalid &&
+                          surname.errors != null &&
+                          surname.errors.required
+                        "
+                      >
+                        El apellido es obligatorio
+                      </mat-error>
+
+                      <mat-error
+                        *ngIf="
+                          surname.invalid &&
+                          surname.errors != null &&
+                          surname.errors.minlength
+                        "
+                      >
+                        El apellido debe tener al menos 3 caracteres
+                      </mat-error>
+
+                      <mat-error
+                        *ngIf="
+                          surname.invalid &&
+                          surname.errors != null &&
+                          surname.errors.maxlength
+                        "
+                      >
+                        El apellido no puede tener mas de 55 caracteres
+                      </mat-error>
+
+                      <mat-error
+                        *ngIf="
+                          surname.invalid &&
+                          surname.errors != null &&
+                          surname.errors.espacio
+                        "
+                      >
+                        El apellido no puede empezar o terminar con un espacio
+                        en blanco
+                      </mat-error>
                     </mat-form-field>
                   </div>
                 </div>
@@ -115,15 +194,6 @@
   </div>
 
   <div class="contenedor">
-    <div class="row-header">
-      <h1>
-        Editar Perfil
-      </h1>
-      <a [routerLink]="['/uojobs/users/profile']">
-        Volver al perfil
-      </a>
-    </div>
-
     <div id="contenidoFormulario">
       <div id="colFoto">
         <img
@@ -155,29 +225,6 @@
             <div class="fila-form-col">
               <div *ngIf="name.errors != null && name.errors.required">
                 El nombre es obligatorio
-              </div>
-              <div *ngIf="name.errors != null && name.errors.minlength">
-                El nombre debe tener al menos 3 caracteres
-              </div>
-              <div *ngIf="name.errors != null && name.errors.maxlength">
-                El nombre no puede tener mas de 55 caracteres
-              </div>
-              <div *ngIf="name.errors != null && name.errors.espacio">
-                El nombre no puede empezar o terminar con un espacio en blanco
-              </div>
-            </div>
-            <div class="fila-form-col">
-              <div *ngIf="surname.errors != null && surname.errors.required">
-                El apellido es obligatorio
-              </div>
-              <div *ngIf="surname.errors != null && surname.errors.minlength">
-                El apellido debe tener al menos 3 caracteres
-              </div>
-              <div *ngIf="surname.errors != null && surname.errors.maxlength">
-                El apellido no puede tener mas de 55 caracteres
-              </div>
-              <div *ngIf="surname.errors != null && surname.errors.espacio">
-                El apellido no puede empezar o terminar con un espacio en blanco
               </div>
             </div>
           </div>

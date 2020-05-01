@@ -81,17 +81,6 @@
             La longitud debe ser al menos 4 caracteres
           </mat-error>
         </mat-form-field>
-
-        <div class="validaciones">
-          <div *ngIf="loginForm.dirty && isSubmitted">
-            <div *ngIf="password.errors != null && password.errors.required">
-              El password es obligatorio
-            </div>
-            <div *ngIf="password.errors != null && password.errors.minlength">
-              La longitud debe ser al menos 4 caracteres
-            </div>
-          </div>
-        </div>
       </mat-card-content>
       <mat-card-actions class="card-actions-uojobs">
         <button mat-button type="button" routerLink="/forgot-password">

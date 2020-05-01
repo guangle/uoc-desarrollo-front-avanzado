@@ -1,72 +1,111 @@
-<div class="contenedor">
-  <div class="row-header">
-    <h1 *ngIf="!inEditMode()">
-      Nuevo idioma
-    </h1>
-    <h1 *ngIf="inEditMode()">
-      Editar idioma
-    </h1>
-    <a [routerLink]="['/admin/profile']">
-      Volver al perfil
-    </a>
-  </div>
+<div class="container">
+  <app-navbar title="Idiomas"></app-navbar>
 
-  <div id="contenidoFormulario">
-    <div id="colDatos">
-      <form [formGroup]="editLanguajeForm" (ngSubmit)="submitLanguaje()">
-        <div class="fila-form">
-          <label for="name">Idioma: </label>
-          <select formControlName="name">
-            <option value="">Seleccione idioma..</option>
-            <option *ngFor="let t of posibles_lenguas" [ngValue]="t.uid">{{
-              t.name
-            }}</option>
-          </select>
+  <div class="row" style="margin-top: 30px;">
+    <div class="col-md-12">
+      <div class="card">
+        <div class="card-header">
+          <i class="material-icons">perm_identity</i>
         </div>
+        <div class="card-content">
+          <h4 class="card-title" *ngIf="!inEditMode()">
+            Nuevo idioma
+          </h4>
+          <h4 class="card-title" *ngIf="inEditMode()">
+            Editar idioma
+          </h4>
 
-        <div class="fila-form validaciones" *ngIf="editLanguajeForm.dirty">
-          <div  *ngIf="name.touched && name.errors != null &&  name.errors.required">
-            El campo es obligatorio
+          <div class="row">
+            <div class="col-md-12">
+              <form
+                [formGroup]="editLanguajeForm"
+                (ngSubmit)="submitLanguaje()"
+              >
+                <div class="row">
+                  <div class="col-md-6">
+                    <mat-form-field color="accent">
+                      <select matInput formControlName="name">
+                        <option value="">Seleccione idioma..</option>
+                        <option
+                          *ngFor="let t of posibles_lenguas"
+                          [ngValue]="t.uid"
+                          >{{ t.name }}</option
+                        >
+                      </select>
+                      <mat-error
+                        *ngIf="
+                          name.invalid &&
+                          name.errors != null &&
+                          name.errors.required
+                        "
+                      >
+                        El campo es obligatorio
+                      </mat-error>
+                    </mat-form-field>
+                  </div>
+                </div>
+
+                <div class="row" *ngIf="name.value == 5">
+                  <div class="col-md-6">
+                    <mat-form-field color="accent">
+                      <input matInput type="text" formControlName="other" />
+                    </mat-form-field>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-md-6">
+                    <mat-form-field color="accent">
+                      <select matInput formControlName="level">
+                        <option value="">Seleccione nivel..</option>
+                        <option *ngFor="let t of niveles" [ngValue]="t.uid">{{
+                          t.name
+                        }}</option>
+                      </select>
+                      <mat-error
+                        *ngIf="
+                          level.invalid &&
+                          level.errors != null &&
+                          level.errors.required
+                        "
+                      >
+                        El campo es obligatorio
+                      </mat-error>
+                    </mat-form-field>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-md-6">
+                    <mat-form-field color="accent">
+                      <input matInput type="date" formControlName="date" />
+                      <mat-error
+                        *ngIf="
+                          date.invalid &&
+                          date.errors != null &&
+                          date.errors.required
+                        "
+                      >
+                        El campo es obligatorio
+                      </mat-error>
+                    </mat-form-field>
+                  </div>
+                </div>
+
+                <div class="row action-btn-center">
+                  <button
+                    md-raised-button
+                    [disabled]="!editLanguajeForm.valid"
+                    type="submit"
+                  >
+                    Guardar
+                  </button>
+                </div>
+              </form>
+            </div>
           </div>
         </div>
-
-        <div class="fila-form" *ngIf="name.value == 5">
-          <label for="other">Otra: </label>
-          <input type="text" formControlName="other" />
-        </div>
-        <div class="fila-form">
-          <label for="level">Nivel: </label>
-          <select formControlName="level">
-            <option value="">Seleccione nivel..</option>
-            <option *ngFor="let t of niveles" [ngValue]="t.uid">{{
-              t.name
-            }}</option>
-          </select>
-        </div>
-
-        <div class="fila-form validaciones" *ngIf="editLanguajeForm.dirty">
-          <div  *ngIf="name.touched && level.errors != null &&  level.errors.required">
-            El nivel es obligatorio
-          </div>
-        </div>
-
-        <div class="fila-form">
-          <label for="date">Fecha:</label>
-          <input type="date" formControlName="date" />
-        </div>
-
-        <div class="fila-form validaciones" *ngIf="editLanguajeForm.dirty">
-          <div  *ngIf="date.touched && date.errors != null &&  date.errors.required">
-            La fecha es obligatoria
-          </div>
-        </div>
-
-        <div class="fila-form contenedor-botones">
-          <button [disabled]="!editLanguajeForm.valid" type="submit">
-            Guardar
-          </button>
-        </div>
-      </form>
+      </div>
     </div>
   </div>
 </div>
