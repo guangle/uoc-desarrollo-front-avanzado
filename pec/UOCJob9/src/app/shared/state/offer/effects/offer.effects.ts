@@ -52,7 +52,7 @@ export class OfferEffects {
   @Effect({ dispatch: false })
   setCurrentOffer$ = this.actions$.pipe(
     ofType(OfferActions.OfferActionTypes.SET_CURRENT_OFFER),
-    tap(() => this.router.navigate(["/admin/offers/detail"]))
+    tap(() => this.router.navigate(["/uojobs/users/offer-detail"]))
   );
 
   /** Efecto asociado a la acción que carga las ofertas a las que se ha inscrito el usuario */
@@ -96,7 +96,7 @@ export class OfferEffects {
   @Effect({ dispatch: false })
   applyOfferSuccess$ = this.actions$.pipe(
     ofType(OfferActions.OfferActionTypes.APPLY_OFFER_SUCCESS),
-    tap(() => this.router.navigate(["/admin/dashboard"]))
+    tap(() => this.router.navigate(["/uojobs/users/dashboard"]))
   );
 
   @Effect()
@@ -119,6 +119,6 @@ export class OfferEffects {
   @Effect({ dispatch: false })
   cancelApplyOfferSuccess$ = this.actions$.pipe(
     ofType(OfferActions.OfferActionTypes.CANCEL_APPLY_OFFER_SUCCESS),
-    tap(() => this.router.navigate(["/admin/dashboard"]))
+    tap(() => this.router.navigate(["/uojobs/users/dashboard"]))
   );
 }

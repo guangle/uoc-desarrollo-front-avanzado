@@ -8,6 +8,7 @@ import * as UserSelectors from "../../shared/state/user/selectors/user.selector"
 import * as UserActions from "../../shared/state/user/actions/user.actions";
 import { Experience } from "src/app/shared/models/experience.model";
 import { Language } from "src/app/shared/models/language.model";
+import { Router } from "@angular/router";
 
 @Component({
   selector: "app-profile",
@@ -24,9 +25,13 @@ export class ProfileComponent implements OnInit {
     UserSelectors.currentUserSelector
   );
 
-  constructor(private store$: Store<AppStore>) {}
+  constructor(private store$: Store<AppStore>, private router: Router) {}
 
   ngOnInit() {}
+
+  public editProfile() {
+    this.router.navigate(["/uojobs/users/edit-profile"]);
+  }
 
   public newStudy() {
     //llama a set current study sin parametros,

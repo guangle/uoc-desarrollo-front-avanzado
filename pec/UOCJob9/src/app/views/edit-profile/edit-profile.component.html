@@ -1,223 +1,347 @@
-<div class="contenedor">
-  <div class="row-header">
-    <h1>
-      Editar Perfil
-    </h1>
-    <a [routerLink]="['/admin/profile']">
-      Volver al perfil
-    </a>
+<div class="container">
+  <app-navbar title="Edición de perfil de usuario"></app-navbar>
+
+  <div class="row" style="margin-top: 30px;">
+    <div class="col-md-12">
+      <div class="card">
+        <div class="card-header">
+          <i class="material-icons">perm_identity</i>
+        </div>
+        <div class="card-content">
+          <h4 class="card-title">
+            Edición de perfil de usuario
+            <small class="category"
+              >Crea un perfil de usuario atractivo para las empresas</small
+            >
+          </h4>
+
+          <div class="row">
+            <div class="col-md-2">
+              <img
+                src="assets/user.png"
+                alt="User"
+                height="100%"
+                width="100%"
+                onclick="alert('Subir documento - pendiente');"
+              />
+            </div>
+            <div class="col-md-10">
+              <form [formGroup]="editProfileForm" (ngSubmit)="editProfile()">
+                <div class="row">
+                  <div class="col-md-6">
+                    <mat-form-field color="accent">
+                      <input
+                        matInput
+                        type="text"
+                        placeholder="Email"
+                        value="{{ (currentUser$ | async)?.email }}"
+                        readonly="readonly"
+                      />
+                    </mat-form-field>
+                  </div>
+                  <div class="col-md-6">
+                    <mat-form-field color="accent">
+                      <input
+                        matInput
+                        type="text"
+                        placeholder="Fecha de nacimiento"
+                        value="{{ (currentUser$ | async)?.birthdate }} "
+                        readonly="readonly"
+                      />
+                    </mat-form-field>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-md-4">
+                    <mat-form-field color="accent">
+                      <input
+                        matInput
+                        type="text"
+                        placeholder="Teléfono"
+                        value="{{ (currentUser$ | async)?.phone }}"
+                        readonly="readonly"
+                      />
+                    </mat-form-field>
+                  </div>
+                  <div class="col-md-4">
+                    <mat-form-field color="accent">
+                      <input
+                        matInput
+                        type="text"
+                        placeholder="{{
+                          (currentUser$ | async)?.documentType.name
+                        }}"
+                        value="{{ (currentUser$ | async)?.documentNumber }}"
+                        readonly="readonly"
+                      />
+                    </mat-form-field>
+                  </div>
+                  <div class="col-md-4">
+                    <mat-form-field color="accent">
+                      <input
+                        matInput
+                        type="text"
+                        placeholder="Permisos de conducir"
+                        value="{{ (currentUser$ | async)?.license }}"
+                        readonly="readonly"
+                      />
+                    </mat-form-field>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-12">
+                    <label class="textarea-label">About Me</label>
+                    <mat-form-field color="accent">
+                      <textarea
+                        matInput
+                        placeholder="Lamborghini Mercy, Your chick she so thirsty, I'm in that two seat Lambo."
+                      ></textarea>
+                    </mat-form-field>
+                  </div>
+                </div>
+
+                <div class="row action-btn-center">
+                  <button md-raised-button class="btn btn-rose">
+                    Editar perfil
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 
-  <div id="contenidoFormulario">
-    <div id="colFoto">
-      <img
-        src="assets/user.png"
-        alt="User"
-        height="150px"
-        width="150px"
-        onclick="alert('Subir documento - pendiente');"
-      />
-      <span id="profile_name">
-        {{ (currentUser$ | async)?.name }} {{ (currentUser$ | async)?.surname }}
-      </span>
+  <div class="contenedor">
+    <div class="row-header">
+      <h1>
+        Editar Perfil
+      </h1>
+      <a [routerLink]="['/uojobs/users/profile']">
+        Volver al perfil
+      </a>
     </div>
 
-    <div id="colDatos">
-      <form [formGroup]="editProfileForm" (ngSubmit)="editProfile()">
-        <div class="fila-form">
-          <div class="fila-form-col">
-            <label for="name">Nombre:</label>
-            <input type="text" formControlName="name" />
-          </div>
-          <div class="fila-form-col">
-            <label for="apellidos">Apellidos:</label>
-            <input type="text" formControlName="surname" />
-          </div>
-        </div>
-        <div class="fila-form validaciones" *ngIf="editProfileForm.dirty">
-          <div class="fila-form-col">
-            <div *ngIf="name.errors != null && name.errors.required">
-              El nombre es obligatorio
+    <div id="contenidoFormulario">
+      <div id="colFoto">
+        <img
+          src="assets/user.png"
+          alt="User"
+          height="150px"
+          width="150px"
+          onclick="alert('Subir documento - pendiente');"
+        />
+        <span id="profile_name">
+          {{ (currentUser$ | async)?.name }}
+          {{ (currentUser$ | async)?.surname }}
+        </span>
+      </div>
+
+      <div id="colDatos">
+        <form [formGroup]="editProfileForm" (ngSubmit)="editProfile()">
+          <div class="fila-form">
+            <div class="fila-form-col">
+              <label for="name">Nombre:</label>
+              <input type="text" formControlName="name" />
             </div>
-            <div *ngIf="name.errors != null && name.errors.minlength">
-              El nombre debe tener al menos 3 caracteres
-            </div>
-            <div *ngIf="name.errors != null && name.errors.maxlength">
-              El nombre no puede tener mas de 55 caracteres
-            </div>
-            <div *ngIf="name.errors != null && name.errors.espacio">
-              El nombre no puede empezar o terminar con un espacio en blanco
-            </div>
-          </div>
-          <div class="fila-form-col">
-            <div *ngIf="surname.errors != null && surname.errors.required">
-              El apellido es obligatorio
-            </div>
-            <div *ngIf="surname.errors != null && surname.errors.minlength">
-              El apellido debe tener al menos 3 caracteres
-            </div>
-            <div *ngIf="surname.errors != null && surname.errors.maxlength">
-              El apellido no puede tener mas de 55 caracteres
-            </div>
-            <div *ngIf="surname.errors != null && surname.errors.espacio">
-              El apellido no puede empezar o terminar con un espacio en blanco
+            <div class="fila-form-col">
+              <label for="apellidos">Apellidos:</label>
+              <input type="text" formControlName="surname" />
             </div>
           </div>
-        </div>
-        <div class="fila-form">
-          <div class="fila-form-col">
-            <label for="birthdate">Fecha de nacimiento:</label>
-            <input type="date" formControlName="birthdate" />
-          </div>
-        </div>
-        <div class="fila-form validaciones" *ngIf="editProfileForm.dirty">
-          <div class="fila-form-col">
-            <div *ngIf="birthdate.errors != null && birthdate.errors.required">
-              La fecha de nacimiento es obligatoria
+          <div class="fila-form validaciones" *ngIf="editProfileForm.dirty">
+            <div class="fila-form-col">
+              <div *ngIf="name.errors != null && name.errors.required">
+                El nombre es obligatorio
+              </div>
+              <div *ngIf="name.errors != null && name.errors.minlength">
+                El nombre debe tener al menos 3 caracteres
+              </div>
+              <div *ngIf="name.errors != null && name.errors.maxlength">
+                El nombre no puede tener mas de 55 caracteres
+              </div>
+              <div *ngIf="name.errors != null && name.errors.espacio">
+                El nombre no puede empezar o terminar con un espacio en blanco
+              </div>
+            </div>
+            <div class="fila-form-col">
+              <div *ngIf="surname.errors != null && surname.errors.required">
+                El apellido es obligatorio
+              </div>
+              <div *ngIf="surname.errors != null && surname.errors.minlength">
+                El apellido debe tener al menos 3 caracteres
+              </div>
+              <div *ngIf="surname.errors != null && surname.errors.maxlength">
+                El apellido no puede tener mas de 55 caracteres
+              </div>
+              <div *ngIf="surname.errors != null && surname.errors.espacio">
+                El apellido no puede empezar o terminar con un espacio en blanco
+              </div>
             </div>
           </div>
-        </div>
-        <div class="fila-form">
-          <div class="fila-form-col">
-            <label for="phone">Teléfono: </label>
-            <input type="text" formControlName="phone" />
+          <div class="fila-form">
+            <div class="fila-form-col">
+              <label for="birthdate">Fecha de nacimiento:</label>
+              <input type="date" formControlName="birthdate" />
+            </div>
           </div>
-          <div class="fila-form-col">
-            <label for="phone2">Teléfono 2: </label>
-            <input type="text" formControlName="phone2" />
+          <div class="fila-form validaciones" *ngIf="editProfileForm.dirty">
+            <div class="fila-form-col">
+              <div
+                *ngIf="birthdate.errors != null && birthdate.errors.required"
+              >
+                La fecha de nacimiento es obligatoria
+              </div>
+            </div>
           </div>
-        </div>
-        <div class="fila-form">
-          <div class="fila-form-col">
-            <label for="documentType">Identificación</label>
-            <select formControlName="documentType">
-              <option value="">Seleccione tipo de documento..</option>
-              <option *ngFor="let t of tiposDocumentos" [ngValue]="t.uid">{{
-                t.name
-              }}</option>
-            </select>
+          <div class="fila-form">
+            <div class="fila-form-col">
+              <label for="phone">Teléfono: </label>
+              <input type="text" formControlName="phone" />
+            </div>
+            <div class="fila-form-col">
+              <label for="phone2">Teléfono 2: </label>
+              <input type="text" formControlName="phone2" />
+            </div>
           </div>
-          <div class="fila-form-col">
-            <label for="documentNumber">Número</label>
-            <input type="text" formControlName="documentNumber" />
+          <div class="fila-form">
+            <div class="fila-form-col">
+              <label for="documentType">Identificación</label>
+              <select formControlName="documentType">
+                <option value="">Seleccione tipo de documento..</option>
+                <option *ngFor="let t of tiposDocumentos" [ngValue]="t.uid">{{
+                  t.name
+                }}</option>
+              </select>
+            </div>
+            <div class="fila-form-col">
+              <label for="documentNumber">Número</label>
+              <input type="text" formControlName="documentNumber" />
+            </div>
           </div>
-        </div>
-        <div class="fila-form validaciones" *ngIf="editProfileForm.dirty">
-          <div class="fila-form-col">
+          <div class="fila-form validaciones" *ngIf="editProfileForm.dirty">
+            <div class="fila-form-col">
+              <div
+                *ngIf="
+                  editProfileForm.errors != null &&
+                  editProfileForm.errors.numeroIdentificacion
+                "
+              >
+                El número de identificación no es válido
+              </div>
+            </div>
+          </div>
+          <div class="fila-form">
+            <label for="address">Dirección: </label>
+            <input type="text" size="50" formControlName="address" />
+          </div>
+          <div class="fila-form validaciones" *ngIf="editProfileForm.dirty">
+            <div *ngIf="address.errors != null && address.errors.required">
+              La dirección es obligatoria
+            </div>
+          </div>
+
+          <div class="fila-form">
+            <div class="fila-form-col">
+              <label for="provincia">Provincia:</label>
+              <select
+                (change)="changeProvincia($event)"
+                formControlName="provincia"
+              >
+                <option value="">Seleccione provincia..</option>
+                <option *ngFor="let p of provincias" [ngValue]="p.uid">
+                  {{ p.name }}
+                </option>
+              </select>
+            </div>
+            <div class="fila-form-col">
+              <label for="municipio">Municipio:</label>
+              <select formControlName="municipio">
+                <option value="">Seleccione municipio..</option>
+                <option *ngFor="let m of municipios" [ngValue]="m.uid">{{
+                  m.name
+                }}</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="fila-form validaciones" *ngIf="editProfileForm.dirty">
+            <div class="fila-form-col">
+              <div
+                *ngIf="provincia.errors != null && provincia.errors.required"
+              >
+                La provincia es obligatoria
+              </div>
+            </div>
+            <div class="fila-form-col">
+              <div
+                *ngIf="municipio.errors != null && municipio.errors.required"
+              >
+                El municipio es obligatorio
+              </div>
+            </div>
+          </div>
+
+          <div class="fila-form">
+            <label for="license">Permiso de conducir: </label
+            ><input type="text" size="50" formControlName="license" />
+          </div>
+          <div class="fila-form validaciones" *ngIf="editProfileForm.dirty">
+            <div *ngIf="license.errors != null && license.errors.required">
+              El campo es obligatorio
+            </div>
+            <div *ngIf="license.errors != null && license.errors.minlength">
+              Tu campo licencia debe tener al menos 2 caracteres
+            </div>
+            <div *ngIf="license.errors != null && license.errors.maxlength">
+              El campo licencia no puede sobrepasar los 30 caracteres
+            </div>
+          </div>
+          <div class="fila-form">
+            <label for="aboutMe">Sobre mi: </label>
+            <textarea rows="10" cols="80" formControlName="aboutMe"></textarea>
+          </div>
+          <div class="fila-form validaciones" *ngIf="editProfileForm.dirty">
+            <div *ngIf="aboutMe.errors != null && aboutMe.errors.required">
+              El campo es obligatorio
+            </div>
+            <div *ngIf="aboutMe.errors != null && aboutMe.errors.minlength">
+              Tu descripción debe tener al menos 30 caracteres
+            </div>
+          </div>
+          <div class="fila-form">
+            <label for="otherCompetences">Otras competencias: </label>
+            <textarea
+              rows="10"
+              cols="80"
+              formControlName="otherCompetences"
+            ></textarea>
+          </div>
+          <div class="fila-form validaciones" *ngIf="editProfileForm.dirty">
             <div
               *ngIf="
-                editProfileForm.errors != null &&
-                editProfileForm.errors.numeroIdentificacion
+                otherCompetences.errors != null &&
+                otherCompetences.errors.required
               "
             >
-              El número de identificación no es válido
+              El campo es obligatorio
             </div>
-          </div>
-        </div>
-        <div class="fila-form">
-          <label for="address">Dirección: </label>
-          <input type="text" size="50" formControlName="address" />
-        </div>
-        <div class="fila-form validaciones" *ngIf="editProfileForm.dirty">
-          <div *ngIf="address.errors != null && address.errors.required">
-            La dirección es obligatoria
-          </div>
-        </div>
-
-        <div class="fila-form">
-          <div class="fila-form-col">
-            <label for="provincia">Provincia:</label>
-            <select
-              (change)="changeProvincia($event)"
-              formControlName="provincia"
+            <div
+              *ngIf="
+                otherCompetences.errors != null &&
+                otherCompetences.errors.minlength
+              "
             >
-              <option value="">Seleccione provincia..</option>
-              <option *ngFor="let p of provincias" [ngValue]="p.uid">
-                {{ p.name }}
-              </option>
-            </select>
-          </div>
-          <div class="fila-form-col">
-            <label for="municipio">Municipio:</label>
-            <select formControlName="municipio">
-              <option value="">Seleccione municipio..</option>
-              <option *ngFor="let m of municipios" [ngValue]="m.uid">{{
-                m.name
-              }}</option>
-            </select>
-          </div>
-        </div>
-
-        <div class="fila-form validaciones" *ngIf="editProfileForm.dirty">
-          <div class="fila-form-col">
-            <div *ngIf="provincia.errors != null && provincia.errors.required">
-              La provincia es obligatoria
+              El campo debe tener al menos 30 caracteres
             </div>
           </div>
-          <div class="fila-form-col">
-            <div *ngIf="municipio.errors != null && municipio.errors.required">
-              El municipio es obligatorio
-            </div>
+          <div class="fila-form contenedor-botones">
+            <button type="submit">Guardar</button>
           </div>
-        </div>
-
-        <div class="fila-form">
-          <label for="license">Permiso de conducir: </label
-          ><input type="text" size="50" formControlName="license" />
-        </div>
-        <div class="fila-form validaciones" *ngIf="editProfileForm.dirty">
-          <div *ngIf="license.errors != null && license.errors.required">
-            El campo es obligatorio
-          </div>
-          <div *ngIf="license.errors != null && license.errors.minlength">
-            Tu campo licencia debe tener al menos 2 caracteres
-          </div>
-          <div *ngIf="license.errors != null && license.errors.maxlength">
-            El campo licencia no puede sobrepasar los 30 caracteres
-          </div>
-        </div>
-        <div class="fila-form">
-          <label for="aboutMe">Sobre mi: </label>
-          <textarea rows="10" cols="80" formControlName="aboutMe"></textarea>
-        </div>
-        <div class="fila-form validaciones" *ngIf="editProfileForm.dirty">
-          <div *ngIf="aboutMe.errors != null && aboutMe.errors.required">
-            El campo es obligatorio
-          </div>
-          <div *ngIf="aboutMe.errors != null && aboutMe.errors.minlength">
-            Tu descripción debe tener al menos 30 caracteres
-          </div>
-        </div>
-        <div class="fila-form">
-          <label for="otherCompetences">Otras competencias: </label>
-          <textarea
-            rows="10"
-            cols="80"
-            formControlName="otherCompetences"
-          ></textarea>
-        </div>
-        <div class="fila-form validaciones" *ngIf="editProfileForm.dirty">
-          <div
-            *ngIf="
-              otherCompetences.errors != null &&
-              otherCompetences.errors.required
-            "
-          >
-            El campo es obligatorio
-          </div>
-          <div
-            *ngIf="
-              otherCompetences.errors != null &&
-              otherCompetences.errors.minlength
-            "
-          >
-            El campo debe tener al menos 30 caracteres
-          </div>
-        </div>
-        <div class="fila-form contenedor-botones">
-          <button type="submit">Guardar</button>
-        </div>
-      </form>
+        </form>
+      </div>
     </div>
   </div>
 </div>

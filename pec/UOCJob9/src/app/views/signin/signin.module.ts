@@ -5,6 +5,7 @@ import { SigninRoutingModule } from "./signin-routing.module";
 import { SigninComponent } from "./signin.component";
 import { ReactiveFormsModule } from "@angular/forms";
 import { RouterModule } from "@angular/router";
+import { MaterialModule } from "../../shared/material.module";
 
 @NgModule({
   declarations: [SigninComponent],
@@ -13,7 +14,8 @@ import { RouterModule } from "@angular/router";
     SigninRoutingModule,
     //importamos el servicio que nos permitira trabajar con formularios reactivos
     ReactiveFormsModule,
-    RouterModule
-  ]
+    RouterModule,
+    MaterialModule,
+  ],
 })
 export class SigninModule {}

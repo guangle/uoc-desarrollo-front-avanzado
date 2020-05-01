@@ -2,15 +2,7 @@ import { NgModule } from "@angular/core";
 import { CommonModule } from "@angular/common";
 import { FormsModule } from "@angular/forms";
 import { RouterModule } from "@angular/router";
-/*
-import { EditProfileComponent } from "./views/edit-profile/edit-profile.component";
-import { EditStudiesComponent } from "./views/edit-studies/edit-studies.component";
-import { EditExperienceComponent } from "./views/edit-experience/edit-experience.component";
-import { EditLanguagesComponent } from "./views/edit-languages/edit-languages.component";
-*/
-/*
-import { TranslateModule } from '@ngx-translate/core';
-import { PerfectScrollbarModule } from 'ngx-perfect-scrollbar'; */
+import { MaterialModule } from "./material.module";
 
 // COMPONENTS
 
@@ -25,11 +17,11 @@ import { AppComfirmComponent } from "./services/app-confirm/app-confirm.componen
 const classesToInclude = [AppComfirmComponent];
 
 @NgModule({
-  imports: [CommonModule, FormsModule, RouterModule],
+  imports: [CommonModule, FormsModule, RouterModule, MaterialModule],
 
   providers: [AppConfirmService],
   entryComponents: [AppComfirmComponent],
   declarations: classesToInclude,
-  exports: classesToInclude
+  exports: classesToInclude,
 })
 export class SharedModule {}

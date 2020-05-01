@@ -1,191 +1,418 @@
-<div class="contenedor">
-  <div class="row-header">
-    <h1>
-      Datos personales (
-      <a [routerLink]="['/admin/edit-profile']">
-        Editar
-      </a>
-      )
-    </h1>
-    <a [routerLink]="['/admin/dashboard']">
-      Volver al dashboard
-    </a>
+<div class="container">
+  <app-navbar title="Perfil de usuario"></app-navbar>
+
+  <div class="container">
+    <div class="row" style="margin-top: 30px;">
+      <div class="col-md-8">
+        <div class="card">
+          <div class="card-header">
+            <i class="material-icons">perm_identity</i>
+          </div>
+          <div class="card-content">
+            <h4 class="card-title">
+              Perfil de usuario
+              <small class="category">Este es tu perfil de usuario</small>
+            </h4>
+
+            <div class="row">
+              <div class="col-md-6">
+                <mat-form-field color="accent">
+                  <input
+                    matInput
+                    type="text"
+                    placeholder="Email"
+                    value="{{ (currentUser$ | async)?.email }}"
+                    readonly="readonly"
+                  />
+                </mat-form-field>
+              </div>
+              <div class="col-md-6">
+                <mat-form-field color="accent">
+                  <input
+                    matInput
+                    type="text"
+                    placeholder="Fecha de nacimiento"
+                    value="{{ (currentUser$ | async)?.birthdate }} "
+                    readonly="readonly"
+                  />
+                </mat-form-field>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-4">
+                <mat-form-field color="accent">
+                  <input
+                    matInput
+                    type="text"
+                    placeholder="Teléfono"
+                    value="{{ (currentUser$ | async)?.phone }}"
+                    readonly="readonly"
+                  />
+                </mat-form-field>
+              </div>
+              <div class="col-md-4">
+                <mat-form-field color="accent">
+                  <input
+                    matInput
+                    type="text"
+                    placeholder="{{
+                      (currentUser$ | async)?.documentType.name
+                    }}"
+                    value="{{ (currentUser$ | async)?.documentNumber }}"
+                    readonly="readonly"
+                  />
+                </mat-form-field>
+              </div>
+              <div class="col-md-4">
+                <mat-form-field color="accent">
+                  <input
+                    matInput
+                    type="text"
+                    placeholder="Permisos de conducir"
+                    value="{{ (currentUser$ | async)?.license }}"
+                    readonly="readonly"
+                  />
+                </mat-form-field>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-12">
+                <label class="textarea-label">About Me</label>
+                <mat-form-field color="accent">
+                  <textarea
+                    matInput
+                    placeholder="Lamborghini Mercy, Your chick she so thirsty, I'm in that two seat Lambo."
+                  ></textarea>
+                </mat-form-field>
+              </div>
+            </div>
+            <div class="row action-btn">
+              <button
+                [routerLink]=""
+                (click)="editProfile()"
+                md-raised-button
+                class="btn btn-rose"
+              >
+                Editar perfil
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="card right-profile">
+          <div class="profile">
+            <img src="assets/user.png" alt="profile" />
+          </div>
+          <h6>{{ (currentUser$ | async)?.username }}</h6>
+          <h4>
+            {{ (currentUser$ | async)?.name }}
+            {{ (currentUser$ | async)?.surname }}
+          </h4>
+          <p>{{ (currentUser$ | async)?.aboutMe }}</p>
+          <button
+            [routerLink]=""
+            (click)="editProfile()"
+            mat-raised-button
+            class="btn btn-rose btn-round"
+          >
+            Cambiar
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Formacion académica -->
+
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card">
+          <div class="card-header">
+            <i class="material-icons">school</i>
+          </div>
+          <div class="card-content">
+            <h4 class="card-title">Formación académica</h4>
+            <div class="table-responsive">
+              <table class="table table-striped">
+                <thead>
+                  <tr>
+                    <th>Nivel</th>
+                    <th>Título</th>
+                    <th>Centro</th>
+                    <th>Fecha</th>
+                    <th>Certificado</th>
+                    <th class="text-right">Opciones</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let formacion of (currentUser$ | async)?.studies">
+                    <td>
+                      {{ formacion.level?.name }}
+                    </td>
+                    <td>
+                      {{ formacion.title?.name }}
+                    </td>
+                    <td>
+                      {{ formacion.institution?.name }}
+                    </td>
+                    <td>
+                      {{ formacion.date }}
+                    </td>
+                    <td><small>(pdte pec de manejo de ficheros)</small></td>
+                    <td class="text-right">
+                      <a [routerLink]="" (click)="editStudy(formacion)">
+                        <span class="material-icons">
+                          edit
+                        </span>
+                      </a>
+                      <a
+                        *ngIf="currentUser$ | async as user"
+                        [routerLink]=""
+                        (click)="deleteStudies(user, formacion)"
+                      >
+                        <span class="material-icons">
+                          delete
+                        </span>
+                      </a>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <div class="row action-btn">
+              <button
+                md-raised-button
+                type="submit"
+                class="btn btn-rose"
+                (click)="newStudy()"
+              >
+                Nueva formación
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Experiencia laboral -->
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card">
+          <div class="card-header">
+            <i class="material-icons">work</i>
+          </div>
+          <div class="card-content">
+            <h4 class="card-title">Experiencia Laboral</h4>
+            <div class="table-responsive">
+              <table class="table table-striped">
+                <thead>
+                  <tr>
+                    <th>Empresa</th>
+                    <th>Puesto</th>
+                    <th>Fechas</th>
+                    <th class="text-right">Opciones</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr
+                    *ngFor="
+                      let experiencia of (currentUser$ | async)?.experiencies
+                    "
+                  >
+                    <td>
+                      {{ experiencia.empresa }}
+                    </td>
+                    <td>
+                      {{ experiencia.puesto }}
+                    </td>
+                    <td>
+                      Desde {{ experiencia.date_inicio }} hasta
+                      {{ experiencia.date_fin }}
+                    </td>
+                    <td class="text-right">
+                      <a [routerLink]="" (click)="editExperience(experiencia)">
+                        <span class="material-icons">
+                          edit
+                        </span>
+                      </a>
+                      <a
+                        *ngIf="currentUser$ | async as user"
+                        [routerLink]=""
+                        (click)="deleteExperience(user, experiencia)"
+                      >
+                        <span class="material-icons">
+                          delete
+                        </span>
+                      </a>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="row action-btn">
+              <button
+                md-raised-button
+                type="submit"
+                class="btn btn-rose"
+                (click)="newExperience()"
+              >
+                Nueva experiencia
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Idiomas -->
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card">
+          <div class="card-header">
+            <i class="material-icons">translate</i>
+          </div>
+          <div class="card-content">
+            <h4 class="card-title">Idiomas</h4>
+            <div class="table-responsive">
+              <table class="table table-striped">
+                <thead>
+                  <tr>
+                    <th>Nivel</th>
+                    <th>Idioma</th>
+                    <th>Fecha</th>
+                    <th class="text-right">Opciones</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let l of (currentUser$ | async)?.languages">
+                    <td>
+                      {{ l.level.name }}
+                    </td>
+                    <td>
+                      {{ l.name.name }}
+                    </td>
+                    <td>
+                      {{ l.date }}
+                    </td>
+                    <td class="text-right">
+                      <a [routerLink]="" (click)="editLanguage(l)">
+                        <span class="material-icons">
+                          edit
+                        </span>
+                      </a>
+                      <a
+                        *ngIf="currentUser$ | async as user"
+                        [routerLink]=""
+                        (click)="deleteLanguaje(user, l)"
+                      >
+                        <span class="material-icons">
+                          delete
+                        </span>
+                      </a>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <div class="row action-btn">
+              <button
+                md-raised-button
+                type="submit"
+                class="btn btn-rose"
+                (click)="newLanguage()"
+              >
+                Nuevo idioma
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
-  <div class="row-datos">
-    <div id="foto">
-      <img src="assets/user.png" alt="User" height="150px" width="150px" />
-      <span id="profile_name">
-        {{ (currentUser$ | async)?.name }} {{ (currentUser$ | async)?.surname }}
-      </span>
+
+  <div class="contenedor">
+    <div class="row-header">
+      <h1>
+        Datos personales (
+        <a [routerLink]="['/admin/edit-profile']">
+          Editar
+        </a>
+        )
+      </h1>
+      <a [routerLink]="['/admin/dashboard']">
+        Volver al dashboard
+      </a>
     </div>
-    <div id="datos-basicos">
-      <div>
-        Email: <span>{{ (currentUser$ | async)?.email }}</span>
+    <div class="row-datos">
+      <div id="foto">
+        <img src="assets/user.png" alt="User" height="150px" width="150px" />
+        <span id="profile_name">
+          {{ (currentUser$ | async)?.name }}
+          {{ (currentUser$ | async)?.surname }}
+        </span>
       </div>
-      <div>
-        Fecha de nacimiento:
-        <span>{{ (currentUser$ | async)?.birthdate }} </span>
+      <div id="datos-basicos">
+        <div>
+          Email: <span>{{ (currentUser$ | async)?.email }}</span>
+        </div>
+        <div>
+          Fecha de nacimiento:
+          <span>{{ (currentUser$ | async)?.birthdate }} </span>
+        </div>
+        <div>
+          Teléfono: <span>{{ (currentUser$ | async)?.phone }} </span>
+        </div>
+        <div>
+          {{ (currentUser$ | async)?.documentType.name }}:
+          <span>{{ (currentUser$ | async)?.documentNumber }}</span>
+        </div>
+        <div>
+          Permisos de conducir:
+          <span>{{ (currentUser$ | async)?.license }}</span>
+        </div>
       </div>
-      <div>
-        Teléfono: <span>{{ (currentUser$ | async)?.phone }} </span>
-      </div>
-      <div>
-        {{ (currentUser$ | async)?.documentType.name }}:
-        <span>{{ (currentUser$ | async)?.documentNumber }}</span>
-      </div>
-      <div>
-        Permisos de conducir: <span>{{ (currentUser$ | async)?.license }}</span>
-      </div>
-    </div>
-    <div class="acerca-de acerca-de-1">
-      <span>Acerca de mi: </span
-      ><textarea rows="6" cols="35" readonly>
+      <div class="acerca-de acerca-de-1">
+        <span>Acerca de mi: </span
+        ><textarea rows="6" cols="35" readonly>
  {{ (currentUser$ | async)?.aboutMe }}</textarea
-      >
-    </div>
-    <div class="acerca-de acerca-de-2">
-      <span>Otras competencias:</span
-      ><textarea rows="6" cols="35" readonly>
+        >
+      </div>
+      <div class="acerca-de acerca-de-2">
+        <span>Otras competencias:</span
+        ><textarea rows="6" cols="35" readonly>
  {{ (currentUser$ | async)?.otherCompetences }}</textarea
-      >
+        >
+      </div>
     </div>
-  </div>
-  <div>
-    <h2>
-      Formación académica (
-      <a [routerLink]="" (click)="newStudy()">
-        Nueva
-      </a>
-      )
-    </h2>
-    <table>
-      <thead>
-        <tr>
-          <th>Nivel</th>
-          <th>Título</th>
-          <th>Centro</th>
-          <th>Fecha</th>
-          <th>Certificado</th>
-          <th>Opciones</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let formacion of (currentUser$ | async)?.studies">
-          <td>
-            {{ formacion.level?.name }}
-          </td>
-          <td>
-            {{ formacion.title?.name }}
-          </td>
-          <td>
-            {{ formacion.institution?.name }}
-          </td>
-          <td>
-            {{ formacion.date }}
-          </td>
-          <td><small>(pdte pec de manejo de ficheros)</small></td>
-          <td>
-            <a [routerLink]="" (click)="editStudy(formacion)">
-              Editar
-            </a>
-            <a
-              *ngIf="currentUser$ | async as user"
-              [routerLink]=""
-              (click)="deleteStudies(user, formacion)"
-            >
-              Eliminar
-            </a>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
-  <div>
-    <h2>
-      Experiencia laboral (
-      <a [routerLink]="" (click)="newExperience()">
-        Nueva
-      </a>
-      )
-    </h2>
-    <table>
-      <thead>
-        <tr>
-          <th>Empresa</th>
-          <th>Puesto</th>
-          <th>Fechas</th>
-          <th>Opciones</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let experiencia of (currentUser$ | async)?.experiencies">
-          <td>
-            {{ experiencia.empresa }}
-          </td>
-          <td>
-            {{ experiencia.puesto }}
-          </td>
-          <td>
-            Desde {{ experiencia.date_inicio }} hasta {{ experiencia.date_fin }}
-          </td>
-          <td>
-            <a [routerLink]="" (click)="editExperience(experiencia)">
-              Editar
-            </a>
-            <a
-              *ngIf="currentUser$ | async as user"
-              [routerLink]=""
-              (click)="deleteExperience(user, experiencia)"
-            >
-              Eliminar
-            </a>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
-  <div>
-    <h2>
-      Idiomas (
-      <a [routerLink]="" (click)="newLanguage()">
-        Nuevo
-      </a>
-      )
-    </h2>
-    <table>
-      <thead>
-        <tr>
-          <th>Nivel</th>
-          <th>Idioma</th>
-          <th>Fecha</th>
-          <th>Opciones</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let l of (currentUser$ | async)?.languages">
-          <td>
-            {{ l.level.name }}
-          </td>
-          <td>
-            {{ l.name.name }}
-          </td>
-          <td>
-            {{ l.date }}
-          </td>
-          <td>
-            <a [routerLink]="" (click)="editLanguage(l)">
-              Editar
-            </a>
-            <a
-              *ngIf="currentUser$ | async as user"
-              [routerLink]=""
-              (click)="deleteLanguaje(user, l)"
-            >
-              Eliminar
-            </a>
-          </td>
-        </tr>
-      </tbody>
-    </table>
+    <div>
+      <h2>
+        Formación académica (
+        <a [routerLink]="" (click)="newStudy()">
+          Nueva
+        </a>
+        )
+      </h2>
+    </div>
+    <div>
+      <h2>
+        Experiencia laboral (
+        <a [routerLink]="" (click)="newExperience()">
+          Nueva
+        </a>
+        )
+      </h2>
+    </div>
+    <div>
+      <h2>
+        Idiomas (
+        <a [routerLink]="" (click)="newLanguage()">
+          Nuevo
+        </a>
+        )
+      </h2>
+    </div>
   </div>
 </div>

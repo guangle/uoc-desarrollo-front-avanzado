@@ -5,11 +5,18 @@ import { EditProfileRoutingModule } from "./edit-profile-routing.module";
 import { EditProfileComponent } from "./edit-profile.component";
 import { ReactiveFormsModule } from "@angular/forms";
 import { RouterModule } from "@angular/router";
+import { TemplateModule } from "../template/template.module";
+import { MaterialModule } from "../../shared/material.module";
 
 @NgModule({
   declarations: [EditProfileComponent],
-  imports: [CommonModule, EditProfileRoutingModule, 
+  imports: [
+    CommonModule,
+    EditProfileRoutingModule,
     //importamos el servicio que nos permitira trabajar con formularios reactivos
-    ReactiveFormsModule]
+    ReactiveFormsModule,
+    TemplateModule,
+    MaterialModule,
+  ],
 })
 export class EditProfileModule {}

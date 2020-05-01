@@ -1,6 +1,6 @@
-import { NgModule, Optional, SkipSelf, Provider } from '@angular/core';
+import { NgModule, Optional, SkipSelf, Provider } from "@angular/core";
 
-import { HttpClientModule, HttpClient } from '@angular/common/http';
+import { HttpClientModule, HttpClient } from "@angular/common/http";
 /* import { JWTInterceptor } from './interceptors/jwt.interceptor'; */
 /* import { JwtExpiredInterceptor } from './interceptors/jwt-expired.interceptor'; */
 
@@ -18,18 +18,19 @@ import { UserEffects } from './states/user/effects/user.effects';
 import { AppEffects } from './states/app/effects'; */
 /* import { UsersEffects } from './states/users/effects'; */
 /* import { UsersService } from '../views/users/shared/users.service'; */
-import { ProfileService } from './services/profile.service';
+import { ProfileService } from "./services/profile.service";
 
 /* import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader'; */
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { NotificationsService } from './services/notifications.service';
+import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
+import { NotificationsService } from "./services/notifications.service";
 
-import { InMemoryWebApiModule } from 'angular-in-memory-web-api';
-import { FakeBackendService } from './inmemory-db/inmemory-db.service';
+import { InMemoryWebApiModule } from "angular-in-memory-web-api";
+import { FakeBackendService } from "./inmemory-db/inmemory-db.service";
 
-import { DataService } from './services/data.service';
-import { UserService } from './services/user.service';
+import { DataService } from "./services/data.service";
+import { UserService } from "./services/user.service";
+import { SettingsService } from "./services/settings.service";
 
 /* export function HttpLoaderFactory(httpClient: HttpClient) {
   return new TranslateHttpLoader(httpClient);
@@ -39,7 +40,8 @@ export const CORE_SERVICES: Provider[] = [
   ProfileService,
   NotificationsService,
   DataService,
-  UserService
+  UserService,
+  SettingsService,
   /* {
     provide: HTTP_INTERCEPTORS,
     useClass: JWTInterceptor,
@@ -81,9 +83,11 @@ export const CORE_SERVICES: Provider[] = [
         deps: [HttpClient]
       }
     }) */
-    InMemoryWebApiModule.forRoot(FakeBackendService, { passThruUnknownUrl: true }),
+    InMemoryWebApiModule.forRoot(FakeBackendService, {
+      passThruUnknownUrl: true,
+    }),
   ],
-  providers: CORE_SERVICES
+  providers: CORE_SERVICES,
 })
 export class CoreModule {
   constructor(
@@ -93,7 +97,7 @@ export class CoreModule {
   ) {
     if (parentModule) {
       throw new Error(
-        'CoreModule is already loaded. Import it in the AppModule only'
+        "CoreModule is already loaded. Import it in the AppModule only"
       );
     }
   }

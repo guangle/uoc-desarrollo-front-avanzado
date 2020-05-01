@@ -35,6 +35,15 @@ export const rootRouterConfig: Routes = [
       import("./views/notes/notes.module").then((m) => m.NotesModule),
     data: { title: "Notas de la implementación" },
   },
+  //refactorizamos las rutas tras la inclusión del template.
+  //Ahora todas las rutas una vez se autentica el usuario
+  //en la aplicación estaran bajo /uojobs/..
+  {
+    path: "uojobs",
+    loadChildren: () =>
+      import("./views/template/template.module").then((m) => m.TemplateModule),
+    data: { title: "Notas de la implementación" },
+  },
   {
     path: "admin",
     /*  component: AdminLayoutComponent, */
@@ -45,6 +54,15 @@ export const rootRouterConfig: Routes = [
         loadChildren: () =>
           import("./views/dashboard/dashboard.module").then(
             (m) => m.DashboardModule
+          ),
+
+        data: { title: "Dashboard", breadcrumb: "DASHBOARD" },
+      },
+      {
+        path: "dashboard-new",
+        loadChildren: () =>
+          import("./views/template/template.module").then(
+            (m) => m.TemplateModule
           ),
 
         data: { title: "Dashboard", breadcrumb: "DASHBOARD" },

@@ -1,89 +1,193 @@
-<div class="contenedor">
-  <div class="row-header">
-    <h1>
-      Detalle de la oferta
-    </h1>
-    <a [routerLink]="['/admin/offers/list']">
-      Volver al listdo de ofertas
-    </a>
+<div class="container">
+  <app-navbar title="Detalle de la oferta"></app-navbar>
+
+  <div class="container">
+    <div class="row" style="margin-top: 30px;">
+      <div class="col-md-12">
+        <div class="card">
+          <div class="card-header">
+            <i class="material-icons">work</i>
+          </div>
+          <div class="card-content">
+            <h4 class="card-title">
+              Detalle de la oferta
+              <small class="category"
+                >Esta es la oferta publicada por la empresa, ¡inscribete si
+                estás interesado!</small
+              >
+            </h4>
+
+            <div class="row">
+              <div class="col-md-6">
+                <mat-form-field color="accent">
+                  <input
+                    matInput
+                    type="text"
+                    placeholder="Email"
+                    value="{{ (currentUser$ | async)?.email }}"
+                    readonly="readonly"
+                  />
+                </mat-form-field>
+              </div>
+              <div class="col-md-6">
+                <mat-form-field color="accent">
+                  <input
+                    matInput
+                    type="text"
+                    placeholder="Fecha de nacimiento"
+                    value="{{ (currentUser$ | async)?.birthdate }} "
+                    readonly="readonly"
+                  />
+                </mat-form-field>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-4">
+                <mat-form-field color="accent">
+                  <input
+                    matInput
+                    type="text"
+                    placeholder="Teléfono"
+                    value="{{ (currentUser$ | async)?.phone }}"
+                    readonly="readonly"
+                  />
+                </mat-form-field>
+              </div>
+              <div class="col-md-4">
+                <mat-form-field color="accent">
+                  <input
+                    matInput
+                    type="text"
+                    placeholder="{{
+                      (currentUser$ | async)?.documentType.name
+                    }}"
+                    value="{{ (currentUser$ | async)?.documentNumber }}"
+                    readonly="readonly"
+                  />
+                </mat-form-field>
+              </div>
+              <div class="col-md-4">
+                <mat-form-field color="accent">
+                  <input
+                    matInput
+                    type="text"
+                    placeholder="Permisos de conducir"
+                    value="{{ (currentUser$ | async)?.license }}"
+                    readonly="readonly"
+                  />
+                </mat-form-field>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-12">
+                <label class="textarea-label">About Me</label>
+                <mat-form-field color="accent">
+                  <textarea
+                    matInput
+                    placeholder="Lamborghini Mercy, Your chick she so thirsty, I'm in that two seat Lambo."
+                  ></textarea>
+                </mat-form-field>
+              </div>
+            </div>
+            <div class="row action-btn">
+              <button md-raised-button class="btn btn-rose">
+                Editar perfil
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
-  <div class="row-datos">
-    <div class="div-detalle">
-      <h2>Oferta</h2>
-      <div class="campo-detalle">
-        <label>Empresa: </label> {{ (currentOffer$ | async).company?.name }}
+
+  <div class="contenedor">
+    <div class="row-header">
+      <h1>
+        Detalle de la oferta
+      </h1>
+      <a [routerLink]="['/admin/offers/list']">
+        Volver al listdo de ofertas
+      </a>
+    </div>
+    <div class="row-datos">
+      <div class="div-detalle">
+        <h2>Oferta</h2>
+        <div class="campo-detalle">
+          <label>Empresa: </label> {{ (currentOffer$ | async).company?.name }}
+        </div>
+        <div class="campo-detalle">
+          <label>Puesto </label> {{ (currentOffer$ | async).job?.name }}
+        </div>
+        <div class="campo-detalle">
+          <label>Descripción </label>
+          {{ (currentOffer$ | async).job?.description }}
+        </div>
       </div>
-      <div class="campo-detalle">
-        <label>Puesto </label> {{ (currentOffer$ | async).job?.name }}
+      <div class="div-detalle">
+        <h2>Localización</h2>
+        <div class="campo-detalle">
+          <label>Provincia </label> {{ (currentOffer$ | async).province?.name }}
+        </div>
+        <div class="campo-detalle">
+          <label>Municipio </label> {{ (currentOffer$ | async).municipe?.name }}
+        </div>
       </div>
-      <div class="campo-detalle">
-        <label>Descripción </label>
-        {{ (currentOffer$ | async).job?.description }}
+      <div class="div-detalle">
+        <h2>Destinado a persona de:</h2>
+        <div class="campo-detalle">
+          <label>Familia profesional </label>
+          {{ (currentOffer$ | async).category?.name }}
+        </div>
+      </div>
+      <div class="div-detalle">
+        <h2>Títulos</h2>
+        <table>
+          <thead>
+            <tr>
+              <th>Id</th>
+              <th>Nombre</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let t of (currentOffer$ | async).title">
+              <td>
+                {{ t.uid }}
+              </td>
+              <td>
+                {{ t.name }}
+              </td>
+            </tr>
+          </tbody>
+        </table>
       </div>
     </div>
-    <div class="div-detalle">
-      <h2>Localización</h2>
-      <div class="campo-detalle">
-        <label>Provincia </label> {{ (currentOffer$ | async).province?.name }}
-      </div>
-      <div class="campo-detalle">
-        <label>Municipio </label> {{ (currentOffer$ | async).municipe?.name }}
-      </div>
-    </div>
-    <div class="div-detalle">
-      <h2>Destinado a persona de:</h2>
-      <div class="campo-detalle">
-        <label>Familia profesional </label>
-        {{ (currentOffer$ | async).category?.name }}
-      </div>
-    </div>
-    <div class="div-detalle">
-      <h2>Títulos</h2>
-      <table>
-        <thead>
-          <tr>
-            <th>Id</th>
-            <th>Nombre</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let t of (currentOffer$ | async).title">
-            <td>
-              {{ t.uid }}
-            </td>
-            <td>
-              {{ t.name }}
-            </td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-  </div>
-  <div class="row-datos">
-    <!-- 
+    <div class="row-datos">
+      <!-- 
     'esperamos' a los observables que nos hacen falta para mostrar el botón con esta notación 
     que he visto en: https://medium.com/@ofirrifo/extract-multiple-observables-with-the-async-pipe-in-angular-b119d22f8e05
   -->
-    <div
-      *ngIf="{
-        currentUser: currentUser$ | async,
-        currentOffer: currentOffer$ | async,
-        inscrito: inscrito$ | async
-      } as data"
-      class="contenedor-botones"
-    >
-      <button
-        *ngIf="!data.inscrito"
-        (click)="inscribirOferta(data.currentUser, data.currentOffer)"
+      <div
+        *ngIf="{
+          currentUser: currentUser$ | async,
+          currentOffer: currentOffer$ | async,
+          inscrito: inscrito$ | async
+        } as data"
+        class="contenedor-botones"
       >
-        Inscribirse a la oferta
-      </button>
-      <button
-        *ngIf="data.inscrito"
-        (click)="borrarseOferta(data.currentUser, data.currentOffer)"
-      >
-        Borrarse de la oferta
-      </button>
+        <button
+          *ngIf="!data.inscrito"
+          (click)="inscribirOferta(data.currentUser, data.currentOffer)"
+        >
+          Inscribirse a la oferta
+        </button>
+        <button
+          *ngIf="data.inscrito"
+          (click)="borrarseOferta(data.currentUser, data.currentOffer)"
+        >
+          Borrarse de la oferta
+        </button>
+      </div>
     </div>
   </div>
 </div>

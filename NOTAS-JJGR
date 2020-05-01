@@ -1,3 +1,10 @@
+pec3
+.todo: poner una nota diciendo qu ehe ejcutado est sinp roblemas
+https://material.angular.io/guide/getting-started
+
+    
+
+
 Actions describe unique events that are dispatched from components and services.
 State changes are handled by pure functions called reducers that take the current state and the latest action to compute a new state.
 Selectors are pure functions used to select, derive and compose pieces of state.

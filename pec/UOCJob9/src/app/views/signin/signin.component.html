@@ -1,79 +1,125 @@
-<div class="contenedor-login">
-  <div>
-    <h2>Sign In:</h2>
-  </div>
-  <div>
-    <img
-      src="assets/escuela_escudo.png"
-      alt="Job Offers"
-      height="150px"
-      width="150px"
-    />
-  </div>
-  <div>
-    <h3>{{ mensaje }}</h3>
-  </div>
-  <form [formGroup]="loginForm" (ngSubmit)="doLogin()">
+<!-- 
+  El login se maqueta 'a mano', sin utilizar la plantilla
+  y apoyándose en los componentes angular-material
+ -->
+<mat-toolbar color="primary">
+  <mat-toolbar-row>
+    <h1>OU Jobs - PEC3</h1>
+    <small>Juan Jesús Gutiérrez Ramos</small>
+    <span class="menu-spacer"></span>
     <div>
-      <label for="email">Email:</label>
-      <input type="email" formControlName="email" required size="50" />
+      <a mat-button [routerLink]="'/notes'"> Notas de la versión </a>
     </div>
-    <div class="validaciones">
-      <div *ngIf="loginForm.dirty && isSubmitted">
-        <div *ngIf="email.errors != null && email.errors.required">
-          El email es obligatorio
-        </div>
-        <div *ngIf="email.errors != null && email.errors.email">
-          El email no tiene un formato válido
-        </div>
-        <div *ngIf="email.errors != null && email.errors.minlength">
-          La longitud debe ser al menos 10 caracteres
-        </div>
-      </div>
-    </div>
-    <div>
-      <label for="password">Password:</label>
-      <input type="password" formControlName="password" required />
-    </div>
-    <div class="validaciones">
-      <div *ngIf="loginForm.dirty && isSubmitted">
-        <div *ngIf="password.errors != null && password.errors.required">
-          El password es obligatorio
-        </div>
-        <div *ngIf="password.errors != null && password.errors.minlength">
-          La longitud debe ser al menos 4 caracteres
-        </div>
-      </div>
-    </div>
-    <div class="contenedor-botones">
-      <!-- Si hay cualquier error de validación en alguno de los dos campos, deshabilitamos el boton submit -->
-      <button
-        type="submit"
-        class="submitBtn"
-        [disabled]="email.errors || password.errors"
-      >
-        Login
-      </button>
-    </div>
-    <div class="contenedor-botones">
-      <button type="button" routerLink="/forgot-password">
-        Remember password
-      </button>
-    </div>
-  </form>
-  <div id="notas">
-    <div><h3>Usuarios de pruebas</h3></div>
-    <div>carlos.caballero@gmail.com / 1234</div>
-    <div>guangle@gmail.com / 1234</div>
+  </mat-toolbar-row>
+</mat-toolbar>
+<div id="barra-multicolor"></div>
+<div fxLayout fxLayoutAlign="center center" style="height: 100%;">
+  <mat-card fxFlex="35%" class="card-uojobs">
+    <form [formGroup]="loginForm" (ngSubmit)="doLogin()">
+      <mat-card-header [ngClass]="{ 'card-header-uojobs': true }">
+        <img mat-card-avatar src="assets/escuela_escudo.png" />
+        <mat-card-title>UOJobs - Login</mat-card-title>
+        <mat-card-subtitle
+          >Introduzca sus credenciales (estudiante o empresa)</mat-card-subtitle
+        >
+      </mat-card-header>
 
-    <div><h3>Empresas de prueba</h3></div>
-    <div>rrhh@fujitsu.es / 1234</div>
-    <div>rrhh@everis.es / 1234</div>
+      <mat-card-content fxLayout="column" class="card-content-uojobs">
+        <mat-form-field>
+          <input
+            matInput
+            type="email"
+            formControlName="email"
+            required
+            size="50"
+            placeholder="Email"
+          />
+          <mat-error
+            *ngIf="
+              email.invalid && email.errors != null && email.errors.required
+            "
+          >
+            El email es obligatorio
+          </mat-error>
+          <mat-error
+            *ngIf="email.invalid && email.errors != null && email.errors.email"
+          >
+            El email no tiene un formato válido
+          </mat-error>
+          <mat-error
+            *ngIf="
+              email.invalid && email.errors != null && email.errors.minlength
+            "
+          >
+            La longitud debe ser al menos 10 caracteres
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field style="margin-top: 30px;">
+          <input
+            matInput
+            type="password"
+            formControlName="password"
+            required
+            placeholder="Password"
+          />
+          <mat-error
+            *ngIf="
+              password.invalid &&
+              password.errors != null &&
+              password.errors.required
+            "
+          >
+            El password es obligatorio
+          </mat-error>
+          <mat-error
+            *ngIf="
+              password.invalid &&
+              password.errors != null &&
+              password.errors.minlength
+            "
+          >
+            La longitud debe ser al menos 4 caracteres
+          </mat-error>
+        </mat-form-field>
 
-    <div>
-      <a [routerLink]="['/notes']">
-        Consulta las notas de la implementación
-      </a>
-    </div>
-  </div>
+        <div class="validaciones">
+          <div *ngIf="loginForm.dirty && isSubmitted">
+            <div *ngIf="password.errors != null && password.errors.required">
+              El password es obligatorio
+            </div>
+            <div *ngIf="password.errors != null && password.errors.minlength">
+              La longitud debe ser al menos 4 caracteres
+            </div>
+          </div>
+        </div>
+      </mat-card-content>
+      <mat-card-actions class="card-actions-uojobs">
+        <button mat-button type="button" routerLink="/forgot-password">
+          Ayuda
+        </button>
+        <button mat-button type="button" routerLink="/forgot-password">
+          Remember password
+        </button>
+
+        <!-- Si hay cualquier error de validación en alguno de los dos campos, deshabilitamos el boton submit -->
+        <button
+          mat-raised-button
+          color="accent"
+          type="submit"
+          class="submitBtn"
+          [disabled]="email.errors || password.errors"
+        >
+          Login
+        </button>
+      </mat-card-actions>
+      <!--
+    <mat-card-actions>
+      <button mat-button>Login</button>
+      <button mat-button>Olvide mi contraseña</button>
+    </mat-card-actions>
+    -->
+      <!--
+    <button mat-raised-button color="accent">Login</button>
+    --></form>
+  </mat-card>
 </div>

@@ -56,7 +56,7 @@ export class UserEffects {
   @Effect({ dispatch: false })
   updateUserSuccess$ = this.actions$.pipe(
     ofType(UserActions.UserActionTypes.UPDATE_USER_SUCCESS),
-    tap(() => this.router.navigate(["/admin/profile"]))
+    tap(() => this.router.navigate(["/uojobs/users/profile"]))
   );
 
   //Efectos relacionados con la formación gestión de la formación académica
@@ -69,7 +69,7 @@ export class UserEffects {
   @Effect({ dispatch: false })
   setCurrentStudy$ = this.actions$.pipe(
     ofType(UserActions.UserActionTypes.SET_CURRENT_STUDY),
-    tap(() => this.router.navigate(["/admin/edit-studies"]))
+    tap(() => this.router.navigate(["/uojobs/users/edit-studies"]))
   );
 
   @Effect()
@@ -86,7 +86,7 @@ export class UserEffects {
   @Effect({ dispatch: false })
   createStudySuccess$ = this.actions$.pipe(
     ofType(UserActions.UserActionTypes.CREATE_STUDY),
-    tap(() => this.router.navigate(["/admin/profile"]))
+    tap(() => this.router.navigate(["/uojobs/users/profile"]))
   );
 
   @Effect()
@@ -103,7 +103,7 @@ export class UserEffects {
   @Effect({ dispatch: false })
   updateStudySuccess$ = this.actions$.pipe(
     ofType(UserActions.UserActionTypes.UPDATE_STUDY_SUCCESS),
-    tap(() => this.router.navigate(["/admin/profile"]))
+    tap(() => this.router.navigate(["/uojobs/users/profile"]))
   );
 
   @Effect()
@@ -124,7 +124,7 @@ export class UserEffects {
   @Effect({ dispatch: false })
   setCurrentExperience$ = this.actions$.pipe(
     ofType(UserActions.UserActionTypes.SET_CURRENT_EXPERIENCE),
-    tap(() => this.router.navigate(["/admin/edit-experience"]))
+    tap(() => this.router.navigate(["/uojobs/users/edit-experience"]))
   );
 
   @Effect()
@@ -141,7 +141,7 @@ export class UserEffects {
   @Effect({ dispatch: false })
   createExperienceSuccess$ = this.actions$.pipe(
     ofType(UserActions.UserActionTypes.CREATE_EXPERIENCE_SUCCESS),
-    tap(() => this.router.navigate(["/admin/profile"]))
+    tap(() => this.router.navigate(["/uojobs/users/profile"]))
   );
 
   @Effect()
@@ -158,7 +158,7 @@ export class UserEffects {
   @Effect({ dispatch: false })
   updateExperienceSuccess$ = this.actions$.pipe(
     ofType(UserActions.UserActionTypes.UPDATE_EXPERIENCE_SUCCESS),
-    tap(() => this.router.navigate(["/admin/profile"]))
+    tap(() => this.router.navigate(["/uojobs/users/profile"]))
   );
 
   @Effect()
@@ -181,7 +181,7 @@ export class UserEffects {
   @Effect({ dispatch: false })
   setCurrentLanguage$ = this.actions$.pipe(
     ofType(UserActions.UserActionTypes.SET_CURRENT_LANGUAGE),
-    tap(() => this.router.navigate(["/admin/edit-languages"]))
+    tap(() => this.router.navigate(["/uojobs/users/edit-languages"]))
   );
 
   @Effect()
@@ -198,7 +198,7 @@ export class UserEffects {
   @Effect({ dispatch: false })
   createLanguageSuccess$ = this.actions$.pipe(
     ofType(UserActions.UserActionTypes.CREATE_LANGUAGE_SUCCESS),
-    tap(() => this.router.navigate(["/admin/profile"]))
+    tap(() => this.router.navigate(["/uojobs/users/profile"]))
   );
 
   @Effect()
@@ -215,7 +215,7 @@ export class UserEffects {
   @Effect({ dispatch: false })
   updateLanguageSuccess$ = this.actions$.pipe(
     ofType(UserActions.UserActionTypes.UPDATE_LANGUAGE_SUCCESS),
-    tap(() => this.router.navigate(["/admin/profile"]))
+    tap(() => this.router.navigate(["/uojobs/users/profile"]))
   );
 
   @Effect()

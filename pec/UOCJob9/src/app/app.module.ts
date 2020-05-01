@@ -1,6 +1,7 @@
 import { NgModule } from "@angular/core";
 import { AppComponent } from "./app.component";
 import { SharedModule } from "./shared/shared.module";
+import { MaterialModule } from "./shared/material.module";
 import { CoreModule } from "./shared/core.module";
 import { RouterModule } from "@angular/router";
 import { rootRouterConfig } from "./app-routing";
@@ -18,19 +19,25 @@ import { DemoEffects } from "../app/shared/state/demo/effects/demo.effects";
 import { AuthEffects } from "../app/shared/state/auth/effects/auth.effects";
 import { OfferEffects } from "../app/shared/state/offer/effects/offer.effects";
 import { CompanyEffects } from "../app/shared/state/company/effects/company.effects";
-
-import { MatSnackBarModule } from "@angular/material/snack-bar";
+import { TemplateModule } from "../app/views/template/template.module";
 import { MessagesModule } from "./views/messages/messages.module";
+import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 
 @NgModule({
   imports: [
     SharedModule,
     HttpClientModule,
+
+    //CREO QUE NO HACE FALTA
     //importamos el servicio que nos permitira trabajar con formularios reactivos
-    ReactiveFormsModule,
+    //ReactiveFormsModule,
+
     CoreModule,
-    MatSnackBarModule,
+    //Módulo con los elementos material
+    MaterialModule,
     MessagesModule,
+    TemplateModule,
+    MaterialModule,
     RouterModule.forRoot(rootRouterConfig, { useHash: false }),
     StoreModule.forRoot(reducers, {
       metaReducers,
@@ -49,6 +56,7 @@ import { MessagesModule } from "./views/messages/messages.module";
     !environment.production ? StoreDevtoolsModule.instrument() : [],
     //mete las rutas en el store para poder debuguear por las rutas ejecutadas
     StoreRouterConnectingModule.forRoot({ stateKey: "router" }),
+    BrowserAnimationsModule,
   ],
   declarations: [AppComponent],
   providers: [],

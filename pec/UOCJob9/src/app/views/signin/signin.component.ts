@@ -3,10 +3,6 @@ import { FormControl, FormGroup } from "@angular/forms";
 import { Validators, FormBuilder } from "@angular/forms";
 import { Router } from "@angular/router";
 
-import { DataService } from "../../shared/services/data.service";
-import { UserService } from "../../shared/services/user.service";
-import { CompanyService } from "../../shared/services/company.service";
-
 import { Store } from "@ngrx/store";
 import { AppStore } from "../../shared/state/store.interface";
 import { Observable } from "rxjs";
@@ -43,10 +39,12 @@ export class SigninComponent implements OnInit {
       if (login_state.logged) {
         if ("user" === login_state.type) {
           //Se ha logado un usuario, vamos al dashboard principal
-          this.router.navigate(["/admin/dashboard"]);
+          //this.router.navigate(["/admin/dashboard"]);
+          //La inclusión de la plantilla ha provocado que refactorice las rutas
+          this.router.navigate(["/uojobs/users/dashboard"]);
         } else if ("company" === login_state.type) {
           //Se ha logado una empresa, vamos al dashboard de empresa
-          this.router.navigate(["/companies/dashboard-company"]);
+          this.router.navigate(["/uojobs/companies/dashboard-company"]);
         }
       }
     });

@@ -1,54 +1,72 @@
-<div class="contenedor">
-  <div class="row-header">
-    <h1>Mis Ofertas</h1>
-    <a [routerLink]="['/admin/dashboard']">
-      Volver al dashboard
-    </a>
-  </div>
+<div class="container">
+  <app-navbar title="Mis ofertas"></app-navbar>
 
-  <div class="row-datos" *ngIf="(userOffers$ | async).length == 0">
-    Aún no te has inscrito en ninguna oferta. Pasate por la sección de
-    <a [routerLink]="['/admin/offers/list']"> Ofertas </a> para encontrar alguna
-    que encaje con tu perfil
-  </div>
+  <div class="contenedor">
+    <div class="row-datos" *ngIf="(userOffers$ | async).length == 0">
+      <div class="alert alert-warning alert-with-icon">
+        <i class="material-icons alert-icon">notifications</i>
+        <span
+          >Aún no te has inscrito en ninguna oferta. Pasate por la sección de
+          <a [routerLink]="['/uojobs/users/offers']"> Ofertas </a> para
+          encontrar alguna que encaje con tu perfil</span
+        >
+      </div>
+    </div>
 
-  <div class="row-datos" *ngIf="(userOffers$ | async).length > 0">
-    <table>
-      <thead>
-        <tr>
-          <th>Puesto</th>
-          <th>Empresa</th>
-          <th>Familia profesional</th>
+    <div class="row-datos" *ngIf="(userOffers$ | async).length > 0">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="card">
+            <div class="card-header">
+              <i class="material-icons">school</i>
+            </div>
+            <div class="card-content">
+              <h4 class="card-title">Formación académica</h4>
+              <div class="table-responsive">
+                <table class="table table-striped">
+                  <thead>
+                    <tr>
+                      <th>Puesto</th>
+                      <th>Empresa</th>
+                      <th>Familia profesional</th>
 
-          <th>Fecha</th>
-          <th>Ubicación</th>
-          <th>Estado</th>
-          <th>Opciones</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let offer of userOffers$ | async">
-          <td>
-            {{ offer.job?.name }}
-          </td>
-          <td>
-            {{ offer.company?.name }}
-          </td>
-          <td>
-            {{ offer.category?.name }}
-          </td>
-          <td>
-            {{ offer.date }}
-          </td>
-          <td>{{ offer.province?.name }} / {{ offer.municipe?.name }}</td>
-          <td>Pendiente</td>
-          <td>
-            <a [routerLink]="" (click)="offerDetail(offer)">
-              Ver
-            </a>
-          </td>
-        </tr>
-      </tbody>
-    </table>
+                      <th>Fecha</th>
+                      <th>Ubicación</th>
+                      <th>Estado</th>
+                      <th class="text-right">Opciones</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let offer of userOffers$ | async">
+                      <td>
+                        {{ offer.job?.name }}
+                      </td>
+                      <td>
+                        {{ offer.company?.name }}
+                      </td>
+                      <td>
+                        {{ offer.category?.name }}
+                      </td>
+                      <td>
+                        {{ offer.date }}
+                      </td>
+                      <td>
+                        {{ offer.province?.name }} / {{ offer.municipe?.name }}
+                      </td>
+                      <td>Pendiente</td>
+                      <td class="text-right">
+                        <a [routerLink]="" (click)="offerDetail(offer)">
+                          Ver
+                        </a>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
