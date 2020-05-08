@@ -1,106 +1,306 @@
-<div class="contenedor">
-  <div class="row-header">
-    <h1 *ngIf="!inEditMode()">
-      Nueva experiencia
-    </h1>
-    <h1 *ngIf="inEditMode()">
-      Editar experiencia
-    </h1>
-    <a [routerLink]="['/admin/profile']">
-      Volver al perfil
-    </a>
-  </div>
+<div class="container">
+  <app-navbar title="Idiomas"></app-navbar>
 
-  <div id="contenidoFormulario">
-    <div id="colDatos">
-      <form [formGroup]="editExperienceForm" (ngSubmit)="submitExperience()">
-        <div class="fila-form">
-          <label for="empresa">Empresa: </label>
-          <input type="text" formControlName="empresa" size="120" />
+  <div class="row" style="margin-top: 30px;">
+    <div class="col-md-12">
+      <div class="card">
+        <div class="card-header">
+          <i class="material-icons">work</i>
         </div>
-        
-        <div class="fila-form validaciones" *ngIf="editExperienceForm.dirty">
-          <div *ngIf=" empresa.touched && empresa.errors != null && empresa.errors.required" >
-            El campo es obligatorio
-          </div> 
-          <div *ngIf=" empresa.touched && empresa.errors != null && empresa.errors.minlength" >
-            El nombre de la empresa debe tener al menos 3 caracteres
-          </div>
-          <div *ngIf=" empresa.touched && empresa.errors != null && empresa.errors.maxlength" >
-            El nombre de la empresa no puede superar los 255 caracteres
-          </div>
-          <div *ngIf="empresa.touched && empresa.errors != null && empresa.errors.espacio">
-            El nombre de la empresano puede empezar o terminar con un espacio en blanco
-          </div>
-        </div>
+        <div class="card-content">
+          <h4 class="card-title" *ngIf="!inEditMode()">
+            Nueva experiencia
+          </h4>
+          <h4 class="card-title" *ngIf="inEditMode()">
+            Editar experiencia
+          </h4>
 
-        <div class="fila-form">
-          <div class="fila-form-col">
-            <label for="date_inicio">Fecha inicio: </label>
-            <input type="date" formControlName="date_inicio" />
-          </div>
-          <div class="fila-form-col">
-            <label for="date_fin">Fecha fin: </label>
-            <input type="date" formControlName="date_fin" />
-          </div>
-        </div>
+          <div class="row">
+            <div class="col-md-12">
+              <form
+                [formGroup]="editExperienceForm"
+                (ngSubmit)="submitExperience()"
+              >
+                <!--
+                <div class="row">
+                  <div class="col-md-offset-1 col-md-6">
+                    <mat-form-field color="accent">
+                      <mat-label>Idioma</mat-label>
+                      <mat-select formControlName="name" placeholder="Idioma">
+                        <mat-option>
+                          Seleccione idioma..
+                        </mat-option>
 
-        <div class="fila-form validaciones" *ngIf="editExperienceForm.dirty">
-          <div class="fila-form-col">
-            <div *ngIf=" date_inicio.touched && date_inicio.errors != null && date_inicio.errors.required" >
-              La fecha de inicio es obligatoria
-            </div> 
-          </div>
-          <div class="fila-form-col">
-            <div *ngIf=" date_fin.touched && date_fin.errors != null && date_fin.errors.required" >
-              La fecha de fin es obligatoria
-            </div> 
-          </div>
-        </div>
+                        <mat-option
+                          *ngFor="let t of posibles_lenguas"
+                          [value]="t.uid"
+                        >
+                          {{ t.name }}
+                        </mat-option>
+                      </mat-select>
+                      <mat-error
+                        *ngIf="
+                          name.invalid &&
+                          name.errors != null &&
+                          name.errors.required
+                        "
+                      >
+                        El campo es obligatorio
+                      </mat-error>
+                    </mat-form-field>
+                  </div>
+                </div>
 
-        <div class="fila-form">
-          <label for="puesto">Puesto: </label>
-          <input type="text" formControlName="puesto" size="120" />
-        </div>
+              
 
-        <div class="fila-form validaciones" *ngIf="editExperienceForm.dirty">
-          <div *ngIf=" puesto.touched && puesto.errors != null && puesto.errors.required" >
-            El campo es obligatorio
-          </div> 
-          <div *ngIf=" puesto.touched && puesto.errors != null && puesto.errors.minlength" >
-            El puesto debe tener al menos 3 caracteres
-          </div>
-          <div *ngIf=" puesto.touched && puesto.errors != null && puesto.errors.maxlength" >
-            El puesto no puede superar los 255 caracteres
-          </div>
-          <div *ngIf="puesto.touched && puesto.errors != null && puesto.errors.espacio">
-            El puesto no puede empezar o terminar con un espacio en blanco
-          </div>
-        </div>
+                <div class="row" *ngIf="name.value == 5">
+                  <div class="col-md-offset-1 col-md-6">
+                    <mat-form-field color="accent">
+                      <input matInput type="text" formControlName="other" />
+                    </mat-form-field>
+                  </div>
+                </div>
 
-        <div class="fila-form">
-          <label for="tareas">Tareas: </label>
-          <textarea rows="10" cols="120" formControlName="tareas"></textarea>
-        </div>
+                <div class="row">
+                  <div class="col-md-offset-1 col-md-6">
+                    <mat-form-field color="accent">
+                      <mat-label>Nivel</mat-label>
+                      <mat-select formControlName="level" placeholder="Nivel">
+                        <mat-option>
+                          Seleccione nivel..
+                        </mat-option>
 
-        <div class="fila-form validaciones" *ngIf="editExperienceForm.dirty">
-          <div *ngIf=" tareas.touched && tareas.errors != null && tareas.errors.required" >
-            El campo es obligatorio
-          </div> 
-          <div *ngIf=" tareas.touched && tareas.errors != null && tareas.errors.minlength" >
-            La descripción de las tareas debe tener al menos 30 caracteres
-          </div>
-          <div *ngIf=" tareas.touched && tareas.errors != null && tareas.errors.maxlength" >
-            La descripción de las tareas no puede superar los 500 caracteres
-          </div>
-        </div>
+                        <mat-option *ngFor="let t of niveles" [value]="t.uid">
+                          {{ t.name }}
+                        </mat-option>
+                      </mat-select>
 
-        <div class="fila-form contenedor-botones">
-          <button [disabled]="!editExperienceForm.valid" type="submit">
-            Guardar
-          </button>
+                      <mat-error
+                        *ngIf="
+                          level.invalid &&
+                          level.errors != null &&
+                          level.errors.required
+                        "
+                      >
+                        El campo es obligatorio
+                      </mat-error>
+                    </mat-form-field>
+                  </div>
+                </div>
+
+-->
+
+                <div class="row">
+                  <div class="col-md-offset-1 col-md-6">
+                    <mat-form-field color="accent">
+                      <input
+                        matInput
+                        type="texty"
+                        formControlName="empresa"
+                        size="120"
+                        placeholder="Empresa"
+                      />
+                      <mat-error
+                        *ngIf="
+                          empresa.invalid &&
+                          empresa.errors != null &&
+                          empresa.errors.required
+                        "
+                      >
+                        El campo es obligatorio
+                      </mat-error>
+
+                      <mat-error
+                        *ngIf="
+                          empresa.invalid &&
+                          empresa.errors != null &&
+                          empresa.errors.minlength
+                        "
+                      >
+                        La empresa debe tener al menos 3 caracteres
+                      </mat-error>
+
+                      <mat-error
+                        *ngIf="
+                          empresa.invalid &&
+                          empresa.errors != null &&
+                          empresa.errors.maxlength
+                        "
+                      >
+                        El nombre de la empresa no puede superar los 255
+                        caracteres
+                      </mat-error>
+
+                      <mat-error
+                        *ngIf="
+                          empresa.invalid &&
+                          empresa.errors != null &&
+                          empresa.errors.espacio
+                        "
+                      >
+                        El nombre de la empresano puede empezar o terminar con
+                        un espacio en blanco
+                      </mat-error>
+                    </mat-form-field>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-md-offset-1 col-md-6">
+                    <mat-form-field color="accent">
+                      <input
+                        matInput
+                        type="date"
+                        formControlName="date_inicio"
+                        placeholder="Fecha de inicio"
+                      />
+                      <mat-error
+                        *ngIf="
+                          date_inicio.invalid &&
+                          date_inicio.errors != null &&
+                          date_inicio.errors.required
+                        "
+                      >
+                        La fecha de inicio es obligatoria
+                      </mat-error>
+                    </mat-form-field>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-md-offset-1 col-md-6">
+                    <mat-form-field color="accent">
+                      <input
+                        matInput
+                        type="date"
+                        formControlName="date_fin"
+                        placeholder="Fecha de fin"
+                      />
+                      <mat-error
+                        *ngIf="
+                          date_fin.invalid &&
+                          date_fin.errors != null &&
+                          date_fin.errors.required
+                        "
+                      >
+                        La fecha de fin es obligatoria
+                      </mat-error>
+                    </mat-form-field>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-md-offset-1 col-md-6">
+                    <mat-form-field color="accent">
+                      <input
+                        matInput
+                        type="texty"
+                        formControlName="puesto"
+                        size="120"
+                        placeholder="Puesto"
+                      />
+                      <mat-error
+                        *ngIf="
+                          puesto.invalid &&
+                          puesto.errors != null &&
+                          puesto.errors.required
+                        "
+                      >
+                        El campo es obligatorio
+                      </mat-error>
+
+                      <mat-error
+                        *ngIf="
+                          puesto.invalid &&
+                          puesto.errors != null &&
+                          puesto.errors.minlength
+                        "
+                      >
+                        El puesto debe tener al menos 3 caracteres
+                      </mat-error>
+
+                      <mat-error
+                        *ngIf="
+                          puesto.invalid &&
+                          puesto.errors != null &&
+                          puesto.errors.maxlength
+                        "
+                      >
+                        El nombre del puesto no puede superar los 255 caracteres
+                      </mat-error>
+
+                      <mat-error
+                        *ngIf="
+                          puesto.invalid &&
+                          puesto.errors != null &&
+                          puesto.errors.espacio
+                        "
+                      >
+                        El nombre del puesto puede empezar o terminar con un
+                        espacio en blanco
+                      </mat-error>
+                    </mat-form-field>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-md-offset-1 col-md-6">
+                    <mat-form-field color="accent">
+                      <textarea
+                        matInput
+                        rows="10"
+                        cols="120"
+                        formControlName="tareas"
+                        placeholder="Tareas"
+                      ></textarea>
+                      <mat-error
+                        *ngIf="
+                          tareas.invalid &&
+                          tareas.errors != null &&
+                          tareas.errors.required
+                        "
+                      >
+                        Debe rellenar las tareas del puesto
+                      </mat-error>
+                      <mat-error
+                        *ngIf="
+                          tareas.invalid &&
+                          tareas.errors != null &&
+                          tareas.errors.minlength
+                        "
+                      >
+                        La descripción de las tareas debe tener al menos 30
+                        caracteres
+                      </mat-error>
+                      <mat-error
+                        *ngIf="
+                          tareas.invalid &&
+                          tareas.errors != null &&
+                          tareas.errors.maxlength
+                        "
+                      >
+                        La descripción de las tareas no puede superar los 500
+                        caracteres
+                      </mat-error>
+                    </mat-form-field>
+                  </div>
+                </div>
+
+                <div class="row action-btn-center">
+                  <button
+                    md-raised-button
+                    class="btn btn-rose"
+                    [disabled]="!editExperienceForm.valid"
+                    type="submit"
+                  >
+                    Guardar
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
         </div>
-      </form>
+      </div>
     </div>
   </div>
 </div>

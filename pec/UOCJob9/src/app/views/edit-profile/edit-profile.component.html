@@ -18,7 +18,7 @@
           <div class="row">
             <div class="col-md-2">
               <img
-                src="assets/user.png"
+                src="assets/img/user.png"
                 alt="User"
                 height="100%"
                 width="100%"
@@ -28,7 +28,7 @@
             <div class="col-md-10">
               <form [formGroup]="editProfileForm" (ngSubmit)="editProfile()">
                 <div class="row">
-                  <div class="col-md-6">
+                  <div class="col-md-4">
                     <mat-form-field color="accent">
                       <input
                         matInput
@@ -78,7 +78,7 @@
                       </mat-error>
                     </mat-form-field>
                   </div>
-                  <div class="col-md-6">
+                  <div class="col-md-4">
                     <mat-form-field color="accent">
                       <input
                         matInput
@@ -134,12 +134,34 @@
                 <div class="row">
                   <div class="col-md-4">
                     <mat-form-field color="accent">
+                      <mat-label>Fecha de nacimiento</mat-label>
+                      <input
+                        matInput
+                        type="date"
+                        formControlName="birthdate"
+                        placeholder="Fecha de nacimiento"
+                      />
+                      <mat-error
+                        *ngIf="
+                          birthdate.invalid &&
+                          birthdate.errors != null &&
+                          birthdate.errors.required
+                        "
+                      >
+                        La fecha de nacimiento es obligatoria
+                      </mat-error>
+                    </mat-form-field>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-md-4">
+                    <mat-form-field color="accent">
                       <input
                         matInput
                         type="text"
+                        formControlName="phone"
                         placeholder="Teléfono"
-                        value="{{ (currentUser$ | async)?.phone }}"
-                        readonly="readonly"
                       />
                     </mat-form-field>
                   </div>
@@ -148,40 +170,244 @@
                       <input
                         matInput
                         type="text"
-                        placeholder="{{
-                          (currentUser$ | async)?.documentType.name
-                        }}"
-                        value="{{ (currentUser$ | async)?.documentNumber }}"
-                        readonly="readonly"
-                      />
-                    </mat-form-field>
-                  </div>
-                  <div class="col-md-4">
-                    <mat-form-field color="accent">
-                      <input
-                        matInput
-                        type="text"
-                        placeholder="Permisos de conducir"
-                        value="{{ (currentUser$ | async)?.license }}"
-                        readonly="readonly"
+                        formControlName="phone2"
+                        placeholder="Teléfono 2"
                       />
                     </mat-form-field>
                   </div>
                 </div>
+
                 <div class="row">
-                  <div class="col-md-12">
-                    <label class="textarea-label">About Me</label>
+                  <div class="col-md-4">
+                    <mat-form-field color="accent">
+                      <mat-label>Tipo de documento</mat-label>
+                      <mat-select
+                        formControlName="documentType"
+                        placeholder="Tipo de documento"
+                      >
+                        <mat-option>
+                          Seleccione tipo de documento..
+                        </mat-option>
+
+                        <mat-option
+                          *ngFor="let t of tiposDocumentos"
+                          [value]="t.uid"
+                        >
+                          {{ t.name }}
+                        </mat-option>
+                      </mat-select>
+                    </mat-form-field>
+                  </div>
+                  <div class="col-md-4">
+                    <mat-form-field color="accent">
+                      <input
+                        matInput
+                        type="text"
+                        formControlName="documentNumber"
+                        placeholder="Número"
+                      />
+                      <mat-error
+                        *ngIf="
+                          editProfileForm.invalid &&
+                          editProfileForm.errors != null &&
+                          editProfileForm.errors.numeroIdentificacion
+                        "
+                      >
+                        El número de identificación no es válido
+                      </mat-error>
+                    </mat-form-field>
+                  </div>
+                </div>
+
+                <!-- direccion -->
+                <div class="row">
+                  <div class="col-md-8">
+                    <mat-form-field color="accent">
+                      <input
+                        matInput
+                        type="text"
+                        placeholder="Dirección"
+                        formControlName="address"
+                      />
+                      <mat-error
+                        *ngIf="
+                          address.invalid &&
+                          address.errors != null &&
+                          address.errors.required
+                        "
+                      >
+                        La dirección es obligatoria
+                      </mat-error>
+                    </mat-form-field>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <!--provincia-->
+                  <div class="col-md-4">
+                    <mat-form-field color="accent">
+                      <mat-label>Provincia</mat-label>
+                      <mat-select
+                        placeholder="Provincia"
+                        (selectionChange)="changeProvincia($event)"
+                        formControlName="provincia"
+                      >
+                        <mat-option>
+                          Seleccione provincia..
+                        </mat-option>
+
+                        <mat-option
+                          *ngFor="let p of provincias"
+                          [value]="p.uid"
+                        >
+                          {{ p.name }}
+                        </mat-option>
+                      </mat-select>
+                      <mat-error
+                        *ngIf="
+                          provincia.invalid &&
+                          provincia.errors != null &&
+                          provincia.errors.required
+                        "
+                      >
+                        La provincia es obligatoria
+                      </mat-error>
+                    </mat-form-field>
+                  </div>
+                  <div class="col-md-4">
+                    <!--municipio-->
+                    <mat-form-field color="accent">
+                      <mat-label>Municipio</mat-label>
+                      <mat-select
+                        formControlName="municipio"
+                        placeholder="Municipio"
+                      >
+                        <mat-option>
+                          Seleccione municipio..
+                        </mat-option>
+
+                        <mat-option
+                          *ngFor="let m of municipios"
+                          [value]="m.uid"
+                        >
+                          {{ m.name }}
+                        </mat-option>
+                      </mat-select>
+                      <mat-error
+                        *ngIf="
+                          municipio.invalid &&
+                          municipio.errors != null &&
+                          municipio.errors.required
+                        "
+                      >
+                        El municipio es obligatorio
+                      </mat-error>
+                    </mat-form-field>
+                  </div>
+                </div>
+
+                <!-- permiso de conducir -->
+                <div class="row">
+                  <div class="col-md-8">
+                    <mat-form-field color="accent">
+                      <input
+                        matInput
+                        type="text"
+                        placeholder="Permiso de conducir"
+                        formControlName="license"
+                      />
+                      <mat-error
+                        *ngIf="
+                          license.invalid &&
+                          license.errors != null &&
+                          license.errors.required
+                        "
+                      >
+                        El campo es obligatorio
+                      </mat-error>
+                      <mat-error
+                        *ngIf="
+                          license.invalid &&
+                          license.errors != null &&
+                          license.errors.minlength
+                        "
+                      >
+                        Tu campo licencia debe tener al menos 2 caracteres
+                      </mat-error>
+                      <mat-error
+                        *ngIf="
+                          license.invalid &&
+                          license.errors != null &&
+                          license.errors.maxlength
+                        "
+                      >
+                        El campo licencia no puede sobrepasar los 30 caracteres
+                      </mat-error>
+                    </mat-form-field>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <!--Sobre mi -->
+                  <div class="col-md-6">
                     <mat-form-field color="accent">
                       <textarea
                         matInput
-                        placeholder="Lamborghini Mercy, Your chick she so thirsty, I'm in that two seat Lambo."
+                        placeholder="Sobre mi"
+                        formControlName="aboutMe"
                       ></textarea>
+                      <mat-error
+                        *ngIf="
+                          aboutMe.invalid &&
+                          aboutMe.errors != null &&
+                          aboutMe.errors.required
+                        "
+                      >
+                        El campo es obligatorio
+                      </mat-error>
+                      <mat-error
+                        *ngIf="
+                          aboutMe.invalid &&
+                          aboutMe.errors != null &&
+                          aboutMe.errors.minlength
+                        "
+                      >
+                        Tu descripción debe tener al menos 30 caracteres
+                      </mat-error>
+                    </mat-form-field>
+                  </div>
+                  <div class="col-md-6">
+                    <!--Otras competencias-->
+                    <mat-form-field color="accent">
+                      <textarea
+                        matInput
+                        placeholder="Otras competencias"
+                        formControlName="otherCompetences"
+                      ></textarea>
+                      <mat-error
+                        *ngIf="
+                          otherCompetences.invalid &&
+                          otherCompetences.errors != null &&
+                          otherCompetences.errors.required
+                        "
+                      >
+                        El campo es obligatorio
+                      </mat-error>
+                      <mat-error
+                        *ngIf="
+                          otherCompetences.invalid &&
+                          otherCompetences.errors != null &&
+                          otherCompetences.errors.minlength
+                        "
+                      >
+                        El campo debe tener al menos 30 caracteres
+                      </mat-error>
                     </mat-form-field>
                   </div>
                 </div>
 
                 <div class="row action-btn-center">
-                  <button md-raised-button class="btn btn-rose">
+                  <button type="submit" md-raised-button class="btn btn-rose">
                     Editar perfil
                   </button>
                 </div>
@@ -189,205 +415,6 @@
             </div>
           </div>
         </div>
-      </div>
-    </div>
-  </div>
-
-  <div class="contenedor">
-    <div id="contenidoFormulario">
-      <div id="colFoto">
-        <img
-          src="assets/user.png"
-          alt="User"
-          height="150px"
-          width="150px"
-          onclick="alert('Subir documento - pendiente');"
-        />
-        <span id="profile_name">
-          {{ (currentUser$ | async)?.name }}
-          {{ (currentUser$ | async)?.surname }}
-        </span>
-      </div>
-
-      <div id="colDatos">
-        <form [formGroup]="editProfileForm" (ngSubmit)="editProfile()">
-          <div class="fila-form">
-            <div class="fila-form-col">
-              <label for="name">Nombre:</label>
-              <input type="text" formControlName="name" />
-            </div>
-            <div class="fila-form-col">
-              <label for="apellidos">Apellidos:</label>
-              <input type="text" formControlName="surname" />
-            </div>
-          </div>
-          <div class="fila-form validaciones" *ngIf="editProfileForm.dirty">
-            <div class="fila-form-col">
-              <div *ngIf="name.errors != null && name.errors.required">
-                El nombre es obligatorio
-              </div>
-            </div>
-          </div>
-          <div class="fila-form">
-            <div class="fila-form-col">
-              <label for="birthdate">Fecha de nacimiento:</label>
-              <input type="date" formControlName="birthdate" />
-            </div>
-          </div>
-          <div class="fila-form validaciones" *ngIf="editProfileForm.dirty">
-            <div class="fila-form-col">
-              <div
-                *ngIf="birthdate.errors != null && birthdate.errors.required"
-              >
-                La fecha de nacimiento es obligatoria
-              </div>
-            </div>
-          </div>
-          <div class="fila-form">
-            <div class="fila-form-col">
-              <label for="phone">Teléfono: </label>
-              <input type="text" formControlName="phone" />
-            </div>
-            <div class="fila-form-col">
-              <label for="phone2">Teléfono 2: </label>
-              <input type="text" formControlName="phone2" />
-            </div>
-          </div>
-          <div class="fila-form">
-            <div class="fila-form-col">
-              <label for="documentType">Identificación</label>
-              <select formControlName="documentType">
-                <option value="">Seleccione tipo de documento..</option>
-                <option *ngFor="let t of tiposDocumentos" [ngValue]="t.uid">{{
-                  t.name
-                }}</option>
-              </select>
-            </div>
-            <div class="fila-form-col">
-              <label for="documentNumber">Número</label>
-              <input type="text" formControlName="documentNumber" />
-            </div>
-          </div>
-          <div class="fila-form validaciones" *ngIf="editProfileForm.dirty">
-            <div class="fila-form-col">
-              <div
-                *ngIf="
-                  editProfileForm.errors != null &&
-                  editProfileForm.errors.numeroIdentificacion
-                "
-              >
-                El número de identificación no es válido
-              </div>
-            </div>
-          </div>
-          <div class="fila-form">
-            <label for="address">Dirección: </label>
-            <input type="text" size="50" formControlName="address" />
-          </div>
-          <div class="fila-form validaciones" *ngIf="editProfileForm.dirty">
-            <div *ngIf="address.errors != null && address.errors.required">
-              La dirección es obligatoria
-            </div>
-          </div>
-
-          <div class="fila-form">
-            <div class="fila-form-col">
-              <label for="provincia">Provincia:</label>
-              <select
-                (change)="changeProvincia($event)"
-                formControlName="provincia"
-              >
-                <option value="">Seleccione provincia..</option>
-                <option *ngFor="let p of provincias" [ngValue]="p.uid">
-                  {{ p.name }}
-                </option>
-              </select>
-            </div>
-            <div class="fila-form-col">
-              <label for="municipio">Municipio:</label>
-              <select formControlName="municipio">
-                <option value="">Seleccione municipio..</option>
-                <option *ngFor="let m of municipios" [ngValue]="m.uid">{{
-                  m.name
-                }}</option>
-              </select>
-            </div>
-          </div>
-
-          <div class="fila-form validaciones" *ngIf="editProfileForm.dirty">
-            <div class="fila-form-col">
-              <div
-                *ngIf="provincia.errors != null && provincia.errors.required"
-              >
-                La provincia es obligatoria
-              </div>
-            </div>
-            <div class="fila-form-col">
-              <div
-                *ngIf="municipio.errors != null && municipio.errors.required"
-              >
-                El municipio es obligatorio
-              </div>
-            </div>
-          </div>
-
-          <div class="fila-form">
-            <label for="license">Permiso de conducir: </label
-            ><input type="text" size="50" formControlName="license" />
-          </div>
-          <div class="fila-form validaciones" *ngIf="editProfileForm.dirty">
-            <div *ngIf="license.errors != null && license.errors.required">
-              El campo es obligatorio
-            </div>
-            <div *ngIf="license.errors != null && license.errors.minlength">
-              Tu campo licencia debe tener al menos 2 caracteres
-            </div>
-            <div *ngIf="license.errors != null && license.errors.maxlength">
-              El campo licencia no puede sobrepasar los 30 caracteres
-            </div>
-          </div>
-          <div class="fila-form">
-            <label for="aboutMe">Sobre mi: </label>
-            <textarea rows="10" cols="80" formControlName="aboutMe"></textarea>
-          </div>
-          <div class="fila-form validaciones" *ngIf="editProfileForm.dirty">
-            <div *ngIf="aboutMe.errors != null && aboutMe.errors.required">
-              El campo es obligatorio
-            </div>
-            <div *ngIf="aboutMe.errors != null && aboutMe.errors.minlength">
-              Tu descripción debe tener al menos 30 caracteres
-            </div>
-          </div>
-          <div class="fila-form">
-            <label for="otherCompetences">Otras competencias: </label>
-            <textarea
-              rows="10"
-              cols="80"
-              formControlName="otherCompetences"
-            ></textarea>
-          </div>
-          <div class="fila-form validaciones" *ngIf="editProfileForm.dirty">
-            <div
-              *ngIf="
-                otherCompetences.errors != null &&
-                otherCompetences.errors.required
-              "
-            >
-              El campo es obligatorio
-            </div>
-            <div
-              *ngIf="
-                otherCompetences.errors != null &&
-                otherCompetences.errors.minlength
-              "
-            >
-              El campo debe tener al menos 30 caracteres
-            </div>
-          </div>
-          <div class="fila-form contenedor-botones">
-            <button type="submit">Guardar</button>
-          </div>
-        </form>
       </div>
     </div>
   </div>

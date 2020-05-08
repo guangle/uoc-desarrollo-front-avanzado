@@ -38,6 +38,8 @@ const routes: Routes = [
     component: RootComponent,
     children: [
       { path: "dashboard-company", component: DashboardCompanyComponent },
+      { path: "edit-profile", component: DashboardCompanyComponent },
+      { path: "configuration", component: DashboardCompanyComponent },
     ],
   },
 ];

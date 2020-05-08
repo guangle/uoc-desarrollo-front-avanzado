@@ -6,6 +6,8 @@ import { EditStudiesRoutingModule } from "./edit-studies-routing.module";
 import { ReactiveFormsModule } from "@angular/forms";
 import { RouterModule } from "@angular/router";
 import { EditStudiesComponent } from "./edit-studies.component";
+import { TemplateModule } from "../template/template.module";
+import { MaterialModule } from "../../shared/material.module";
 
 @NgModule({
   declarations: [EditStudiesComponent],
@@ -13,7 +15,9 @@ import { EditStudiesComponent } from "./edit-studies.component";
     CommonModule,
     EditStudiesRoutingModule,
     ReactiveFormsModule,
-    RouterModule
-  ]
+    RouterModule,
+    TemplateModule,
+    MaterialModule,
+  ],
 })
 export class EditStudiesModule {}

@@ -1,15 +1,15 @@
-import { Injectable, EventEmitter } from '@angular/core';
+import { Injectable, EventEmitter } from "@angular/core";
 
 @Injectable()
 export class SettingsService {
   public sidebarImageIndex = 0;
   public sidebarImageIndexUpdate: EventEmitter<number> = new EventEmitter();
-  public sidebarFilter = '#fff';
+  public sidebarFilter = "#fff";
   public sidebarFilterUpdate: EventEmitter<string> = new EventEmitter();
-  public sidebarColor = '#D80B0B';
+  public sidebarColor = "#2e294e";
   public sidebarColorUpdate: EventEmitter<string> = new EventEmitter();
 
-  constructor() { }
+  constructor() {}
 
   getSidebarImageIndex(): number {
     return this.sidebarImageIndex;

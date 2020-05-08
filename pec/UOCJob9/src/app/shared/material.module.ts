@@ -16,6 +16,9 @@ import { MatFormFieldModule } from "@angular/material/form-field";
 import { FlexLayoutModule } from "@angular/flex-layout";
 import { MatToolbarModule } from "@angular/material/toolbar";
 import { NgModule } from "@angular/core";
+import { MatSelectModule } from "@angular/material/select";
+import { MatCheckboxModule } from "@angular/material/checkbox";
+import { MatTabsModule } from "@angular/material/tabs";
 
 /**
  * Como se proponía en el enunciado de la práctica, agrupamos los diferentes
@@ -42,6 +45,9 @@ import { NgModule } from "@angular/core";
     MatFormFieldModule,
     FlexLayoutModule,
     MatToolbarModule,
+    MatSelectModule,
+    MatCheckboxModule,
+    MatTabsModule,
   ],
   exports: [
     MatButtonModule,
@@ -61,6 +67,9 @@ import { NgModule } from "@angular/core";
     MatFormFieldModule,
     FlexLayoutModule,
     MatToolbarModule,
+    MatSelectModule,
+    MatCheckboxModule,
+    MatTabsModule,
   ],
 })
 export class MaterialModule {}

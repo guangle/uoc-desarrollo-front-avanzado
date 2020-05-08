@@ -110,21 +110,7 @@ export class EditStudiesComponent implements OnInit {
       this.estableceValidacionesDinamicas();
     });
 
-    //Diria que esto ya no hace falta, REFACT
-    /*
 
-    //Llegados a este punto, tenemos un usuario logado en la aplicacion que custodia usuarioService
-    this.user = this.userService.user;
-    //obtenemos el parametro que indica el identificdor el elemento que estamos editando
-    //(en cso de que se trate de una edicion)
-    this.id_study = this.route.snapshot.queryParams["id"];
-    if (this.inEditMode()) {
-      this.study = this.user.studies.find((l) => l.uid == this.id_study);
-      console.log("Es una edición de formación académica:");
-      console.log(this.study);
-    }
-
-    */
   }
 
   ngOnInit(): void {}

@@ -14,13 +14,13 @@ export const ROUTES = [
   {
     path: "/uojobs/users/offers",
     title: "Ofertas",
-    icon: "dashboard",
+    icon: "work",
     children: null,
   },
   {
     path: "/uojobs/users/my-offers",
     title: "Mis ofertas",
-    icon: "dashboard",
+    icon: "how_to_reg",
     children: null,
   },
   {
@@ -33,20 +33,26 @@ export const ROUTES = [
 
 export const ROUTES_COMPANY = [
   {
-    path: "/uojobs/users/dashboard",
+    path: "/uojobs/companies/dashboard",
     title: "Dashboard (Ccompany)",
     icon: "dashboard",
     children: null,
   },
   {
-    path: "/uojobs/users/profile",
+    path: "/uojobs/companies/edit-profile",
     title: "Perfil usuario (company)",
     icon: "person",
     children: null,
   },
   {
-    path: "/uojobs/users/personalize",
+    path: "/uojobs/companies/configuration",
     title: "PENDIENTE",
+    icon: "settings",
+    children: null,
+  },
+  {
+    path: "/uojobs/companies/personalize",
+    title: "Personalizar",
     icon: "settings",
     children: null,
   },

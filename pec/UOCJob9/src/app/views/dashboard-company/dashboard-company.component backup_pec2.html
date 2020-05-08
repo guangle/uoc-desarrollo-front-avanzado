@@ -1,0 +1,22 @@
+<div class="contenedor">
+  <div class="fila">
+    <div class="elemento-centrado" id="header-dashboard">
+      <h1>DashBoard (Empresas)</h1>
+      <p>
+        Hola, {{ (currentCompany$ | async)?.nombre_comercial }}
+        <button style="display: inline;" (click)="logout()">Salir</button>
+      </p>
+    </div>
+
+    <div class="elemento-centrado">
+      <a [routerLink]="['/companies/edit-profile']">
+        Perfil
+      </a>
+    </div>
+    <div class="elemento-centrado">
+      <a [routerLink]="['/companies/configuration']">
+        Configuración
+      </a>
+    </div>
+  </div>
+</div>

@@ -78,11 +78,14 @@
             </div>
             <div class="row">
               <div class="col-md-12">
-                <label class="textarea-label">About Me</label>
                 <mat-form-field color="accent">
                   <textarea
                     matInput
-                    placeholder="Lamborghini Mercy, Your chick she so thirsty, I'm in that two seat Lambo."
+                    rows="4"
+                    cols="250"
+                    placeholder="Otras competencias"
+                    value="{{ (currentUser$ | async)?.otherCompetences }}"
+                    readonly="readonly"
                   ></textarea>
                 </mat-form-field>
               </div>
@@ -103,7 +106,7 @@
       <div class="col-md-4">
         <div class="card right-profile">
           <div class="profile">
-            <img src="assets/user.png" alt="profile" />
+            <img src="assets/img/user.png" alt="profile" />
           </div>
           <h6>{{ (currentUser$ | async)?.username }}</h6>
           <h4>
@@ -330,89 +333,6 @@
           </div>
         </div>
       </div>
-    </div>
-  </div>
-
-  <div class="contenedor">
-    <div class="row-header">
-      <h1>
-        Datos personales (
-        <a [routerLink]="['/admin/edit-profile']">
-          Editar
-        </a>
-        )
-      </h1>
-      <a [routerLink]="['/admin/dashboard']">
-        Volver al dashboard
-      </a>
-    </div>
-    <div class="row-datos">
-      <div id="foto">
-        <img src="assets/user.png" alt="User" height="150px" width="150px" />
-        <span id="profile_name">
-          {{ (currentUser$ | async)?.name }}
-          {{ (currentUser$ | async)?.surname }}
-        </span>
-      </div>
-      <div id="datos-basicos">
-        <div>
-          Email: <span>{{ (currentUser$ | async)?.email }}</span>
-        </div>
-        <div>
-          Fecha de nacimiento:
-          <span>{{ (currentUser$ | async)?.birthdate }} </span>
-        </div>
-        <div>
-          Teléfono: <span>{{ (currentUser$ | async)?.phone }} </span>
-        </div>
-        <div>
-          {{ (currentUser$ | async)?.documentType.name }}:
-          <span>{{ (currentUser$ | async)?.documentNumber }}</span>
-        </div>
-        <div>
-          Permisos de conducir:
-          <span>{{ (currentUser$ | async)?.license }}</span>
-        </div>
-      </div>
-      <div class="acerca-de acerca-de-1">
-        <span>Acerca de mi: </span
-        ><textarea rows="6" cols="35" readonly>
- {{ (currentUser$ | async)?.aboutMe }}</textarea
-        >
-      </div>
-      <div class="acerca-de acerca-de-2">
-        <span>Otras competencias:</span
-        ><textarea rows="6" cols="35" readonly>
- {{ (currentUser$ | async)?.otherCompetences }}</textarea
-        >
-      </div>
-    </div>
-    <div>
-      <h2>
-        Formación académica (
-        <a [routerLink]="" (click)="newStudy()">
-          Nueva
-        </a>
-        )
-      </h2>
-    </div>
-    <div>
-      <h2>
-        Experiencia laboral (
-        <a [routerLink]="" (click)="newExperience()">
-          Nueva
-        </a>
-        )
-      </h2>
-    </div>
-    <div>
-      <h2>
-        Idiomas (
-        <a [routerLink]="" (click)="newLanguage()">
-          Nuevo
-        </a>
-        )
-      </h2>
     </div>
   </div>
 </div>

@@ -1,138 +1,164 @@
+<!-- 
+  El login se maqueta 'a mano', sin utilizar la plantilla
+  y apoyándose en los componentes angular-material
+ -->
+<mat-toolbar color="primary">
+  <mat-toolbar-row>
+    <h1>OU Jobs - PEC3</h1>
+    <small>Juan Jesús Gutiérrez Ramos</small>
+    <span class="menu-spacer"></span>
+    <div>
+      <a mat-button [routerLink]="'/notes'"> Notas de la versión </a>
+    </div>
+  </mat-toolbar-row>
+</mat-toolbar>
+<div id="barra-multicolor"></div>
+
 <div class="contenedor">
-  <div class="row-header">
-    <h1>
-      Notas de la versión 2 (PEC 2)
-    </h1>
-    <a [routerLink]="['/']">
-      Volver
-    </a>
-  </div>
+  <mat-tab-group>
+    <mat-tab>
+      <ng-template mat-tab-label>
+        <mat-icon class="example-tab-icon">school</mat-icon>
+        PEC 3
+      </ng-template>
+      La pec 3 la tengo que explicar..
+    </mat-tab>
 
-  <div>
-    <ul>
-      <li>
-        Aunque finalmente estoy mas que satisfecho con el resultado de la
-        práctica, reconozco que la inclusión de <b>ngrx</b> me ha supuesto una
-        especie de 'shock' y me ha costado entender todos los conceptos, y como
-        toman forma en la implementación. Ha sido una de las tecnologías /
-        frameworks a los que me he enfrentado con la curva de aprendizaje más
-        elevada. En general veo esta herramienta como una buena forma de
-        mantener a raya toda la complejidad que se puede derivar de proyectos
-        medios/grandes, donde existirán decenas de componentes, fuentes de datos
-        y elementos actualizando estos datos.
-      </li>
+    <mat-tab>
+      <ng-template mat-tab-label>
+        <mat-icon class="example-tab-icon">school</mat-icon>
+        PEC 2
+      </ng-template>
+      <div>
+        <ul>
+          <li>
+            Aunque finalmente estoy mas que satisfecho con el resultado de la
+            práctica, reconozco que la inclusión de <b>ngrx</b> me ha supuesto
+            una especie de 'shock' y me ha costado entender todos los conceptos,
+            y como toman forma en la implementación. Ha sido una de las
+            tecnologías / frameworks a los que me he enfrentado con la curva de
+            aprendizaje más elevada. En general veo esta herramienta como una
+            buena forma de mantener a raya toda la complejidad que se puede
+            derivar de proyectos medios/grandes, donde existirán decenas de
+            componentes, fuentes de datos y elementos actualizando estos datos.
+          </li>
 
-      <li>
-        Con el objeto de entender perfectamente todos los componentes que entran
-        en juego, he creado una pequeña parte del store llamada 'demo' donde
-        están implementadas todas mis pruebas de conceptos. Todos los ficheros
-        relacionados con este sub-store están sobre-comentados y contienen notas
-        aclaratorias que me han sido útiles conforme he ido trabajando la
-        práctica.
-      </li>
+          <li>
+            Con el objeto de entender perfectamente todos los componentes que
+            entran en juego, he creado una pequeña parte del store llamada
+            'demo' donde están implementadas todas mis pruebas de conceptos.
+            Todos los ficheros relacionados con este sub-store están
+            sobre-comentados y contienen notas aclaratorias que me han sido
+            útiles conforme he ido trabajando la práctica.
+          </li>
 
-      <li>
-        Ya comenté en el foro que el tutorial indicado (
-        https://medium.com/@nomanbinhussein/getting-started-with-ngrx-5cec2788b25f
-        ) no ha sido precisamente el que me ha hecho ver más claros los
-        conceptos de ngrx. Entiendo que por diversas razones cada persona
-        conectar mejor con unos recursos u otros. Personalmente empezé a 'ver la
-        luz al final del tunel' con el tutorial de Pokedex de Carlos, siendo
-        también muy didactico el recurso que se compartió en el foro de la
-        página academia-binaria (
-        https://academia-binaria.com/el-patron-redux-con-ngrx-en-angular/ ).
-      </li>
-      <li>
-        Adjutno imagen del ejercicio propuesto funcionando en mi local:
-        <div>
-          <img
-            src="assets/captura_ejercicio_1.png"
-            alt="User"
-            height="600px"
-            width="900px"
-          />
-        </div>
-      </li>
+          <li>
+            Ya comenté en el foro que el tutorial indicado (
+            https://medium.com/@nomanbinhussein/getting-started-with-ngrx-5cec2788b25f
+            ) no ha sido precisamente el que me ha hecho ver más claros los
+            conceptos de ngrx. Entiendo que por diversas razones cada persona
+            conectar mejor con unos recursos u otros. Personalmente empezé a
+            'ver la luz al final del tunel' con el tutorial de Pokedex de
+            Carlos, siendo también muy didactico el recurso que se compartió en
+            el foro de la página academia-binaria (
+            https://academia-binaria.com/el-patron-redux-con-ngrx-en-angular/ ).
+          </li>
+          <li>
+            Adjutno imagen del ejercicio propuesto funcionando en mi local:
+            <div>
+              <img
+                src="assets/captura_ejercicio_1.png"
+                alt="User"
+                height="600px"
+                width="900px"
+              />
+            </div>
+          </li>
 
-      <li>
-        Respecto a las <b>DevTools</b>, instalé los paquetes y el complemento de
-        Chrome siguiendo el tutorial indicado
-        (https://blog.angular-university.io/angular-ngrx-devtools/) y este punto
-        no trajo mayores dificultades. Es muy curioso depurar poniendo el foco
-        en los cambios de estado y poder 'retroceder en el tiempo', deshaciendo
-        acciones del usuario y viendo como se refleja todo en el navegador de la
-        aplicación. Normalmente estoy acostumbrado a hacer un debug 'mas
-        clásico', siguiendo cada línea de ejecución en el código.
-      </li>
+          <li>
+            Respecto a las <b>DevTools</b>, instalé los paquetes y el
+            complemento de Chrome siguiendo el tutorial indicado
+            (https://blog.angular-university.io/angular-ngrx-devtools/) y este
+            punto no trajo mayores dificultades. Es muy curioso depurar poniendo
+            el foco en los cambios de estado y poder 'retroceder en el tiempo',
+            deshaciendo acciones del usuario y viendo como se refleja todo en el
+            navegador de la aplicación. Normalmente estoy acostumbrado a hacer
+            un debug 'mas clásico', siguiendo cada línea de ejecución en el
+            código.
+          </li>
 
-      <li>
-        Adjutno captura de las herramientas de desarrollo ejecutandose en mi
-        local, justo en un cambio de estado:
-        <div>
-          <img
-            src="assets/captura_ejercicio_2.png"
-            alt="Dev tools"
-            height="600px"
-            width="900px"
-          />
-        </div>
-      </li>
+          <li>
+            Adjutno captura de las herramientas de desarrollo ejecutandose en mi
+            local, justo en un cambio de estado:
+            <div>
+              <img
+                src="assets/captura_ejercicio_2.png"
+                alt="Dev tools"
+                height="600px"
+                width="900px"
+              />
+            </div>
+          </li>
 
-      <li>..</li>
+          <li>..</li>
 
-      <li>..</li>
-    </ul>
-  </div>
+          <li>..</li>
+        </ul>
+      </div>
+    </mat-tab>
 
-  <div class="row-header">
-    <h1>
-      Notas de la versión 1 (PEC 1)
-    </h1>
-  </div>
+    <mat-tab>
+      <ng-template mat-tab-label>
+        <mat-icon class="example-tab-icon">school</mat-icon>
+        PEC 1
+      </ng-template>
 
-  <div>
-    <ul>
-      <li>
-        No he hecho especial incapié en los estilos de los diferentes
-        componentes, lo justo para visualizar y distribuir cómodamente los datos
-        en pantalla. Incluso hay algunos selectores css duplicados entre
-        ficheros scss, pero se comento que en practicas posteriores utilizaremos
-        alguna herramienta de maquetación mas avanzada.
-      </li>
+      <div>
+        <ul>
+          <li>
+            No he hecho especial incapié en los estilos de los diferentes
+            componentes, lo justo para visualizar y distribuir cómodamente los
+            datos en pantalla. Incluso hay algunos selectores css duplicados
+            entre ficheros scss, pero se comento que en practicas posteriores
+            utilizaremos alguna herramienta de maquetación mas avanzada.
+          </li>
 
-      <li>
-        Algunas listas están 'hardcodeadas' en los componentes, cuando en
-        realidad deberían venir del backend: provincias, municipios, centros de
-        formación, etc.. Esto se solucionará en versiones posteriores de la
-        aplicación
-      </li>
+          <li>
+            Algunas listas están 'hardcodeadas' en los componentes, cuando en
+            realidad deberían venir del backend: provincias, municipios, centros
+            de formación, etc.. Esto se solucionará en versiones posteriores de
+            la aplicación
+          </li>
 
-      <li>
-        En algunos casos de edición, se renderiza el formulario antes de obtener
-        el objeto que se quiere editar, lo que no corta la ejecución pero
-        eventualmente hace que se muestre algún error en consola. Esto se
-        soluciona implementando una guarda pero se ha comentado en el foro que
-        las guardas se implementarán en posteriores PECs
-      </li>
+          <li>
+            En algunos casos de edición, se renderiza el formulario antes de
+            obtener el objeto que se quiere editar, lo que no corta la ejecución
+            pero eventualmente hace que se muestre algún error en consola. Esto
+            se soluciona implementando una guarda pero se ha comentado en el
+            foro que las guardas se implementarán en posteriores PECs
+          </li>
 
-      <li>
-        He modificado algunos datos de pruebas y la definición de algún elemento
-        del modelo, ya que los datos proporcionados y el modelo a veces
-        mostraban discrepancia en la estructura
-      </li>
+          <li>
+            He modificado algunos datos de pruebas y la definición de algún
+            elemento del modelo, ya que los datos proporcionados y el modelo a
+            veces mostraban discrepancia en la estructura
+          </li>
 
-      <li>
-        No sé si este es el medio adecuado para comentar esto, pero la práctica
-        me ha desbordado por su volumen (he visto otros compañeros en el foro
-        expresando lo mismo), es la más grande de todas las asignaturas que
-        llevo cursado en la UOC con diferencia. Es por esto que no todas las
-        pantalla opcionales están implementadas al 100% y algunos elementos
-        están solo apuntalados. En general, he pretendido desarrollar las cosas
-        con la estructura correcta y contar con una buena 'arquitectura' antes
-        de cumplir con toda la funcionalidad opcional 100% 'de cualquier forma'
-      </li>
+          <li>
+            No sé si este es el medio adecuado para comentar esto, pero la
+            práctica me ha desbordado por su volumen (he visto otros compañeros
+            en el foro expresando lo mismo), es la más grande de todas las
+            asignaturas que llevo cursado en la UOC con diferencia. Es por esto
+            que no todas las pantalla opcionales están implementadas al 100% y
+            algunos elementos están solo apuntalados. En general, he pretendido
+            desarrollar las cosas con la estructura correcta y contar con una
+            buena 'arquitectura' antes de cumplir con toda la funcionalidad
+            opcional 100% 'de cualquier forma'
+          </li>
 
-      <li>..</li>
-    </ul>
-  </div>
+          <li>..</li>
+        </ul>
+      </div>
+    </mat-tab>
+  </mat-tab-group>
 </div>

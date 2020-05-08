@@ -5,7 +5,7 @@
     <div class="col-md-12">
       <div class="card">
         <div class="card-header">
-          <i class="material-icons">perm_identity</i>
+          <i class="material-icons">translate</i>
         </div>
         <div class="card-content">
           <h4 class="card-title" *ngIf="!inEditMode()">
@@ -22,16 +22,21 @@
                 (ngSubmit)="submitLanguaje()"
               >
                 <div class="row">
-                  <div class="col-md-6">
+                  <div class="col-md-offset-1 col-md-6">
                     <mat-form-field color="accent">
-                      <select matInput formControlName="name">
-                        <option value="">Seleccione idioma..</option>
-                        <option
+                      <mat-label>Idioma</mat-label>
+                      <mat-select formControlName="name" placeholder="Idioma">
+                        <mat-option>
+                          Seleccione idioma..
+                        </mat-option>
+
+                        <mat-option
                           *ngFor="let t of posibles_lenguas"
-                          [ngValue]="t.uid"
-                          >{{ t.name }}</option
+                          [value]="t.uid"
                         >
-                      </select>
+                          {{ t.name }}
+                        </mat-option>
+                      </mat-select>
                       <mat-error
                         *ngIf="
                           name.invalid &&
@@ -46,7 +51,7 @@
                 </div>
 
                 <div class="row" *ngIf="name.value == 5">
-                  <div class="col-md-6">
+                  <div class="col-md-offset-1 col-md-6">
                     <mat-form-field color="accent">
                       <input matInput type="text" formControlName="other" />
                     </mat-form-field>
@@ -54,14 +59,19 @@
                 </div>
 
                 <div class="row">
-                  <div class="col-md-6">
+                  <div class="col-md-offset-1 col-md-6">
                     <mat-form-field color="accent">
-                      <select matInput formControlName="level">
-                        <option value="">Seleccione nivel..</option>
-                        <option *ngFor="let t of niveles" [ngValue]="t.uid">{{
-                          t.name
-                        }}</option>
-                      </select>
+                      <mat-label>Nivel</mat-label>
+                      <mat-select formControlName="level" placeholder="Nivel">
+                        <mat-option>
+                          Seleccione nivel..
+                        </mat-option>
+
+                        <mat-option *ngFor="let t of niveles" [value]="t.uid">
+                          {{ t.name }}
+                        </mat-option>
+                      </mat-select>
+
                       <mat-error
                         *ngIf="
                           level.invalid &&
@@ -76,7 +86,7 @@
                 </div>
 
                 <div class="row">
-                  <div class="col-md-6">
+                  <div class="col-md-offset-1 col-md-6">
                     <mat-form-field color="accent">
                       <input matInput type="date" formControlName="date" />
                       <mat-error
@@ -92,9 +102,22 @@
                   </div>
                 </div>
 
+                <!--
                 <div class="row action-btn-center">
                   <button
                     md-raised-button
+                    [disabled]="!editLanguajeForm.valid"
+                    type="submit"
+                  >
+                    Guardar
+                  </button>
+                </div>
+                -->
+
+                <div class="row action-btn-center">
+                  <button
+                    md-raised-button
+                    class="btn btn-rose"
                     [disabled]="!editLanguajeForm.valid"
                     type="submit"
                   >

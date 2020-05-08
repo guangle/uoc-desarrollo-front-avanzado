@@ -1,232 +1,286 @@
-<div class="contenedor">
-  <div class="row-header">
-    <h1 *ngIf="!inEditMode()">
-      Nueva formación
-    </h1>
-    <h1 *ngIf="inEditMode()">
-      Editar formación
-    </h1>
-    <a [routerLink]="['/admin/profile']">
-      Volver al perfil
-    </a>
-  </div>
+<div class="container">
+  <app-navbar title="Idiomas"></app-navbar>
 
-  <div id="contenidoFormulario">
-    <div id="colDatos">
-      <form [formGroup]="editStudyForm" (ngSubmit)="submitStudy()">
-        <div class="fila-form">
-          <label for="level">Tipo: </label>
-          <select formControlName="level">
-            <option *ngFor="let t of tipos_titulos" [ngValue]="t.uid">{{
-              t.name
-            }}</option>
-          </select>
+  <div class="row" style="margin-top: 30px;">
+    <div class="col-md-12">
+      <div class="card">
+        <div class="card-header">
+          <i class="material-icons">school</i>
         </div>
-        <fieldset *ngIf="level.value == 2">
-          <!--univervidad-->
-          <div class="fila-form">
-            <label for="universidad_centro">Nombre del centro: </label>
-            <input type="text" formControlName="universidad_centro" size="30" />
-          </div>
-          <div class="fila-form validaciones" *ngIf="editStudyForm.dirty">
-            <div
-              *ngIf="
-                universidad_centro.touched &&
-                universidad_centro.errors != null &&
-                universidad_centro.errors.required
-              "
-            >
-              El campo es obligatorio
+        <div class="card-content">
+          <h4 class="card-title" *ngIf="!inEditMode()">
+            Nueva formación
+          </h4>
+          <h4 class="card-title" *ngIf="inEditMode()">
+            Editar formación
+          </h4>
+
+          <div class="row">
+            <div class="col-md-12">
+              <form [formGroup]="editStudyForm" (ngSubmit)="submitStudy()">
+                <!-- Tipo -->
+
+                <div class="row">
+                  <div class="col-md-offset-1 col-md-6">
+                    <mat-form-field color="accent">
+                      <mat-label>Tipo</mat-label>
+                      <mat-select formControlName="level" placeholder="Tipo">
+                        <mat-option
+                          *ngFor="let t of tipos_titulos"
+                          [value]="t.uid"
+                        >
+                          {{ t.name }}
+                        </mat-option>
+                      </mat-select>
+                    </mat-form-field>
+                  </div>
+                </div>
+
+                <!-- Tipo = univiversidad-->
+                <div class="row" *ngIf="level.value == 2">
+                  <div class="col-md-offset-1 col-md-11">
+                    <mat-form-field color="accent">
+                      <input
+                        matInput
+                        type="text"
+                        formControlName="universidad_centro"
+                        placeholder="Nombre del centro"
+                      />
+                      <mat-error
+                        *ngIf="
+                          universidad_centro.invalid &&
+                          universidad_centro.errors != null &&
+                          universidad_centro.errors.required
+                        "
+                      >
+                        El campo es obligatorio
+                      </mat-error>
+                    </mat-form-field>
+                  </div>
+
+                  <div class="col-md-offset-1 col-md-11">
+                    <mat-form-field color="accent">
+                      <input
+                        matInput
+                        type="text"
+                        formControlName="universidad_titulo"
+                        placeholder="Título"
+                      />
+                      <mat-error
+                        *ngIf="
+                          universidad_titulo.invalid &&
+                          universidad_titulo.errors != null &&
+                          universidad_titulo.errors.required
+                        "
+                      >
+                        El campo es obligatorio
+                      </mat-error>
+                    </mat-form-field>
+                  </div>
+
+                  <div class="col-md-offset-1 col-md-11">
+                    <mat-form-field color="accent">
+                      <input
+                        type="date"
+                        matInput
+                        formControlName="universidad_fecha"
+                        placeholder="Fecha:"
+                      />
+                      <mat-error
+                        *ngIf="
+                          universidad_fecha.invalid &&
+                          universidad_fecha.errors != null &&
+                          universidad_fecha.errors.required
+                        "
+                      >
+                        El campo es obligatorio
+                      </mat-error>
+                    </mat-form-field>
+                  </div>
+
+                  <div class="col-md-offset-1 col-md-11">
+                    <mat-checkbox formControlName="universidad_bilingue"
+                      >¿Bilingüe?</mat-checkbox
+                    >
+                  </div>
+                </div>
+
+                <!-- Tipo = otro -->
+
+                <div class="row" *ngIf="level.value == 3">
+                  <div class="col-md-offset-1 col-md-11">
+                    <mat-form-field color="accent">
+                      <input
+                        matInput
+                        type="text"
+                        formControlName="otro_titulo"
+                        placeholder="Título"
+                      />
+                      <mat-error
+                        *ngIf="
+                          otro_titulo.invalid &&
+                          otro_titulo.errors != null &&
+                          otro_titulo.errors.required
+                        "
+                      >
+                        El campo es obligatorio
+                      </mat-error>
+                    </mat-form-field>
+                  </div>
+                </div>
+
+                <!-- Tipo = grado -->
+                <div class="row" *ngIf="level.value == 1">
+                  <div class="col-md-offset-1 col-md-11">
+                    <mat-form-field color="accent">
+                      <mat-label>Centro educativo</mat-label>
+                      <mat-select
+                        formControlName="ciclo_centro"
+                        placeholder="Centro educativo"
+                      >
+                        <mat-option
+                          *ngFor="let t of centros_educativos"
+                          [value]="t.uid"
+                        >
+                          {{ t.name }}
+                        </mat-option>
+                      </mat-select>
+                      <mat-error
+                        *ngIf="
+                          ciclo_centro.invalid &&
+                          ciclo_centro.errors != null &&
+                          ciclo_centro.errors.required
+                        "
+                      >
+                        El campo es obligatorio
+                      </mat-error>
+                    </mat-form-field>
+                  </div>
+                  <div class="col-md-offset-1 col-md-11">
+                    <mat-form-field color="accent">
+                      <mat-label>Familia profesional</mat-label>
+                      <mat-select
+                        formControlName="ciclo_familia"
+                        placeholder="Familia profesional"
+                        (selectionChange)="changeCiclo($event)"
+                      >
+                        <mat-option
+                          *ngFor="let t of familias_profesionales"
+                          [value]="t.uid"
+                        >
+                          {{ t.name }}
+                        </mat-option>
+                      </mat-select>
+                      <mat-error
+                        *ngIf="
+                          ciclo_familia.invalid &&
+                          ciclo_familia.errors != null &&
+                          ciclo_familia.errors.required
+                        "
+                      >
+                        El campo es obligatorio
+                      </mat-error>
+                    </mat-form-field>
+                  </div>
+                  <div class="col-md-offset-1 col-md-11">
+                    <mat-form-field color="accent">
+                      <mat-label>Tipo de grado</mat-label>
+                      <mat-select
+                        formControlName="ciclo_grado"
+                        placeholder="Tipo de grado"
+                        (selectionChange)="changeCiclo($event)"
+                      >
+                        <mat-option
+                          *ngFor="let t of tipos_grado"
+                          [value]="t.uid"
+                        >
+                          {{ t.name }}
+                        </mat-option>
+                      </mat-select>
+                      <mat-error
+                        *ngIf="
+                          ciclo_grado.invalid &&
+                          ciclo_grado.errors != null &&
+                          ciclo_grado.errors.required
+                        "
+                      >
+                        El campo es obligatorio
+                      </mat-error>
+                    </mat-form-field>
+                  </div>
+                  <div class="col-md-offset-1 col-md-11">
+                    <mat-form-field color="accent">
+                      <mat-label>Ciclo</mat-label>
+                      <mat-select
+                        formControlName="ciclo_ciclo"
+                        placeholder="Ciclo"
+                      >
+                        <mat-option *ngFor="let t of ciclos" [value]="t.uid">
+                          {{ t.name }}
+                        </mat-option>
+                      </mat-select>
+                      <mat-error
+                        *ngIf="
+                          ciclo_ciclo.invalid &&
+                          ciclo_ciclo.errors != null &&
+                          ciclo_ciclo.errors.required
+                        "
+                      >
+                        El campo es obligatorio
+                      </mat-error>
+                    </mat-form-field>
+                  </div>
+
+                  <div class="col-md-offset-1 col-md-11">
+                    <mat-form-field color="accent">
+                      <input
+                        type="date"
+                        matInput
+                        formControlName="ciclo_fecha"
+                        placeholder="Fecha:"
+                      />
+                      <mat-error
+                        *ngIf="
+                          ciclo_fecha.invalid &&
+                          ciclo_fecha.errors != null &&
+                          ciclo_fecha.errors.required
+                        "
+                      >
+                        El campo es obligatorio
+                      </mat-error>
+                    </mat-form-field>
+                  </div>
+
+                  <div class="col-md-offset-1 col-md-11">
+                    <mat-checkbox formControlName="ciclo_dual"
+                      >¿Formacion dual?</mat-checkbox
+                    >
+                  </div>
+
+                  <div class="col-md-offset-1 col-md-11">
+                    <mat-checkbox formControlName="ciclo_bilingue"
+                      >¿Bilingüe?</mat-checkbox
+                    >
+                  </div>
+                </div>
+
+                <div class="row action-btn-center">
+                  <button
+                    md-raised-button
+                    class="btn btn-rose"
+                    [disabled]="!editStudyForm.valid"
+                    type="submit"
+                  >
+                    Guardar
+                  </button>
+                </div>
+              </form>
             </div>
           </div>
-
-          <div class="fila-form">
-            <label for="universidad_titulo">Título: </label>
-            <input type="text" formControlName="universidad_titulo" size="30" />
-          </div>
-          <div class="fila-form validaciones" *ngIf="editStudyForm.dirty">
-            <div
-              *ngIf="
-                universidad_titulo.touched &&
-                universidad_titulo.errors != null &&
-                universidad_titulo.errors.required
-              "
-            >
-              El campo es obligatorio
-            </div>
-          </div>
-
-          <div class="fila-form">
-            <label for="universidad_fecha">Fecha:</label>
-            <input type="date" formControlName="universidad_fecha" />
-          </div>
-          <div class="fila-form validaciones" *ngIf="editStudyForm.dirty">
-            <div
-              *ngIf="
-                universidad_fecha.touched &&
-                universidad_fecha.errors != null &&
-                universidad_fecha.errors.required
-              "
-            >
-              El campo es obligatorio
-            </div>
-          </div>
-
-          <div class="fila-form">
-            <label for="universidad_bilingue">bilingüe?:</label>
-            <input type="checkbox" formControlName="universidad_bilingue" />
-          </div>
-          <div class="fila-form">
-            <label for="universidad_certificado">Certificado:</label>
-            <input type="file" formControlName="universidad_certificado" />
-          </div>
-        </fieldset>
-        <fieldset *ngIf="level.value == 1">
-          <!--cliclo formativo-->
-          <div class="fila-form">
-            <label for="ciclo_centro">Centro educativo: </label>
-            <select formControlName="ciclo_centro">
-              <option *ngFor="let t of centros_educativos" [ngValue]="t.uid">{{
-                t.name
-              }}</option>
-            </select>
-          </div>
-          <div class="fila-form validaciones" *ngIf="editStudyForm.dirty">
-            <div
-              *ngIf="
-                ciclo_centro.touched &&
-                ciclo_centro.errors != null &&
-                ciclo_centro.errors.required
-              "
-            >
-              El campo es obligatorio
-            </div>
-          </div>
-          <div class="fila-form">
-            <label for="ciclo_familia">Familia profesional: </label>
-            <select
-              formControlName="ciclo_familia"
-              (change)="changeCiclo($event)"
-            >
-              <option
-                *ngFor="let t of familias_profesionales"
-                [ngValue]="t.uid"
-                >{{ t.name }}</option
-              >
-            </select>
-          </div>
-
-          <div class="fila-form validaciones" *ngIf="editStudyForm.dirty">
-            <div
-              *ngIf="
-                ciclo_familia.touched &&
-                ciclo_familia.errors != null &&
-                ciclo_familia.errors.required
-              "
-            >
-              El campo es obligatorio
-            </div>
-          </div>
-
-          <div class="fila-form">
-            <label for="ciclo_grado">Tipo de grado: </label>
-            <select
-              formControlName="ciclo_grado"
-              (change)="changeCiclo($event)"
-            >
-              <option *ngFor="let t of tipos_grado" [ngValue]="t.uid">{{
-                t.name
-              }}</option>
-            </select>
-          </div>
-
-          <div class="fila-form validaciones" *ngIf="editStudyForm.dirty">
-            <div
-              *ngIf="
-                ciclo_grado.touched &&
-                ciclo_grado.errors != null &&
-                ciclo_grado.errors.required
-              "
-            >
-              El campo es obligatorio
-            </div>
-          </div>
-
-          <div class="fila-form">
-            <label for="ciclo_ciclo">Ciclo : </label>
-            <select formControlName="ciclo_ciclo">
-              <option *ngFor="let t of ciclos" [ngValue]="t.uid">{{
-                t.name
-              }}</option>
-            </select>
-          </div>
-
-          <div class="fila-form validaciones" *ngIf="editStudyForm.dirty">
-            <div
-              *ngIf="
-                ciclo_ciclo.touched &&
-                ciclo_ciclo.errors != null &&
-                ciclo_ciclo.errors.required
-              "
-            >
-              El campo es obligatorio
-            </div>
-          </div>
-
-          <div class="fila-form">
-            <label for="ciclo_fecha">Fecha:</label>
-            <input type="date" formControlName="ciclo_fecha" />
-          </div>
-          <div class="fila-form validaciones" *ngIf="editStudyForm.dirty">
-            <div
-              *ngIf="
-                ciclo_fecha.touched &&
-                ciclo_fecha.errors != null &&
-                ciclo_fecha.errors.required
-              "
-            >
-              El campo es obligatorio
-            </div>
-          </div>
-
-          <div class="fila-form">
-            <label for="ciclo_dual">¿Formacion dual?:</label>
-            <input type="checkbox" formControlName="ciclo_dual" />
-          </div>
-          <div class="fila-form">
-            <label for="ciclo_bilingue">¿Bilingüe?:</label>
-            <input type="checkbox" formControlName="ciclo_bilingue" />
-          </div>
-          <div class="fila-form">
-            <label for="ciclo_certificado">Certificado:</label>
-            <input type="file" formControlName="ciclo_certificado" />
-          </div>
-        </fieldset>
-        <fieldset *ngIf="level.value == 3">
-          <!--otro: al menos pedimos un texto libre-->
-          <div class="fila-form">
-            <label for="otro_titulo">Título: </label>
-            <input type="text" formControlName="otro_titulo" />
-          </div>
-          <div class="fila-form validaciones" *ngIf="editStudyForm.dirty">
-            <div
-              *ngIf="
-                otro_titulo.touched &&
-                otro_titulo.errors != null &&
-                otro_titulo.errors.required
-              "
-            >
-              El campo es obligatorio
-            </div>
-          </div>
-        </fieldset>
-
-        <div class="fila-form contenedor-botones">
-          <button [disabled]="!editStudyForm.valid" type="submit">
-            Guardar
-          </button>
         </div>
-      </form>
+      </div>
     </div>
   </div>
 </div>
+
+<div class="contenedor"></div>

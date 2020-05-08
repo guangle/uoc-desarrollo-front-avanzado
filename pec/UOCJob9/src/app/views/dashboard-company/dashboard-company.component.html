@@ -1,22 +1,91 @@
-<div class="contenedor">
-  <div class="fila">
-    <div class="elemento-centrado" id="header-dashboard">
-      <h1>DashBoard (Empresas)</h1>
-      <p>
-        Hola, {{ (currentCompany$ | async)?.nombre_comercial }}
-        <button style="display: inline;" (click)="logout()">Salir</button>
-      </p>
-    </div>
+<div class="container">
+  <app-navbar title="Dashboard"></app-navbar>
 
-    <div class="elemento-centrado">
-      <a [routerLink]="['/companies/edit-profile']">
-        Perfil
-      </a>
+  <!--
+  <div class="row" style="margin-top: 30px;">
+    <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+      <app-figurecard
+        title="X"
+        headerIcon="business"
+        category="Empresas"
+        footContent="Empresas buscando perfiles"
+        footerIcon="next_week"
+        linearColor="linear-gradient(60deg, #ffa726, #fb8c00)"
+        boxShadow="0 4px 20px 0 rgba(0, 0, 0, 0.14), 0 7px 10px -5px rgba(255, 152, 0, 0.4)"
+      >
+      </app-figurecard>
     </div>
-    <div class="elemento-centrado">
-      <a [routerLink]="['/companies/configuration']">
-        Configuración
-      </a>
+    <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+      <app-figurecard
+        title="{{ (offers$ | async)?.length }}"
+        headerIcon="equalizer"
+        category="Ofertas publicadas"
+        footContent="Ofertas que encajan con tu perfil"
+        footerIcon="local_offer"
+        linearColor="linear-gradient(60deg, #ef5350, #e53935)"
+        boxShadow="0 4px 20px 0px rgba(0, 0, 0, 0.14), 0 7px 10px -5px rgba(244, 67, 54, 0.4)"
+      >
+      </app-figurecard>
     </div>
+    <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+      <app-figurecard
+        title="{{ (userOffers$ | async)?.length }}"
+        headerIcon="how_to_reg"
+        category="Ofertas inscritas"
+        footContent="Ofertas pendientes"
+        footerIcon="date_range"
+        linearColor="linear-gradient(60deg, #66bb6a, #43a047)"
+        boxShadow="0 4px 20px 0px rgba(0, 0, 0, 0.14), 0 7px 10px -5px rgba(76, 175, 80, 0.4)"
+      >
+      </app-figurecard>
+    </div>
+    <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+      <app-figurecard
+        title="+245"
+        headerIcon="mic"
+        category="Visitas a tu perfil"
+        footContent="Últimos 30 días (Dato inventado)"
+        footerIcon="update"
+        linearColor="linear-gradient(60deg, #26c6da, #00acc1)"
+        boxShadow="0 4px 20px 0px rgba(0, 0, 0, 0.14), 0 7px 10px -5px rgba(0, 188, 212, 0.4)"
+      >
+      </app-figurecard>
+    </div>
+  </div>
+  -->
+
+  <div class="row" style="margin-top: 10px;">
+    <div class="col-md-4 col-sm-12 col-xs-12">
+      <app-imagecard
+        (click)="perfil()"
+        image="../../../assets/img/company.jpg"
+        title="Perfil de la compañia"
+        desc="Crea un perfil atractivo para tus candidatos"
+        footerTitle="Pulsa para acceder a tu perfil"
+      >
+      </app-imagecard>
+    </div>
+    <div class="col-md-4 col-sm-12 col-xs-12">
+      <app-imagecard
+        (click)="configuracion()"
+        image="../../../assets/img/settings.jpg"
+        title="Configuración"
+        desc="Ajustes de la aplicación"
+        footerTitle="Pulsa para ver las opciones de configuración"
+      >
+      </app-imagecard>
+    </div>
+    <!--
+    <div class="col-md-4 col-sm-12 col-xs-12">
+      <app-imagecard
+        (click)="myoffers()"
+        image="../../../assets/img/misofertas.jpg"
+        title="Mis ofertas"
+        desc="Haz un segumiento de las ofertas a las que has aplicado"
+        footerTitle="Pulsa para acceder a tus ofertas"
+      >
+      </app-imagecard>
+    </div>
+    -->
   </div>
 </div>

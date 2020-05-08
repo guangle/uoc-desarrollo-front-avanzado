@@ -21,7 +21,7 @@ export class DashboardCompanyComponent implements OnInit {
     CompanySelectors.currentCompanySelector
   );
 
-  constructor(private store$: Store<AppStore>) {
+  constructor(private store$: Store<AppStore>, private router: Router) {
     /*
     console.log("Dashboard de empresa..");
     this.company = this.companyService.company;
@@ -30,6 +30,14 @@ export class DashboardCompanyComponent implements OnInit {
   }
 
   ngOnInit(): void {}
+
+  perfil() {
+    this.router.navigate(["/uojobs/companies/edit-profile"]);
+  }
+
+  configuracion() {
+    this.router.navigate(["/uojobs/companies/configuration"]);
+  }
 
   logout() {
     //this.companyService.clear();
