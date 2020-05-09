@@ -7,7 +7,9 @@ import { AppStore } from "../../shared/state/store.interface";
 import { Observable } from "rxjs";
 import * as UserSelectors from "../../shared/state/user/selectors/user.selector";
 import * as OfferSelectors from "../../shared/state/offer/selectors/offer.selector";
+import * as CompanySelectors from "../../shared/state/company/selectors/company.selector";
 import * as OfferActions from "../../shared/state/offer/actions/offer.actions";
+import * as CompanyActions from "../../shared/state/company/actions/company.actions";
 import * as AuthActions from "../../shared/state/auth/actions/auth.actions";
 
 @Component({
@@ -32,6 +34,10 @@ export class DashboardComponent implements OnInit {
     OfferSelectors.userOffersSelector
   );
 
+  public empresas$: Observable<any> = this.store$.select(
+    CompanySelectors.empresasSelector
+  );
+
   constructor(private store$: Store<AppStore>, private router: Router) {
     //Cargamos las offertas y las ofertas del usuario para
     //mostrar en los cuadros de información resumen de la parte superior
@@ -39,6 +45,7 @@ export class DashboardComponent implements OnInit {
     this.currentUser$.subscribe((u) => {
       this.store$.dispatch(new OfferActions.LoadOffers(u));
       this.store$.dispatch(new OfferActions.LoadUserOffers(u));
+      this.store$.dispatch(new CompanyActions.LoadCompanies());
     });
   }
 

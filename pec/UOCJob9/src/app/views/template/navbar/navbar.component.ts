@@ -11,6 +11,7 @@ import { Observable } from "rxjs";
 import * as UserSelectors from "../../../shared/state/user/selectors/user.selector";
 import * as AuthActions from "../../../shared/state/auth/actions/auth.actions";
 import { Router } from "@angular/router";
+import * as CompanySelectors from "../../../shared/state/company/selectors/company.selector";
 
 @Component({
   selector: "app-navbar",
@@ -27,6 +28,10 @@ export class NavbarComponent implements OnInit {
 
   public currentUser$: Observable<any> = this.store$.select(
     UserSelectors.currentUserSelector
+  );
+
+  public currentCompany$: Observable<any> = this.store$.select(
+    CompanySelectors.currentCompanySelector
   );
 
   constructor(private store$: Store<AppStore>, private router: Router) {}

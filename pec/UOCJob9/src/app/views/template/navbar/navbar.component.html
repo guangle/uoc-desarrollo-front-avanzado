@@ -27,6 +27,7 @@
 
       Hola,
       {{ (currentUser$ | async)?.username }}
+      {{ (currentCompany$ | async)?.nombre_comercial }}
       <button mat-icon-button (click)="logout()">
         <i class="material-icons icon-btn">exit_to_app</i>
       </button>

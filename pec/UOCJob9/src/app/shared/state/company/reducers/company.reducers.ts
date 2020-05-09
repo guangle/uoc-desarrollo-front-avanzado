@@ -8,6 +8,7 @@ export function companyInitialState(): CompanyState {
   return {
     currentCompany: null,
     message: "",
+    empresas: [],
   };
 }
 
@@ -32,6 +33,12 @@ export function companyReducer(
       return {
         ...state,
         message: "Se ha producido une error: " + action.message,
+      };
+
+    case CompanyActionTypes.LOAD_COMPANIES_SUCCESS:
+      return {
+        ...state,
+        empresas: action.payload,
       };
 
     default:

@@ -21,3 +21,7 @@ export const companyMessageSelector = createSelector(
     return state.message;
   }
 );
+
+export const empresasSelector = createSelector(selectCompanyState, (state) => {
+  return state.empresas;
+});

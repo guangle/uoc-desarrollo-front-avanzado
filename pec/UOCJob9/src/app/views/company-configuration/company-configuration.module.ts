@@ -1,10 +1,12 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { NgModule } from "@angular/core";
+import { CommonModule } from "@angular/common";
 
-import { CompanyConfigurationRoutingModule } from './company-configuration-routing.module';
-import { CompanyConfigurationComponent } from './company-configuration.component';
+import { CompanyConfigurationRoutingModule } from "./company-configuration-routing.module";
+import { CompanyConfigurationComponent } from "./company-configuration.component";
 import { ReactiveFormsModule } from "@angular/forms";
 import { RouterModule } from "@angular/router";
+import { TemplateModule } from "../template/template.module";
+import { MaterialModule } from "../../shared/material.module";
 
 @NgModule({
   declarations: [CompanyConfigurationComponent],
@@ -12,7 +14,9 @@ import { RouterModule } from "@angular/router";
     CommonModule,
     CompanyConfigurationRoutingModule,
     ReactiveFormsModule,
-    RouterModule
-  ]
+    RouterModule,
+    TemplateModule,
+    MaterialModule,
+  ],
 })
-export class CompanyConfigurationComponentModule { }
+export class CompanyConfigurationComponentModule {}

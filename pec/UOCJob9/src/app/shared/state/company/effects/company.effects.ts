@@ -46,4 +46,15 @@ export class CompanyEffects {
     ofType(CompanyActions.CompanyActionTypes.UPDATE_COMPANY_SUCCESS),
     tap(() => this.router.navigate(["/companies/dashboard-company"]))
   );
+
+  @Effect()
+  loadComanies$: Observable<any> = this.actions$.pipe(
+    ofType(CompanyActions.CompanyActionTypes.LOAD_COMPANIES),
+    switchMap(() =>
+      this.companyService.getAll().pipe(
+        map((cs) => new CompanyActions.LoadCompaniesSuccess(cs)),
+        catchError((error) => of(new CompanyActions.LoadCompaniesError(error)))
+      )
+    )
+  );
 }

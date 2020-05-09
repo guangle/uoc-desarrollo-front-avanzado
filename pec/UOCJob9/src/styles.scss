@@ -111,12 +111,12 @@ p {
 }
 
 a {
-  color: #9c27b0;
+  color: #2e294e;
   text-decoration: none;
 }
 
 a:hover {
-  color: #89229b;
+  color: #2e294e;
   text-decoration: none;
 }
 
@@ -249,13 +249,13 @@ b {
 @keyframes color {
   100%,
   0% {
-    stroke: #9c27b0;
+    stroke: #2e294e;
   }
   50% {
     stroke: #ff9800;
   }
   100% {
-    stroke: #9c27b0;
+    stroke: #2e294e;
   }
 }
 
@@ -286,7 +286,7 @@ b {
 
 /* input text style */
 .mat-input-underline .mat-input-ripple {
-  background-color: #9c27b0 !important;
+  background-color: #2e294e !important;
 }
 
 .mat-focused .mat-input-placeholder {
@@ -315,7 +315,7 @@ b {
 }
 
 .mat-menu-content .mat-menu-item:hover {
-  background-color: #9c27b0 !important;
+  background-color: #2e294e !important;
   color: #ffffff !important;
   box-shadow: 0 4px 20px 0 rgba(0, 0, 0, 0.14),
     0 7px 10px -5px rgba(156, 39, 176, 0.4) !important;
@@ -374,7 +374,7 @@ b {
 }
 
 .btn-primary {
-  background-color: #9c27b0 !important;
+  background-color: #2e294e !important;
   color: #fff !important;
   box-shadow: 0 2px 2px 0 rgba(156, 39, 176, 0.14),
     0 3px 1px -2px rgba(156, 39, 176, 0.2), 0 1px 5px 0 rgba(156, 39, 176, 0.12) !important;
@@ -448,7 +448,7 @@ b {
 /* checkbox */
 .mat-checkbox-checkmark-path {
   /* stick */
-  stroke: #9c27b0 !important;
+  stroke: #2e294e !important;
 }
 
 .mat-checkbox-checked.mat-accent .mat-checkbox-background,
@@ -493,7 +493,7 @@ b {
 /* text color */
 .text-primary,
 .alert-primary .alert-icon {
-  color: #9c27b0;
+  color: #2e294e;
 }
 
 .text-danger,

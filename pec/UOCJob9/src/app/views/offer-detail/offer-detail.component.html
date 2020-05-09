@@ -18,78 +18,106 @@
             </h4>
 
             <div class="row">
-              <div class="col-md-6">
+              <div class="col-md-12">
+                <h3>Oferta</h3>
+              </div>
+              <div class="col-md-offset-1 col-md-11">
                 <mat-form-field color="accent">
                   <input
                     matInput
                     type="text"
-                    placeholder="Email"
-                    value="{{ (currentUser$ | async)?.email }}"
+                    placeholder="Empresa"
+                    value="{{ (currentOffer$ | async).company?.name }}"
                     readonly="readonly"
                   />
                 </mat-form-field>
               </div>
-              <div class="col-md-6">
+              <div class="col-md-offset-1 col-md-11">
                 <mat-form-field color="accent">
                   <input
                     matInput
                     type="text"
-                    placeholder="Fecha de nacimiento"
-                    value="{{ (currentUser$ | async)?.birthdate }} "
+                    placeholder="Puesto"
+                    value="{{ (currentOffer$ | async).job?.name }}"
                     readonly="readonly"
                   />
                 </mat-form-field>
+              </div>
+              <div class="col-md-offset-1 col-md-11">
+                <mat-form-field color="accent">
+                  <input
+                    matInput
+                    type="text"
+                    placeholder="Descripción"
+                    value="{{ (currentOffer$ | async).job?.description }}"
+                    readonly="readonly"
+                  />
+                </mat-form-field>
+              </div>
+              <div class="col-md-12">
+                <h3>Localización</h3>
+              </div>
+              <div class="col-md-offset-1 col-md-5">
+                <mat-form-field color="accent">
+                  <input
+                    matInput
+                    type="text"
+                    placeholder="Provincia"
+                    value="{{ (currentOffer$ | async).province?.name }}"
+                    readonly="readonly"
+                  />
+                </mat-form-field>
+              </div>
+              <div class="col-md-offset-1 col-md-5">
+                <mat-form-field color="accent">
+                  <input
+                    matInput
+                    type="text"
+                    placeholder="Municipio"
+                    value="{{ (currentOffer$ | async).municipe?.name }}"
+                    readonly="readonly"
+                  />
+                </mat-form-field>
+              </div>
+              <div class="col-md-12">
+                <h3>Destinado a persona de</h3>
+              </div>
+              <div class="col-md-offset-1 col-md-11">
+                <mat-form-field color="accent">
+                  <input
+                    matInput
+                    type="text"
+                    placeholder="Familia profesional"
+                    value="{{ (currentOffer$ | async).category?.name }}"
+                    readonly="readonly"
+                  />
+                </mat-form-field>
+              </div>
+              <div class="col-md-12">
+                <h3>Títulos</h3>
+              </div>
+              <div class="col-md-offset-1 col-md-10">
+                <table class="table table-striped">
+                  <thead>
+                    <tr>
+                      <th>Id</th>
+                      <th>Nombre</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let t of (currentOffer$ | async).title">
+                      <td>
+                        {{ t.uid }}
+                      </td>
+                      <td>
+                        {{ t.name }}
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
               </div>
             </div>
 
-            <div class="row">
-              <div class="col-md-4">
-                <mat-form-field color="accent">
-                  <input
-                    matInput
-                    type="text"
-                    placeholder="Teléfono"
-                    value="{{ (currentUser$ | async)?.phone }}"
-                    readonly="readonly"
-                  />
-                </mat-form-field>
-              </div>
-              <div class="col-md-4">
-                <mat-form-field color="accent">
-                  <input
-                    matInput
-                    type="text"
-                    placeholder="{{
-                      (currentUser$ | async)?.documentType.name
-                    }}"
-                    value="{{ (currentUser$ | async)?.documentNumber }}"
-                    readonly="readonly"
-                  />
-                </mat-form-field>
-              </div>
-              <div class="col-md-4">
-                <mat-form-field color="accent">
-                  <input
-                    matInput
-                    type="text"
-                    placeholder="Permisos de conducir"
-                    value="{{ (currentUser$ | async)?.license }}"
-                    readonly="readonly"
-                  />
-                </mat-form-field>
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-md-12">
-                <label class="textarea-label">About Me</label>
-                <mat-form-field color="accent">
-                  <textarea
-                    matInput
-                    placeholder="Lamborghini Mercy, Your chick she so thirsty, I'm in that two seat Lambo."
-                  ></textarea>
-                </mat-form-field>
-              </div>
-            </div>
             <div class="row action-btn">
               <button md-raised-button class="btn btn-rose">
                 Editar perfil
@@ -102,14 +130,6 @@
   </div>
 
   <div class="contenedor">
-    <div class="row-header">
-      <h1>
-        Detalle de la oferta
-      </h1>
-      <a [routerLink]="['/admin/offers/list']">
-        Volver al listdo de ofertas
-      </a>
-    </div>
     <div class="row-datos">
       <div class="div-detalle">
         <h2>Oferta</h2>

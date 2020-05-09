@@ -21,7 +21,66 @@
         <mat-icon class="example-tab-icon">school</mat-icon>
         PEC 3
       </ng-template>
-      La pec 3 la tengo que explicar..
+      <div>
+        <ul>
+          <li>
+            Paleta de colores propia, impresiones generales
+          </li>
+
+          <li>
+            De entre todas las plantillas propuestas en el enunciado de la
+            aplicación me he basado en <b>Angular Material Dashboard</b> (
+            https://github.com/wangdicoder/angular-material-dashboard ), aunque
+            con personalizaciones propias e inclusión de algunos elementos de
+            Angular Material 'puros'. La plantilla trae algunos componentes
+            útiles como el menu lateral (side bar componente), el menú superior
+            (navbar component), las tarjetas con imágines del dashboard
+            (imagecard componente), etc.
+          </li>
+
+          <li>
+            He agrupado estos componentes de la plantilla bajo el directorio
+            /template creando un módulo específico con estos componentes y mis
+            componenes anteriores que incluyan alguno de los elementos de
+            interfaz citados deberán importar el TemplateModule En general,
+            aplicar la plantilla ha sido más laborioso que complicado y no he
+            tenido que tocar 'demasiado' en los componentes importados
+          </li>
+
+          <li>
+            He ampliado un poco el store sobre el entregado en la pec2 para
+            incluir las empresas y así mostrar el número de empresas registradas
+            en el sistema en el dashboard de usuario. Ahora he visto con
+            claridad lo útil que es para alguien que trabaje solo en la parte de
+            presentación tener los datos tan 'a mano' (solo observandolos) y
+            saber que se actualizan de forma transparente para él.
+          </li>
+          <li>
+            Desconozco la razón exacta y me gustaría verlo en la asignatura,
+            aunque sea un tema offtopic, pero desde inclusión de la librería
+            angular material y la plantilla, el rendimiento de la aplicación (a
+            nivel usuario) y de mi proceso ng serve se ha degradado muchísimo.
+            El procesador está casi todo el tiempo al 100% de la CPU y el
+            rebuild que se produce tras guardar tarda muchísimo más. He probado
+            algunan cosa, como instalar fsevents (npm i fsevents) o eliminar el
+            live-reload, pero sin demasiado éxito
+          </li>
+          <li>
+            Respecto a la instalación de <b>Angular Material</b>, no tuve ningún
+            problema siguiendo los pasos del enlace indicado en el enunciado
+            (https://material.angular.io/guide/getting- started). A continuación
+            la captura de pantalla tras la instalación
+            <div>
+              <img
+                src="assets/img/pec3_ejercicio1.png"
+                alt="User"
+                height="600px"
+                width="900px"
+              />
+            </div>
+          </li>
+        </ul>
+      </div>
     </mat-tab>
 
     <mat-tab>
@@ -67,7 +126,7 @@
             Adjutno imagen del ejercicio propuesto funcionando en mi local:
             <div>
               <img
-                src="assets/captura_ejercicio_1.png"
+                src="assets/img/captura_ejercicio_1.png"
                 alt="User"
                 height="600px"
                 width="900px"
@@ -92,7 +151,7 @@
             local, justo en un cambio de estado:
             <div>
               <img
-                src="assets/captura_ejercicio_2.png"
+                src="assets/img/captura_ejercicio_2.png"
                 alt="Dev tools"
                 height="600px"
                 width="900px"

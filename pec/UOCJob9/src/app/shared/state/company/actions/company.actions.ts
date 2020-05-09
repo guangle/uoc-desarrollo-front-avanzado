@@ -11,6 +11,10 @@ export enum CompanyActionTypes {
   UPDATE_COMPANY = "[COMPANY] Update company",
   UPDATE_COMPANY_SUCCESS = "[COMPANY] Update company Success",
   UPDATE_COMPANY_ERROR = "[COMPANY] Update company Error",
+
+  LOAD_COMPANIES = "[COMPANY] Load Companies",
+  LOAD_COMPANIES_SUCCESS = "[COMPANY] Load Companies Success",
+  LOAD_COMPANIES_ERROR = "[COMPANY] Load Companies Error",
 }
 
 /** Establece la empresa sobre el que se va a trabajar */
@@ -39,9 +43,29 @@ export class UpdateCompanyError implements Action {
   constructor(public message: string) {}
 }
 
+//Incluidos en la pec3 para mostrar información adicional en el dashboard
+export class LoadCompanies implements Action {
+  readonly type = CompanyActionTypes.LOAD_COMPANIES;
+  constructor() {}
+}
+
+export class LoadCompaniesSuccess implements Action {
+  readonly type = CompanyActionTypes.LOAD_COMPANIES_SUCCESS;
+  constructor(public payload: Company[]) {}
+}
+
+export class LoadCompaniesError implements Action {
+  readonly type = CompanyActionTypes.LOAD_COMPANIES_ERROR;
+  //PayLoad = mensaje de error
+  constructor(public message: string) {}
+}
+
 //Exportamos las clases de acciones que hemos construido
 export type CompanysActions =
   | SetCurrentCompany
   | UpdateCompany
   | UpdateCompanySuccess
-  | UpdateCompanyError;
+  | UpdateCompanyError
+  | LoadCompanies
+  | LoadCompaniesSuccess
+  | LoadCompaniesError;

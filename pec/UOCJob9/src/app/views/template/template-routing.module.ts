@@ -12,6 +12,8 @@ import { EditLanguagesComponent } from "../edit-languages/edit-languages.compone
 import { EditExperienceComponent } from "../edit-experience/edit-experience.component";
 import { OfferDetailComponent } from "../offer-detail/offer-detail.component";
 import { DashboardCompanyComponent } from "../dashboard-company/dashboard-company.component";
+import { EditProfileCompanyComponent } from "../edit-profile-company/edit-profile-company.component";
+import { CompanyConfigurationComponent } from "../company-configuration/company-configuration.component";
 
 const routes: Routes = [
   {
@@ -38,8 +40,9 @@ const routes: Routes = [
     component: RootComponent,
     children: [
       { path: "dashboard-company", component: DashboardCompanyComponent },
-      { path: "edit-profile", component: DashboardCompanyComponent },
-      { path: "configuration", component: DashboardCompanyComponent },
+      { path: "edit-profile", component: EditProfileCompanyComponent },
+      { path: "configuration", component: CompanyConfigurationComponent },
+      { path: "personalize", component: SettingsComponent },
     ],
   },
 ];

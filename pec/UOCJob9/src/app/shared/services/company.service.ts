@@ -37,4 +37,8 @@ export class CompanyService {
     //llamamos al backend para persistir en BBDD
     return this.dataservice.updateCompany(companyToUpdate);
   }
+
+  getAll(): Observable<Company[]> {
+    return this.dataservice.getCompanies();
+  }
 }

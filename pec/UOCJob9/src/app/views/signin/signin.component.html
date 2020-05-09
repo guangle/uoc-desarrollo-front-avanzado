@@ -24,85 +24,126 @@
         >
       </mat-card-header>
 
-      <mat-card-content fxLayout="column" class="card-content-uojobs">
-        <mat-form-field>
-          <input
-            matInput
-            type="email"
-            formControlName="email"
-            required
-            size="50"
-            placeholder="Email"
-          />
-          <mat-error
-            *ngIf="
-              email.invalid && email.errors != null && email.errors.required
-            "
-          >
-            El email es obligatorio
-          </mat-error>
-          <mat-error
-            *ngIf="email.invalid && email.errors != null && email.errors.email"
-          >
-            El email no tiene un formato válido
-          </mat-error>
-          <mat-error
-            *ngIf="
-              email.invalid && email.errors != null && email.errors.minlength
-            "
-          >
-            La longitud debe ser al menos 10 caracteres
-          </mat-error>
-        </mat-form-field>
-        <mat-form-field style="margin-top: 30px;">
-          <input
-            matInput
-            type="password"
-            formControlName="password"
-            required
-            placeholder="Password"
-          />
-          <mat-error
-            *ngIf="
-              password.invalid &&
-              password.errors != null &&
-              password.errors.required
-            "
-          >
-            El password es obligatorio
-          </mat-error>
-          <mat-error
-            *ngIf="
-              password.invalid &&
-              password.errors != null &&
-              password.errors.minlength
-            "
-          >
-            La longitud debe ser al menos 4 caracteres
-          </mat-error>
-        </mat-form-field>
+      <mat-card-content
+        fxLayout="column"
+        class="card-content-uojobs tp-wrapper"
+      >
+        <div class="tp-box" [@flipState]="flip">
+          <div class="front tp-box__side tp-box__front">
+            <mat-form-field>
+              <input
+                matInput
+                type="email"
+                formControlName="email"
+                required
+                size="50"
+                placeholder="Email"
+              />
+              <mat-error
+                *ngIf="
+                  email.invalid && email.errors != null && email.errors.required
+                "
+              >
+                El email es obligatorio
+              </mat-error>
+              <mat-error
+                *ngIf="
+                  email.invalid && email.errors != null && email.errors.email
+                "
+              >
+                El email no tiene un formato válido
+              </mat-error>
+              <mat-error
+                *ngIf="
+                  email.invalid &&
+                  email.errors != null &&
+                  email.errors.minlength
+                "
+              >
+                La longitud debe ser al menos 10 caracteres
+              </mat-error>
+            </mat-form-field>
+            <mat-form-field style="margin-top: 30px;">
+              <input
+                matInput
+                type="password"
+                formControlName="password"
+                required
+                placeholder="Password"
+              />
+              <mat-error
+                *ngIf="
+                  password.invalid &&
+                  password.errors != null &&
+                  password.errors.required
+                "
+              >
+                El password es obligatorio
+              </mat-error>
+              <mat-error
+                *ngIf="
+                  password.invalid &&
+                  password.errors != null &&
+                  password.errors.minlength
+                "
+              >
+                La longitud debe ser al menos 4 caracteres
+              </mat-error>
+            </mat-form-field>
+
+            <div class="center text-center">
+              <small> {{ mensaje }}</small>
+            </div>
+          </div>
+
+          <div class="tp-box__side tp-box__back">
+            <div id="notas">
+              <div><h3>Usuarios de pruebas</h3></div>
+              <div>carlos.caballero@gmail.com / 1234</div>
+              <div>guangle@gmail.com / 1234</div>
+
+              <div><h3>Empresas de prueba</h3></div>
+              <div>rrhh@fujitsu.es / 1234</div>
+              <div>rrhh@everis.es / 1234</div>
+
+              <div>
+                <a [routerLink]="['/notes']">
+                  Consulta las notas de la implementación
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
       </mat-card-content>
       <mat-card-actions class="card-actions-uojobs">
-        <button mat-button type="button" routerLink="/forgot-password">
-          Ayuda
-        </button>
-        <button mat-button type="button" routerLink="/forgot-password">
-          Remember password
-        </button>
+        <div class="tp-box" [@flipState]="flip">
+          <div class="front tp-box__side tp-box__front">
+            <button mat-button type="button" (click)="toggleFlip()">
+              Ayuda
+            </button>
+            <button mat-button type="button" routerLink="/forgot-password">
+              Remember password
+            </button>
 
-        <!-- Si hay cualquier error de validación en alguno de los dos campos, deshabilitamos el boton submit -->
-        <button
-          mat-raised-button
-          color="accent"
-          type="submit"
-          class="submitBtn"
-          [disabled]="email.errors || password.errors"
-        >
-          Login
-        </button>
+            <!-- Si hay cualquier error de validación en alguno de los dos campos, deshabilitamos el boton submit -->
+            <button
+              mat-raised-button
+              color="accent"
+              type="submit"
+              class="submitBtn"
+              [disabled]="email.errors || password.errors"
+            >
+              Login
+            </button>
+          </div>
+
+          <div class="tp-box__side tp-box__back">
+            <button mat-button type="button" (click)="toggleFlip()">
+              Volver
+            </button>
+          </div>
+        </div>
       </mat-card-actions>
-      <!--
-    <button mat-raised-button color="accent">Login</button>
-    --></form>
+    </form>
   </mat-card>
 </div>

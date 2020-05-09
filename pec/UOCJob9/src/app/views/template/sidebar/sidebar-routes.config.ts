@@ -34,19 +34,19 @@ export const ROUTES = [
 export const ROUTES_COMPANY = [
   {
     path: "/uojobs/companies/dashboard",
-    title: "Dashboard (Ccompany)",
+    title: "Dashboard",
     icon: "dashboard",
     children: null,
   },
   {
     path: "/uojobs/companies/edit-profile",
-    title: "Perfil usuario (company)",
+    title: "Perfil",
     icon: "person",
     children: null,
   },
   {
     path: "/uojobs/companies/configuration",
-    title: "PENDIENTE",
+    title: "Configuración",
     icon: "settings",
     children: null,
   },

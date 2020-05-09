@@ -8,12 +8,39 @@ import { AppStore } from "../../shared/state/store.interface";
 import { Observable } from "rxjs";
 import * as AuthSelectors from "../../shared/state/auth/selectors/auth.selector";
 import * as AuthActions from "../../shared/state/auth/actions/auth.actions";
+import {
+  trigger,
+  state,
+  style,
+  transition,
+  animate,
+} from "@angular/animations";
 
 @Component({
   selector: "app-signin",
   templateUrl: "./signin.component.html",
   styleUrls: ["./signin.component.scss"],
   changeDetection: ChangeDetectionStrategy.OnPush,
+  animations: [
+    trigger("flipState", [
+      state(
+        "active",
+        style({
+          transform: "rotateY(179deg)",
+          height: "0px",
+        })
+      ),
+      state(
+        "inactive",
+        style({
+          transform: "rotateY(0)",
+          height: "100%",
+        })
+      ),
+      transition("active => inactive", animate("500ms ease-out")),
+      transition("inactive => active", animate("500ms ease-in")),
+    ]),
+  ],
 })
 export class SigninComponent implements OnInit {
   public loginForm: FormGroup;
@@ -102,5 +129,14 @@ export class SigninComponent implements OnInit {
       result += characters.charAt(Math.floor(Math.random() * charactersLength));
     }
     return result;
+  }
+
+  //hacemos un flip del card que contiene el formulario
+  //visto en
+  //https://stackblitz.com/edit/angular-card-flip-hdhgg6
+  flip: string = "inactive";
+
+  toggleFlip() {
+    this.flip = this.flip == "inactive" ? "active" : "inactive";
   }
 }
