@@ -44,7 +44,7 @@ export class CompanyEffects {
   @Effect({ dispatch: false })
   updateCompanySuccess$ = this.actions$.pipe(
     ofType(CompanyActions.CompanyActionTypes.UPDATE_COMPANY_SUCCESS),
-    tap(() => this.router.navigate(["/companies/dashboard-company"]))
+    tap(() => this.router.navigate(["/companies/dashboard"]))
   );
 
   @Effect()

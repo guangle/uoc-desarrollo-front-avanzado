@@ -12,13 +12,26 @@
           <div class="table-responsive">
             <div>
               <span><b>Pendientes para las siguientes PECS </b></span>
-              Provincia:
-              <select
-                ><option>Pendiente</option
-                ><option>Pendiente</option
-                ><option>Pendiente</option></select
-              >
-              Fecha: <input type="date" />
+
+              <mat-form-field color="accent">
+                <mat-label>Tipo</mat-label>
+                <mat-select placeholder="Provincia">
+                  <mat-option>
+                    Pendiente
+                  </mat-option>
+                  <mat-option>
+                    Pendiente
+                  </mat-option>
+                  <mat-option>
+                    Pendiente
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+
+              <mat-form-field color="accent" style="margin-left: 20px;">
+                <mat-label>Fecha</mat-label>
+                <input matInput type="date" placeholder="Fechao" />
+              </mat-form-field>
             </div>
           </div>
         </div>
@@ -66,9 +79,20 @@
                   </td>
 
                   <td class="text-right">
+                    <a
+                      [routerLink]=""
+                      (click)="offerDetail(offer)"
+                      alt="Ver la oferta"
+                    >
+                      <span class="material-icons">
+                        shop_two
+                      </span>
+                    </a>
+                    <!--
                     <a [routerLink]="" (click)="offerDetail(offer)">
                       Detalle
                     </a>
+                    -->
                   </td>
                 </tr>
               </tbody>

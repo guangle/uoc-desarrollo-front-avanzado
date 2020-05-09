@@ -24,56 +24,14 @@
   font-size: 1.4em;
 }
 
-#notas {
-  padding: 10px;
-  background-color: #dddddd;
-  border-radius: 5px;
-}
-
 mat-form-field {
   width: 100%;
+  padding: 0 10%;
 }
 
-/* Para la animación de girar la tarjeta */
-
-/*
-.tp-wrapper {
-  -webkit-perspective: 800px;
-  perspective: 800px;
-}
-*/
-
-.tp-box {
-  -webkit-transform-style: preserve-3d;
-  transform-style: preserve-3d;
-  -webkit-transform: transform 1s;
-  -ms-transform: transform 1s;
-  transform: transform 1s;
-}
-.tp-box__side {
-  -webkit-backface-visibility: hidden;
-  backface-visibility: hidden;
-
-  /*
-  text-align: center;
-  line-height: 100px;
-  font-size: 24px;
-  font-weight: 700;
-  cursor: pointer;
-  */
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-}
-.tp-box__front {
-  -webkit-transform: rotateY(0deg);
-  -ms-transform: rotateY(0deg);
-  transform: rotateY(0deg);
-}
-.tp-box__back {
-  -webkit-transform: rotateY(-180deg);
-  -ms-transform: rotateY(-180deg);
-  transform: rotateY(-180deg);
-  height: 0px;
+.open-close-container {
+  border: 1px solid #dddddd;
+  margin-top: 5px;
+  padding: 5px 5px 0px 5px;
+  color: #000000;
 }

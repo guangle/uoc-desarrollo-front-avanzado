@@ -22,23 +22,26 @@ import {
   styleUrls: ["./signin.component.scss"],
   changeDetection: ChangeDetectionStrategy.OnPush,
   animations: [
-    trigger("flipState", [
+    trigger("openClose", [
+      // ...
       state(
-        "active",
+        "open",
         style({
-          transform: "rotateY(179deg)",
+          height: "180px",
+          opacity: 1,
+          display: "block",
+          backgroundColor: "#f1e9da",
+        })
+      ),
+      state(
+        "closed",
+        style({
           height: "0px",
+          opacity: 0,
         })
       ),
-      state(
-        "inactive",
-        style({
-          transform: "rotateY(0)",
-          height: "100%",
-        })
-      ),
-      transition("active => inactive", animate("500ms ease-out")),
-      transition("inactive => active", animate("500ms ease-in")),
+      transition("open => closed", [animate("0.8s")]),
+      transition("closed => open", [animate("0.4s")]),
     ]),
   ],
 })
@@ -71,7 +74,7 @@ export class SigninComponent implements OnInit {
           this.router.navigate(["/uojobs/users/dashboard"]);
         } else if ("company" === login_state.type) {
           //Se ha logado una empresa, vamos al dashboard de empresa
-          this.router.navigate(["/uojobs/companies/dashboard-company"]);
+          this.router.navigate(["/uojobs/companies/dashboard"]);
         }
       }
     });
@@ -131,12 +134,12 @@ export class SigninComponent implements OnInit {
     return result;
   }
 
-  //hacemos un flip del card que contiene el formulario
-  //visto en
-  //https://stackblitz.com/edit/angular-card-flip-hdhgg6
-  flip: string = "inactive";
+  //Adaptamos el ejemplo de animación
+  //https://angular.io/guide/animations
+  //para mostrar la ayuda
+  isOpen = false;
 
-  toggleFlip() {
-    this.flip = this.flip == "inactive" ? "active" : "inactive";
+  toggle() {
+    this.isOpen = !this.isOpen;
   }
 }

@@ -2,7 +2,7 @@
   <app-navbar title="Detalle de la oferta"></app-navbar>
 
   <div class="container">
-    <div class="row" style="margin-top: 30px;">
+    <div class="row" style="margin-top: 10px;">
       <div class="col-md-12">
         <div class="card">
           <div class="card-header">
@@ -18,10 +18,10 @@
             </h4>
 
             <div class="row">
-              <div class="col-md-12">
+              <div class="col-md-12" style="margin-bottom: 15px;">
                 <h3>Oferta</h3>
               </div>
-              <div class="col-md-offset-1 col-md-11">
+              <div class="col-md-offset-1 col-md-4">
                 <mat-form-field color="accent">
                   <input
                     matInput
@@ -32,7 +32,7 @@
                   />
                 </mat-form-field>
               </div>
-              <div class="col-md-offset-1 col-md-11">
+              <div class="col-md-offset-1 col-md-6">
                 <mat-form-field color="accent">
                   <input
                     matInput
@@ -43,8 +43,8 @@
                   />
                 </mat-form-field>
               </div>
-              <div class="col-md-offset-1 col-md-11">
-                <mat-form-field color="accent">
+              <div class="col-md-offset-1 col-md-8">
+                <mat-form-field color="accent" style="width: 100%;">
                   <input
                     matInput
                     type="text"
@@ -54,10 +54,11 @@
                   />
                 </mat-form-field>
               </div>
-              <div class="col-md-12">
+              <div class="col-md-offset-3"></div>
+              <div class="col-md-12" style="margin-bottom: 15px;">
                 <h3>Localización</h3>
               </div>
-              <div class="col-md-offset-1 col-md-5">
+              <div class="col-md-offset-1 col-md-4">
                 <mat-form-field color="accent">
                   <input
                     matInput
@@ -68,7 +69,7 @@
                   />
                 </mat-form-field>
               </div>
-              <div class="col-md-offset-1 col-md-5">
+              <div class="col-md-offset-1 col-md-6">
                 <mat-form-field color="accent">
                   <input
                     matInput
@@ -79,11 +80,11 @@
                   />
                 </mat-form-field>
               </div>
-              <div class="col-md-12">
+              <div class="col-md-12" style="margin-bottom: 15px;">
                 <h3>Destinado a persona de</h3>
               </div>
-              <div class="col-md-offset-1 col-md-11">
-                <mat-form-field color="accent">
+              <div class="col-md-offset-1 col-md-5">
+                <mat-form-field color="accent" style="width: 100%;">
                   <input
                     matInput
                     type="text"
@@ -93,6 +94,7 @@
                   />
                 </mat-form-field>
               </div>
+              <div class="col-md-offset-6"></div>
               <div class="col-md-12">
                 <h3>Títulos</h3>
               </div>
@@ -118,95 +120,35 @@
               </div>
             </div>
 
-            <div class="row action-btn">
-              <button md-raised-button class="btn btn-rose">
-                Editar perfil
-              </button>
+            <div class="row action-btn-center">
+              <div
+                *ngIf="{
+                  currentUser: currentUser$ | async,
+                  currentOffer: currentOffer$ | async,
+                  inscrito: inscrito$ | async
+                } as data"
+                class="contenedor-botones"
+              >
+                <button
+                  md-raised-button
+                  class="btn btn-rose"
+                  *ngIf="!data.inscrito"
+                  (click)="inscribirOferta(data.currentUser, data.currentOffer)"
+                >
+                  Inscribirse a la oferta
+                </button>
+                <button
+                  md-raised-button
+                  class="btn btn-rose"
+                  *ngIf="data.inscrito"
+                  (click)="borrarseOferta(data.currentUser, data.currentOffer)"
+                >
+                  Borrarse de la oferta
+                </button>
+              </div>
             </div>
           </div>
         </div>
-      </div>
-    </div>
-  </div>
-
-  <div class="contenedor">
-    <div class="row-datos">
-      <div class="div-detalle">
-        <h2>Oferta</h2>
-        <div class="campo-detalle">
-          <label>Empresa: </label> {{ (currentOffer$ | async).company?.name }}
-        </div>
-        <div class="campo-detalle">
-          <label>Puesto </label> {{ (currentOffer$ | async).job?.name }}
-        </div>
-        <div class="campo-detalle">
-          <label>Descripción </label>
-          {{ (currentOffer$ | async).job?.description }}
-        </div>
-      </div>
-      <div class="div-detalle">
-        <h2>Localización</h2>
-        <div class="campo-detalle">
-          <label>Provincia </label> {{ (currentOffer$ | async).province?.name }}
-        </div>
-        <div class="campo-detalle">
-          <label>Municipio </label> {{ (currentOffer$ | async).municipe?.name }}
-        </div>
-      </div>
-      <div class="div-detalle">
-        <h2>Destinado a persona de:</h2>
-        <div class="campo-detalle">
-          <label>Familia profesional </label>
-          {{ (currentOffer$ | async).category?.name }}
-        </div>
-      </div>
-      <div class="div-detalle">
-        <h2>Títulos</h2>
-        <table>
-          <thead>
-            <tr>
-              <th>Id</th>
-              <th>Nombre</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr *ngFor="let t of (currentOffer$ | async).title">
-              <td>
-                {{ t.uid }}
-              </td>
-              <td>
-                {{ t.name }}
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    </div>
-    <div class="row-datos">
-      <!-- 
-    'esperamos' a los observables que nos hacen falta para mostrar el botón con esta notación 
-    que he visto en: https://medium.com/@ofirrifo/extract-multiple-observables-with-the-async-pipe-in-angular-b119d22f8e05
-  -->
-      <div
-        *ngIf="{
-          currentUser: currentUser$ | async,
-          currentOffer: currentOffer$ | async,
-          inscrito: inscrito$ | async
-        } as data"
-        class="contenedor-botones"
-      >
-        <button
-          *ngIf="!data.inscrito"
-          (click)="inscribirOferta(data.currentUser, data.currentOffer)"
-        >
-          Inscribirse a la oferta
-        </button>
-        <button
-          *ngIf="data.inscrito"
-          (click)="borrarseOferta(data.currentUser, data.currentOffer)"
-        >
-          Borrarse de la oferta
-        </button>
       </div>
     </div>
   </div>

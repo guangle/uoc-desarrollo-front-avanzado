@@ -7,21 +7,42 @@
   </div>
   <div class="right-part">
     <div class="right-part" id="nav-right">
-      <button mat-icon-button (click)="dashboard()">
+      <button
+        mat-icon-button
+        (click)="dashboard()"
+        *ngIf="currentUser$ | async"
+      >
         <i class="material-icons icon-btn">dashboard</i>
       </button>
 
-      <app-msgiconbtn
-        icon="notifications"
-        number="1"
-        [matMenuTriggerFor]="menu"
-      ></app-msgiconbtn>
-      <button mat-icon-button (click)="profile()">
+      <button
+        mat-icon-button
+        (click)="dashboardCompany()"
+        *ngIf="currentCompany$ | async"
+      >
+        <i class="material-icons icon-btn">dashboard</i>
+      </button>
+
+      <app-msgiconbtn icon="notifications" number="1"></app-msgiconbtn>
+
+      <button mat-icon-button *ngIf="currentUser$ | async" (click)="profile()">
         <i class="material-icons icon-btn">person</i>
       </button>
-      <mat-menu #menu="matMenu">
-        <button mat-menu-item>
+
+      <button
+        mat-icon-button
+        *ngIf="currentCompany$ | async"
+        (click)="profileCompany()"
+      >
+        <i class="material-icons icon-btn">person</i>
+      </button>
+
+      <mat-menu #menu="matMenu" *ngIf="currentUser$ | async">
+        <button mat-menu-item *ngIf="currentUser$ | async">
           Hay nuevas ofertas publicadas
+        </button>
+        <button mat-menu-item *ngIf="currentCompany$ | async">
+          Tienes nuevas ofertas que revisar
         </button>
       </mat-menu>
 

@@ -1,17 +1,11 @@
-import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
-import { CompanyConfigurationComponent } from './company-configuration.component';
+import { NgModule } from "@angular/core";
+import { Routes, RouterModule } from "@angular/router";
+import { CompanyConfigurationComponent } from "./company-configuration.component";
 
-
-const routes: Routes = [
-  {
-    path: '',
-    component: CompanyConfigurationComponent
-  }
-];
+const routes: Routes = [];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class CompanyConfigurationRoutingModule { }
+export class CompanyConfigurationRoutingModule {}

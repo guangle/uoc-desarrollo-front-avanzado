@@ -5,10 +5,12 @@
     <div class="row-datos" *ngIf="(userOffers$ | async).length == 0">
       <div class="alert alert-warning alert-with-icon">
         <i class="material-icons alert-icon">notifications</i>
-        <span
+        <strong style="margin-top:20px"
           >Aún no te has inscrito en ninguna oferta. Pasate por la sección de
-          <a [routerLink]="['/uojobs/users/offers']"> Ofertas </a> para
-          encontrar alguna que encaje con tu perfil</span
+          <a [routerLink]="['/uojobs/users/offers']" style="font-size: 1.2em;">
+            Ofertas
+          </a>
+          para encontrar alguna que encaje con tu perfil</strong
         >
       </div>
     </div>
@@ -18,7 +20,7 @@
         <div class="col-md-12">
           <div class="card">
             <div class="card-header">
-              <i class="material-icons">school</i>
+              <i class="material-icons">how_to_reg</i>
             </div>
             <div class="card-content">
               <h4 class="card-title">Formación académica</h4>
@@ -55,8 +57,19 @@
                       </td>
                       <td>Pendiente</td>
                       <td class="text-right">
+                        <!--
                         <a [routerLink]="" (click)="offerDetail(offer)">
                           Ver
+                        </a>
+                        -->
+                        <a
+                          [routerLink]=""
+                          (click)="offerDetail(offer)"
+                          alt="Ver la oferta"
+                        >
+                          <span class="material-icons">
+                            shop_two
+                          </span>
                         </a>
                       </td>
                     </tr>

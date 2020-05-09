@@ -86,6 +86,7 @@ export class AuthEffects {
           //Limpiamos la información del usuario logado
           //de nuestro store invocando a setCurrentUser con null
           new UserActions.SetCurrentUser(null),
+          new CompanyActions.SetCurrentCompany(null),
         ]),
         catchError((error) => of(new AuthActions.LogoutError(error)))
       )

@@ -51,9 +51,17 @@ export class NavbarComponent implements OnInit {
     this.router.navigate(["/uojobs/users/profile"]);
   }
 
+  profileCompany() {
+    this.router.navigate(["/uojobs/companies/edit-profile"]);
+  }
+
   //Acceso directo al dashboard que tendremos siempre presente en la barra
   //de navegacion
   dashboard() {
     this.router.navigate(["/uojobs/users/dashboard"]);
+  }
+
+  dashboardCompany() {
+    this.router.navigate(["/uojobs/companies/dashboard"]);
   }
 }
