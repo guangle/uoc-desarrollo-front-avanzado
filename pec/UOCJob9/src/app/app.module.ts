@@ -22,6 +22,7 @@ import { CompanyEffects } from "../app/shared/state/company/effects/company.effe
 import { TemplateModule } from "../app/views/template/template.module";
 import { MessagesModule } from "./views/messages/messages.module";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
+import { ServiceWorkerModule } from '@angular/service-worker';
 
 @NgModule({
   imports: [
@@ -57,6 +58,7 @@ import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
     //mete las rutas en el store para poder debuguear por las rutas ejecutadas
     StoreRouterConnectingModule.forRoot({ stateKey: "router" }),
     BrowserAnimationsModule,
+    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
   ],
   declarations: [AppComponent],
   providers: [],
