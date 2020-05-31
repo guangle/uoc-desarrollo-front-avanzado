@@ -1,6 +1,6 @@
 {
   "configVersion": 1,
-  "timestamp": 1590918545604,
+  "timestamp": 1590919259478,
   "index": "/uoc-desarrollo-front-avanzado/index.html",
   "assetGroups": [
     {
@@ -36,8 +36,8 @@
         "/uoc-desarrollo-front-avanzado/9-es5.9bb0924c3a4b96915325.js",
         "/uoc-desarrollo-front-avanzado/favicon.ico",
         "/uoc-desarrollo-front-avanzado/index.html",
-        "/uoc-desarrollo-front-avanzado/main-es2015.588c4935740839b797f0.js",
-        "/uoc-desarrollo-front-avanzado/main-es5.588c4935740839b797f0.js",
+        "/uoc-desarrollo-front-avanzado/main-es2015.106b3b106d6bcd2f3c6e.js",
+        "/uoc-desarrollo-front-avanzado/main-es5.106b3b106d6bcd2f3c6e.js",
         "/uoc-desarrollo-front-avanzado/manifest.webmanifest",
         "/uoc-desarrollo-front-avanzado/polyfills-es2015.ca64e4516afbb1b890d5.js",
         "/uoc-desarrollo-front-avanzado/polyfills-es5.ad81c68d1c3d7a0429f1.js",
@@ -154,9 +154,9 @@
     "/uoc-desarrollo-front-avanzado/assets/img/user.png": "fede198356054e7ed2110dc077a30dd2d65f5688",
     "/uoc-desarrollo-front-avanzado/assets/js/bootstrap-notify.min.js": "a9edf0014d98a9cb514c61b34d2a4babb4a1d4c9",
     "/uoc-desarrollo-front-avanzado/favicon.ico": "22f6a4a3bcaafafb0254e0f2fa4ceb89e505e8b2",
-    "/uoc-desarrollo-front-avanzado/index.html": "2b086e4cbd3f03a2f4bb040b82df5bd643e6fe9d",
-    "/uoc-desarrollo-front-avanzado/main-es2015.588c4935740839b797f0.js": "ecb6ae7c895a508b43c5f80ee42c2a0d06ed2b39",
-    "/uoc-desarrollo-front-avanzado/main-es5.588c4935740839b797f0.js": "964fb4328c5db95731ce422f4176f7c5f8d114d5",
+    "/uoc-desarrollo-front-avanzado/index.html": "e375544e1e291a45ae7b2374d48090c17b868b69",
+    "/uoc-desarrollo-front-avanzado/main-es2015.106b3b106d6bcd2f3c6e.js": "b7c101543f90d9d1de74aac18628d0bc339fdb33",
+    "/uoc-desarrollo-front-avanzado/main-es5.106b3b106d6bcd2f3c6e.js": "393c7fd72f34dcd185709c8ddfa37896acc7db80",
     "/uoc-desarrollo-front-avanzado/manifest.webmanifest": "2f8084685417757cfa7ada11363d3df36edd233f",
     "/uoc-desarrollo-front-avanzado/polyfills-es2015.ca64e4516afbb1b890d5.js": "8779ed8d9bf0580e1b50b352a9b8fd520be24433",
     "/uoc-desarrollo-front-avanzado/polyfills-es5.ad81c68d1c3d7a0429f1.js": "8d03638471d7374e81cf33adfdea439f84ac3873",
