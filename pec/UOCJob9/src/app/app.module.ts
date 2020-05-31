@@ -22,13 +22,14 @@ import { CompanyEffects } from "../app/shared/state/company/effects/company.effe
 import { TemplateModule } from "../app/views/template/template.module";
 import { MessagesModule } from "./views/messages/messages.module";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
-import { ServiceWorkerModule } from '@angular/service-worker';
+import { ServiceWorkerModule } from "@angular/service-worker";
+import { BrowserModule } from "@angular/platform-browser";
 
 @NgModule({
   imports: [
     SharedModule,
     HttpClientModule,
-
+    BrowserModule.withServerTransition({ appId: 'serverApp' }),
     //CREO QUE NO HACE FALTA
     //importamos el servicio que nos permitira trabajar con formularios reactivos
     //ReactiveFormsModule,
@@ -39,7 +40,7 @@ import { ServiceWorkerModule } from '@angular/service-worker';
     MessagesModule,
     TemplateModule,
     MaterialModule,
-    RouterModule.forRoot(rootRouterConfig, { useHash: false }),
+    RouterModule.forRoot(rootRouterConfig, { useHash: false, initialNavigation: 'enabled' }),
     StoreModule.forRoot(reducers, {
       metaReducers,
       runtimeChecks: {
@@ -58,7 +59,9 @@ import { ServiceWorkerModule } from '@angular/service-worker';
     //mete las rutas en el store para poder debuguear por las rutas ejecutadas
     StoreRouterConnectingModule.forRoot({ stateKey: "router" }),
     BrowserAnimationsModule,
-    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
+    ServiceWorkerModule.register("ngsw-worker.js", {
+      enabled: environment.production,
+    }),
   ],
   declarations: [AppComponent],
   providers: [],

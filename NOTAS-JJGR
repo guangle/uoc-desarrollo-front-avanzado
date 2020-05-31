@@ -1,3 +1,37 @@
+pec5 eje 3
+pasar a google dcs
+ng add @nguniversal/express-engine --clientProject UOCJob
+
+npm run build:ssr && npm run serve:ssr
+
+Para la tabla
+
+CREATE src/main.server.ts (298 bytes)
+CREATE src/app/app.server.module.ts (318 bytes)
+CREATE tsconfig.server.json (325 bytes)
+CREATE server.ts (2006 bytes)
+UPDATE package.json (2298 bytes)
+UPDATE angular.json (5512 bytes)
+UPDATE src/main.ts (432 bytes)
+UPDATE src/app/app.module.ts (2885 bytes)
+
+Node Express server listening on http://localhost:4000
+Warning: Flex Layout loaded on the server without FlexLayoutServerModule
+Warning: Flex Layout loaded on the server without FlexLayoutServerModule
+Algo ha cambiado en el estado del login
+login_state { logged: false,
+  last_login: null,
+  name: '',
+  token: '',
+  type: '',
+  message: '',
+  remember_status: '' }
+
+
+Ojo, el console.log ya no se escribe en la el navegador, si no en la consola donde hemos arrancado el servidor
+
+
+
 pec3
 .todo: poner una nota diciendo qu ehe ejcutado est sinp roblemas
 https://material.angular.io/guide/getting-started
