@@ -41,7 +41,7 @@ import { BrowserModule } from "@angular/platform-browser";
     TemplateModule,
     MaterialModule,
     RouterModule.forRoot(rootRouterConfig, {
-      preloadingStrategy: PreloadAllModules,
+      //preloadingStrategy: PreloadAllModules,
       useHash: false,
       initialNavigation: "enabled",
     }),
