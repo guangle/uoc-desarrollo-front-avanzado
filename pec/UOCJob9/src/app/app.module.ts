@@ -3,7 +3,7 @@ import { AppComponent } from "./app.component";
 import { SharedModule } from "./shared/shared.module";
 import { MaterialModule } from "./shared/material.module";
 import { CoreModule } from "./shared/core.module";
-import { RouterModule } from "@angular/router";
+import { RouterModule, PreloadAllModules } from "@angular/router";
 import { rootRouterConfig } from "./app-routing";
 import { HttpClientModule } from "@angular/common/http";
 import { HttpClientInMemoryWebApiModule } from "angular-in-memory-web-api";
@@ -29,7 +29,7 @@ import { BrowserModule } from "@angular/platform-browser";
   imports: [
     SharedModule,
     HttpClientModule,
-    BrowserModule.withServerTransition({ appId: 'serverApp' }),
+    BrowserModule.withServerTransition({ appId: "serverApp" }),
     //CREO QUE NO HACE FALTA
     //importamos el servicio que nos permitira trabajar con formularios reactivos
     //ReactiveFormsModule,
@@ -40,7 +40,11 @@ import { BrowserModule } from "@angular/platform-browser";
     MessagesModule,
     TemplateModule,
     MaterialModule,
-    RouterModule.forRoot(rootRouterConfig, { useHash: false, initialNavigation: 'enabled' }),
+    RouterModule.forRoot(rootRouterConfig, {
+      preloadingStrategy: PreloadAllModules,
+      useHash: false,
+      initialNavigation: "enabled",
+    }),
     StoreModule.forRoot(reducers, {
       metaReducers,
       runtimeChecks: {

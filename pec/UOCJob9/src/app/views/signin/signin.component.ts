@@ -16,6 +16,8 @@ import {
   animate,
 } from "@angular/animations";
 
+import { environment } from "../../../environments/environment";
+
 @Component({
   selector: "app-signin",
   templateUrl: "./signin.component.html",
@@ -60,6 +62,13 @@ export class SigninComponent implements OnInit {
     private fb: FormBuilder,
     private router: Router
   ) {
+    console.log("--------------------------------------------");
+    console.log("UOCJobs");
+    console.log("--------------------------------------------");
+    console.log("Iniciando sigincomponet..");
+    console.log("Entorno: " + environment.nombre_del_entorno);
+    console.log("--------------------------------------------");
+
     this.createForm();
 
     this.authInfo$.subscribe((login_state) => {

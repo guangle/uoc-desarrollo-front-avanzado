@@ -64,6 +64,14 @@
               ],
               "serviceWorker": true,
               "ngswConfigPath": "ngsw-config.json"
+            },
+            "qa": {
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.qa.ts"
+                }
+              ]
             }
           }
         },
@@ -75,6 +83,9 @@
           "configurations": {
             "production": {
               "browserTarget": "UOCJob:build:production"
+            },
+            "qa": {
+              "browserTarget": "UOCJob:build:qa"
             }
           }
         },
@@ -111,9 +122,7 @@
               "tsconfig.spec.json",
               "e2e/tsconfig.json"
             ],
-            "exclude": [
-              "**/node_modules/**"
-            ]
+            "exclude": ["**/node_modules/**"]
           }
         },
         "e2e": {
@@ -125,6 +134,9 @@
           "configurations": {
             "production": {
               "devServerTarget": "UOCJob:serve:production"
+            },
+            "qa": {
+              "devServerTarget": "UOCJob:serve:qa"
             }
           }
         },
@@ -146,6 +158,14 @@
               ],
               "sourceMap": false,
               "optimization": true
+            },
+            "qa": {
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.qa.ts"
+                }
+              ]
             }
           }
         },
@@ -167,9 +187,7 @@
           "options": {
             "browserTarget": "UOCJob:build:production",
             "serverTarget": "UOCJob:server:production",
-            "routes": [
-              "/"
-            ]
+            "routes": ["/"]
           },
           "configurations": {
             "production": {}
