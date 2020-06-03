@@ -119,11 +119,13 @@ const routes: Routes = [
 
 @NgModule({
   imports: [
-    RouterModule.forRoot(routes, {
-      //preloadingStrategy: PreloadAllModules,
-      useHash: false,
-      initialNavigation: "enabled",
-    }),
+    RouterModule.forRoot(routes
+    /*
+      , {
+      preloadingStrategy: PreloadAllModules,
+    }
+    */
+    ),
   ],
   exports: [RouterModule],
 })
