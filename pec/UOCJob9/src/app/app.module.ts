@@ -40,11 +40,7 @@ import { BrowserModule } from "@angular/platform-browser";
     MessagesModule,
     TemplateModule,
     MaterialModule,
-    RouterModule.forRoot(rootRouterConfig, {
-      //preloadingStrategy: PreloadAllModules,
-      useHash: false,
-      initialNavigation: "enabled",
-    }),
+    RouterModule.forRoot(rootRouterConfig),
     StoreModule.forRoot(reducers, {
       metaReducers,
       runtimeChecks: {
