@@ -1,5 +1,5 @@
 import { NgModule } from "@angular/core";
-import { Routes, RouterModule } from "@angular/router";
+import { Routes, RouterModule, PreloadAllModules } from "@angular/router";
 import { RootComponent } from "./root/root.component";
 import { DashboardComponent } from "../dashboard/dashboard.component";
 import { MyOffersComponent } from "../my-offers/my-offers.component";
@@ -118,7 +118,13 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [RouterModule.forChild(routes)],
+  imports: [
+    RouterModule.forRoot(routes, {
+      preloadingStrategy: PreloadAllModules,
+      useHash: false,
+      initialNavigation: "enabled",
+    }),
+  ],
   exports: [RouterModule],
 })
 export class TemplateRoutingModule {}

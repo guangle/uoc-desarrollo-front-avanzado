@@ -10,6 +10,8 @@ import { MaterialModule } from "../../shared/material.module";
 
 @NgModule({
   declarations: [OffersComponent, OfferDetailComponent, MyOffersComponent],
-  imports: [CommonModule, OffersRoutingModule, TemplateModule, MaterialModule],
+  imports: [CommonModule, OffersRoutingModule, 
+    TemplateModule, 
+    MaterialModule],
 })
 export class OffersModule {}
