@@ -1,6 +1,6 @@
 {
   "configVersion": 1,
-  "timestamp": 1591181554337,
+  "timestamp": 1591183487103,
   "index": "https://guangle.github.io/uoc-desarrollo-front-avanzado/index.html",
   "assetGroups": [
     {
@@ -36,8 +36,8 @@
         "https://guangle.github.io/uoc-desarrollo-front-avanzado/9-es5.9bb0924c3a4b96915325.js",
         "https://guangle.github.io/uoc-desarrollo-front-avanzado/favicon.ico",
         "https://guangle.github.io/uoc-desarrollo-front-avanzado/index.html",
-        "https://guangle.github.io/uoc-desarrollo-front-avanzado/main-es2015.0ef86426825cd57402fc.js",
-        "https://guangle.github.io/uoc-desarrollo-front-avanzado/main-es5.0ef86426825cd57402fc.js",
+        "https://guangle.github.io/uoc-desarrollo-front-avanzado/main-es2015.3b7cd2d894c1de7739b8.js",
+        "https://guangle.github.io/uoc-desarrollo-front-avanzado/main-es5.3b7cd2d894c1de7739b8.js",
         "https://guangle.github.io/uoc-desarrollo-front-avanzado/manifest.webmanifest",
         "https://guangle.github.io/uoc-desarrollo-front-avanzado/polyfills-es2015.ca64e4516afbb1b890d5.js",
         "https://guangle.github.io/uoc-desarrollo-front-avanzado/polyfills-es5.ad81c68d1c3d7a0429f1.js",
@@ -154,9 +154,9 @@
     "https://guangle.github.io/uoc-desarrollo-front-avanzado/assets/img/user.png": "fede198356054e7ed2110dc077a30dd2d65f5688",
     "https://guangle.github.io/uoc-desarrollo-front-avanzado/assets/js/bootstrap-notify.min.js": "a9edf0014d98a9cb514c61b34d2a4babb4a1d4c9",
     "https://guangle.github.io/uoc-desarrollo-front-avanzado/favicon.ico": "22f6a4a3bcaafafb0254e0f2fa4ceb89e505e8b2",
-    "https://guangle.github.io/uoc-desarrollo-front-avanzado/index.html": "bd2957d44c7ea357a370f45d3197750bef202cf3",
-    "https://guangle.github.io/uoc-desarrollo-front-avanzado/main-es2015.0ef86426825cd57402fc.js": "9041f3395636c5129443543a0acf7f9bf50e8aca",
-    "https://guangle.github.io/uoc-desarrollo-front-avanzado/main-es5.0ef86426825cd57402fc.js": "fea8f4f0475f6aa9d18338aa3c4b29c41ebbf80e",
+    "https://guangle.github.io/uoc-desarrollo-front-avanzado/index.html": "d6dfd81dc76e472d9f0a6df864036eee54f22c81",
+    "https://guangle.github.io/uoc-desarrollo-front-avanzado/main-es2015.3b7cd2d894c1de7739b8.js": "3a9ba75a99fbdde241b80afcb2ced47706220a8f",
+    "https://guangle.github.io/uoc-desarrollo-front-avanzado/main-es5.3b7cd2d894c1de7739b8.js": "d42d2844b9d60c71ce76a074913d75a507983eff",
     "https://guangle.github.io/uoc-desarrollo-front-avanzado/manifest.webmanifest": "2f8084685417757cfa7ada11363d3df36edd233f",
     "https://guangle.github.io/uoc-desarrollo-front-avanzado/polyfills-es2015.ca64e4516afbb1b890d5.js": "8779ed8d9bf0580e1b50b352a9b8fd520be24433",
     "https://guangle.github.io/uoc-desarrollo-front-avanzado/polyfills-es5.ad81c68d1c3d7a0429f1.js": "8d03638471d7374e81cf33adfdea439f84ac3873",
